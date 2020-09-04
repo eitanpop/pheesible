@@ -1,0 +1,10 @@
+C:\Projects\pheesible\Pheesible\PheesibleApi\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Projects\pheesible\Pheesible\PheesibleApi\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Projects\pheesible\Pheesible\PheesibleApi\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Projects\pheesible\Pheesible\PheesibleApi\bin\Debug\netcoreapp3.1\PheesibleApi.exe
+C:\Projects\pheesible\Pheesible\PheesibleApi\obj\Debug\netcoreapp3.1\PheesibleApi.csprojAssemblyReference.cache
+C:\Projects\pheesible\Pheesible\PheesibleApi\obj\Debug\netcoreapp3.1\PheesibleApi.AssemblyInfoInputs.cache
+C:\Projects\pheesible\Pheesible\PheesibleApi\obj\Debug\netcoreapp3.1\PheesibleApi.AssemblyInfo.cs
+C:\Projects\pheesible\Pheesible\PheesibleApi\obj\Debug\netcoreapp3.1\PheesibleApi.RazorTargetAssemblyInfo.cache
+C:\Projects\pheesible\Pheesible\PheesibleApi\obj\Debug\netcoreapp3.1\staticwebassets\PheesibleApi.StaticWebAssets.Manifest.cache
+C:\Projects\pheesible\Pheesible\PheesibleApi\obj\Debug\netcoreapp3.1\staticwebassets\PheesibleApi.StaticWebAssets.xml

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "W7AruaYt3MlXXw7IMe+Db7inWhHllNLeG+KzhE96ixtVJR3ZLUrDvvlwYzgPv4QoghzWVmPNKnUbeYrPDWTmgA==",
+  "success": true,
+  "projectFilePath": "C:\\Projects\\pheesible\\PheesibleApi\\PheesibleApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\oysta\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.9\\microsoft.visualstudio.azure.containers.tools.targets.1.10.9.nupkg.sha512"
+  ],
+  "logs": []
+}
