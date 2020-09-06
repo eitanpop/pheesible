@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { Template } from '../constants'
-import Business from './templates/business'
-import WideLogo from './templates/widelogo'
+import { Template } from '../../constants'
+import Business from '../templates/business'
+import WideLogo from '../templates/widelogo'
 
 const getPromotion = (template, promotion) => {
   switch (template) {

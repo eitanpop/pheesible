@@ -1,6 +1,10 @@
-export const WizardSteps = {
+export const OrderedWizardSteps = {
   Templates: 1,
-  Forms: 2,
+  BasicInformation: 2,
+  SellingPoints: 3,
+  Features: 4,
+  PromotionSettings: 5,
+  
 }
 
 export const Template = {
