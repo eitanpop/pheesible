@@ -1,6 +1,8 @@
 import React from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import axios from 'axios'
 
+import getTotalCharge from '../selectors/getTotalCharge'
 import Preview from '../components/steps/Preview'
 
 const CARD_OPTIONS = {
@@ -21,6 +23,7 @@ const CARD_OPTIONS = {
 export default ({ promotion }) => {
   const stripe = useStripe()
   const elements = useElements()
+  console.log('promotion', promotion)
 
   const handleSubmit = async (event) => {
     // Block native form submission.
@@ -32,21 +35,32 @@ export default ({ promotion }) => {
       return
     }
 
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
-    const cardElement = elements.getElement(CardElement)
+    console.log(
+      'process.env.REACT_APP_BILLING_URL',
+      process.env.REACT_APP_BILLING_URL
+    )
+    const response = await axios.get(
+      `${process.env.REACT_APP_BILLING_URL}/${getTotalCharge(promotion)}`
+    )
+    console.log(response)
 
-    // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
+    const stripeResponse = await stripe.confirmCardPayment(response.data, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          name: 'Jenny Rosen',
+        },
+      },
     })
+
+    console.log('stripe response', stripeResponse)
+
+    const { error, status } = stripeResponse.paymentIntent
 
     if (error) {
       console.log('[error]', error)
     } else {
-      console.log('[PaymentMethod]', paymentMethod)
+      console.log('[status]', status)
     }
   }
 
@@ -55,9 +69,12 @@ export default ({ promotion }) => {
       <div className='row'>
         <div className='col-sm-3 right-shadow' style={{ zIndex: 100 }}>
           <form onSubmit={handleSubmit}>
-            <div className="pr-1 mt-4">
+            <div className='pr-1 mt-4'>
               <CardElement options={CARD_OPTIONS} />
-              <button class='btn btn-primary mt-4' type='submit' disabled={!stripe}>
+              <button
+                className='btn btn-primary mt-4'
+                type='submit'
+                disabled={!stripe}>
                 Pay
               </button>
             </div>
