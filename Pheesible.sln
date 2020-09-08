@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PheesibleApi", "PheesibleApi\PheesibleApi.csproj", "{0D0BAAFD-6533-49F3-9186-0B384B42D4FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PheesibleApi", "PheesibleApi\PheesibleApi.csproj", "{0D0BAAFD-6533-49F3-9186-0B384B42D4FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pheesible.Billing", "Pheesible.Billing\Pheesible.Billing.csproj", "{04260646-D31C-4AB4-94A9-0A70E9D3F276}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pheesible.Billing.Tests", "Pheesible.Billing.Tests\Pheesible.Billing.Tests.csproj", "{3C5A4622-4FD4-43A2-A3FF-11FE25B69D95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{0D0BAAFD-6533-49F3-9186-0B384B42D4FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D0BAAFD-6533-49F3-9186-0B384B42D4FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D0BAAFD-6533-49F3-9186-0B384B42D4FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04260646-D31C-4AB4-94A9-0A70E9D3F276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04260646-D31C-4AB4-94A9-0A70E9D3F276}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04260646-D31C-4AB4-94A9-0A70E9D3F276}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04260646-D31C-4AB4-94A9-0A70E9D3F276}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C5A4622-4FD4-43A2-A3FF-11FE25B69D95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C5A4622-4FD4-43A2-A3FF-11FE25B69D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C5A4622-4FD4-43A2-A3FF-11FE25B69D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C5A4622-4FD4-43A2-A3FF-11FE25B69D95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
