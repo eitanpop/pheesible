@@ -1,0 +1,12 @@
+C:\Projects\pheesible\Pheesible.Promotions\bin\Debug\netcoreapp3.1\Pheesible.Promotions.deps.json
+C:\Projects\pheesible\Pheesible.Promotions\bin\Debug\netcoreapp3.1\Pheesible.Promotions.runtimeconfig.json
+C:\Projects\pheesible\Pheesible.Promotions\bin\Debug\netcoreapp3.1\Pheesible.Promotions.runtimeconfig.dev.json
+C:\Projects\pheesible\Pheesible.Promotions\bin\Debug\netcoreapp3.1\Pheesible.Promotions.dll
+C:\Projects\pheesible\Pheesible.Promotions\obj\Debug\netcoreapp3.1\Pheesible.Promotions.AssemblyInfoInputs.cache
+C:\Projects\pheesible\Pheesible.Promotions\obj\Debug\netcoreapp3.1\Pheesible.Promotions.AssemblyInfo.cs
+C:\Projects\pheesible\Pheesible.Promotions\obj\Debug\netcoreapp3.1\Pheesible.Promotions.genruntimeconfig.cache
+C:\Projects\pheesible\Pheesible.Promotions\obj\Debug\netcoreapp3.1\Pheesible.Promotions.csproj.CoreCompileInputs.cache
+C:\Projects\pheesible\Pheesible.Promotions\bin\Debug\netcoreapp3.1\Pheesible.Promotions.pdb
+C:\Projects\pheesible\Pheesible.Promotions\obj\Debug\netcoreapp3.1\Pheesible.Promotions.dll
+C:\Projects\pheesible\Pheesible.Promotions\obj\Debug\netcoreapp3.1\Pheesible.Promotions.pdb
+C:\Projects\pheesible\Pheesible.Promotions\obj\Debug\netcoreapp3.1\Pheesible.Promotions.csprojAssemblyReference.cache

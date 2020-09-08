@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pheesible.Billing", "Pheesi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pheesible.Billing.Tests", "Pheesible.Billing.Tests\Pheesible.Billing.Tests.csproj", "{3C5A4622-4FD4-43A2-A3FF-11FE25B69D95}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pheesible.Promotions", "Pheesible.Promotions\Pheesible.Promotions.csproj", "{58218145-DDA4-4328-85F4-BBE5E77E783B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pheesible.Promotions.Tests", "Pheesible.Promotions.Tests\Pheesible.Promotions.Tests.csproj", "{1F07B6B2-1262-4828-B4A1-BD4EA990305C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{3C5A4622-4FD4-43A2-A3FF-11FE25B69D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C5A4622-4FD4-43A2-A3FF-11FE25B69D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C5A4622-4FD4-43A2-A3FF-11FE25B69D95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58218145-DDA4-4328-85F4-BBE5E77E783B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58218145-DDA4-4328-85F4-BBE5E77E783B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58218145-DDA4-4328-85F4-BBE5E77E783B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58218145-DDA4-4328-85F4-BBE5E77E783B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F07B6B2-1262-4828-B4A1-BD4EA990305C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F07B6B2-1262-4828-B4A1-BD4EA990305C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F07B6B2-1262-4828-B4A1-BD4EA990305C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F07B6B2-1262-4828-B4A1-BD4EA990305C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

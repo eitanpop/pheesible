@@ -9,6 +9,7 @@ using Amazon.Lambda.TestUtilities;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Pheesible.Billing;
+using Pheesible.Billing.BillingProviders;
 
 namespace Pheesible.Billing.Tests
 {
@@ -17,16 +18,14 @@ namespace Pheesible.Billing.Tests
         [Fact]
         public void Function_Should_Return_Config_Variable()
         {
-          // Mock IConfiguration
-          string configValue = "asdf";
-            var expected = "ENV1|ASDF";
-            var mockConfig = new Mock<ILambdaConfiguration>();
-            mockConfig.Setup(p => p.Get(It.IsAny<string>())).Returns(configValue);
+            var expected = new BillingResponse(BillingStatus.Success, "test message");
+            var mockConfig = new Mock<IBillingProvider>();
+            mockConfig.Setup(p => p.Bill(It.IsAny<int>())).Returns(expected);
 
             // Invoke the lambda function and confirm config value is returned
             var function = new Function(mockConfig.Object);
-            var result = function.FunctionHandler("env1", null);
-            Assert.Equal(expected, result);
+            var result = function.FunctionHandler(123, null);
+            Assert.Equal(expected.Message, result);
         }
     }
 }
