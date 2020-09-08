@@ -2,6 +2,7 @@ import React from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import axios from 'axios'
 
+import PaymentSummary from '../components/PaymentSummary'
 import getTotalCharge from '../selectors/getTotalCharge'
 import Preview from '../components/steps/Preview'
 
@@ -68,6 +69,7 @@ export default ({ promotion }) => {
     <div>
       <div className='row'>
         <div className='col-sm-3 right-shadow' style={{ zIndex: 100 }}>
+          <PaymentSummary promotion={promotion} />
           <form onSubmit={handleSubmit}>
             <div className='pr-1 mt-4'>
               <CardElement options={CARD_OPTIONS} />

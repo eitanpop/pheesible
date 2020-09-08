@@ -6,5 +6,6 @@ export default {
     userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
     // OPTIONAL - Amazon Cognito Web Client ID
     userPoolWebClientId: process.env.REACT_APP_COGNITO_CLIENT_ID,
+    authenticationFlowType: 'USER_SRP_AUTH'
   }
 }
