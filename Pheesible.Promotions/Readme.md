@@ -40,3 +40,6 @@ Deploy application
     cd "Pheesible.Promotions/src/Pheesible.Promotions"
     dotnet lambda deploy-serverless
 ```
+
+
+dotnet ef dbcontext scaffold "Host=pheesible-db.ck7pkv6e9kzg.us-east-1.rds.amazonaws.com;Port=5432;Database=pheesible;Username=oystagoymp;Password=******" Npgsql.EntityFrameworkCore.PostgreSQL

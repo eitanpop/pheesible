@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.APIGatewayEvents;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -29,10 +30,16 @@ namespace Pheesible.Promotions
             Configuration = serviceProvider.GetService<ILambdaConfiguration>();
         }
 
-        private void ConfigureServices(ServiceCollection serviceCollection)
+        private void ConfigureServices(IServiceCollection serviceCollection)
         {
             // add dependencies here
             serviceCollection.AddTransient<ILambdaConfiguration, LambdaConfiguration>();
+
+            serviceCollection.AddDbContext<PromotionContext>((serviceProvider, options) =>
+            {
+                var connectionString = serviceProvider.GetService<ILambdaConfiguration>().ConnectionString;
+                options.UseNpgsql(connectionString);
+            });
 
         }
 

@@ -12,7 +12,7 @@ namespace Pheesible.Billing.BillingProviders
             Message = message;
         }
 
-        public BillingStatus Status { get;}
+        public BillingStatus Status { get; }
         public string Message { get; }
 
     }

@@ -128,3 +128,14 @@ C:\Projects\pheesible\Pheesible.Promotions.Tests\obj\Debug\netcoreapp3.1\Pheesib
 C:\Projects\pheesible\Pheesible.Promotions.Tests\obj\Debug\netcoreapp3.1\Pheesible.Promotions.Tests.dll
 C:\Projects\pheesible\Pheesible.Promotions.Tests\obj\Debug\netcoreapp3.1\Pheesible.Promotions.Tests.pdb
 C:\Projects\pheesible\Pheesible.Promotions.Tests\obj\Debug\netcoreapp3.1\Pheesible.Promotions.Tests.genruntimeconfig.cache
+C:\Projects\pheesible\Pheesible.Promotions.Tests\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Projects\pheesible\Pheesible.Promotions.Tests\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
+C:\Projects\pheesible\Pheesible.Promotions.Tests\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
+C:\Projects\pheesible\Pheesible.Promotions.Tests\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Projects\pheesible\Pheesible.Promotions.Tests\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Projects\pheesible\Pheesible.Promotions.Tests\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Projects\pheesible\Pheesible.Promotions.Tests\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
+C:\Projects\pheesible\Pheesible.Promotions.Tests\bin\Debug\netcoreapp3.1\Npgsql.dll
+C:\Projects\pheesible\Pheesible.Promotions.Tests\bin\Debug\netcoreapp3.1\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Projects\pheesible\Pheesible.Promotions.Tests\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
+C:\Projects\pheesible\Pheesible.Promotions.Tests\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll

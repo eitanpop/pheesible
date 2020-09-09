@@ -7,5 +7,6 @@ namespace Pheesible.Promotions
     public interface ILambdaConfiguration
     {
         string Get(string property);
+        string ConnectionString { get; }
     }
 }

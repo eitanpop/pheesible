@@ -36,12 +36,19 @@ export default ({ promotion }) => {
       return
     }
 
+    const promotionResponse = await axios.post(
+        `${process.env.REACT_APP_API_URL}promotion`,
+        JSON.stringify(promotion)
+      )
+      console.log(promotionResponse)
+  
+
     console.log(
       'process.env.REACT_APP_BILLING_URL',
       process.env.REACT_APP_BILLING_URL
     )
     const response = await axios.get(
-      `${process.env.REACT_APP_BILLING_URL}/${getTotalCharge(promotion)}`
+        `${process.env.REACT_APP_API_URL}/billing/${getTotalCharge(promotion)}`
     )
     console.log(response)
 

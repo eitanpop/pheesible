@@ -15,18 +15,18 @@ namespace Pheesible.Billing
 {
     public class Function
     {
-        private IBillingProvider _billingProvider { get; }
+        private IBillingProvider BillingProvider { get; }
 
         public Function(IBillingProvider billingProvider)
         {
-            _billingProvider = billingProvider;
+            BillingProvider = billingProvider;
         }
         public Function()
         {
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            _billingProvider = serviceProvider.GetService<IBillingProvider>();
+            BillingProvider = serviceProvider.GetService<IBillingProvider>();
         }
 
         private void ConfigureServices(ServiceCollection serviceCollection)
@@ -45,7 +45,7 @@ namespace Pheesible.Billing
         /// <returns></returns>
         public string FunctionHandler(int amount, ILambdaContext context)
         {
-            return _billingProvider.Bill(amount)?.Message;
+            return BillingProvider.Bill(amount)?.Message;
         }
     }
 }

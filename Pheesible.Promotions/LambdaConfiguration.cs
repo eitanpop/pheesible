@@ -17,5 +17,7 @@ namespace Pheesible.Promotions
 
         public string Get(string property) =>
             Configuration[property];
+
+        public string ConnectionString => Get("DbContextSettings:ConnectionString");
     }
 }

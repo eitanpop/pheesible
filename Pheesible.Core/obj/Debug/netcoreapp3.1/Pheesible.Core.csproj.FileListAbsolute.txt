@@ -1,0 +1,9 @@
+C:\Projects\pheesible\Pheesible.Core\bin\Debug\netcoreapp3.1\Pheesible.Core.deps.json
+C:\Projects\pheesible\Pheesible.Core\bin\Debug\netcoreapp3.1\Pheesible.Core.dll
+C:\Projects\pheesible\Pheesible.Core\bin\Debug\netcoreapp3.1\Pheesible.Core.pdb
+C:\Projects\pheesible\Pheesible.Core\obj\Debug\netcoreapp3.1\Pheesible.Core.csprojAssemblyReference.cache
+C:\Projects\pheesible\Pheesible.Core\obj\Debug\netcoreapp3.1\Pheesible.Core.AssemblyInfoInputs.cache
+C:\Projects\pheesible\Pheesible.Core\obj\Debug\netcoreapp3.1\Pheesible.Core.AssemblyInfo.cs
+C:\Projects\pheesible\Pheesible.Core\obj\Debug\netcoreapp3.1\Pheesible.Core.csproj.CoreCompileInputs.cache
+C:\Projects\pheesible\Pheesible.Core\obj\Debug\netcoreapp3.1\Pheesible.Core.dll
+C:\Projects\pheesible\Pheesible.Core\obj\Debug\netcoreapp3.1\Pheesible.Core.pdb
