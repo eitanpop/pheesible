@@ -7,6 +7,8 @@ using Amazon.Lambda.Core;
 using Amazon.Lambda.APIGatewayEvents;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Pheesible.Promotions.EF;
+
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -15,11 +17,11 @@ namespace Pheesible.Promotions
 {
     public class Function
     {
-        private ILambdaConfiguration Configuration { get; }
+        private readonly IApp _app;
 
-        public Function(ILambdaConfiguration configuration)
+        public Function(App app)
         {
-            Configuration = configuration;
+            _app = app;
         }
 
         public Function()
@@ -27,7 +29,7 @@ namespace Pheesible.Promotions
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            Configuration = serviceProvider.GetService<ILambdaConfiguration>();
+            _app = serviceProvider.GetService<IApp>();
         }
 
         private void ConfigureServices(IServiceCollection serviceCollection)
@@ -38,9 +40,9 @@ namespace Pheesible.Promotions
             serviceCollection.AddDbContext<PromotionContext>((serviceProvider, options) =>
             {
                 var connectionString = serviceProvider.GetService<ILambdaConfiguration>().ConnectionString;
-                options.UseNpgsql(connectionString);
+                options.UseNpgsql(connectionString, opt => opt.EnableRetryOnFailure());
             });
-
+            serviceCollection.AddTransient<IApp, App>();
         }
 
 
@@ -49,8 +51,10 @@ namespace Pheesible.Promotions
         /// </summary>
         /// <param name="request"></param>
         /// <returns>The API Gateway response.</returns>
-        public APIGatewayProxyResponse FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
+        public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
         {
+            await _app.Run(request.HttpMethod);
+
             var response = new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.OK,

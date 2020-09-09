@@ -21,7 +21,7 @@ namespace PheesibleApi.Controllers
         {
             var body = await GetRequestContent();
             var function = new Function();
-            var result = function.FunctionHandler(new APIGatewayProxyRequest { Body = body }, null);
+            var result = await function.FunctionHandler(new APIGatewayProxyRequest { Body = body }, null);
 
             return result.Body;
 
@@ -36,10 +36,8 @@ namespace PheesibleApi.Controllers
 
         private async Task<string> GetRequestContent()
         {
-            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
-            {
-                return await reader.ReadToEndAsync();
-            }
+            using StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8);
+            return await reader.ReadToEndAsync();
         }
     }
 }

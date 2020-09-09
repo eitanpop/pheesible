@@ -9,4 +9,3 @@ C:\Projects\pheesible\Pheesible.Billing\obj\Debug\netcoreapp3.1\Pheesible.Billin
 C:\Projects\pheesible\Pheesible.Billing\obj\Debug\netcoreapp3.1\Pheesible.Billing.pdb
 C:\Projects\pheesible\Pheesible.Billing\obj\Debug\netcoreapp3.1\Pheesible.Billing.genruntimeconfig.cache
 C:\Projects\pheesible\Pheesible.Billing\obj\Debug\netcoreapp3.1\Pheesible.Billing.csproj.CoreCompileInputs.cache
-C:\Projects\pheesible\Pheesible.Billing\obj\Debug\netcoreapp3.1\Pheesible.Billing.csprojAssemblyReference.cache

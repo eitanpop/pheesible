@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace PheesibleApi.Models
+namespace Pheesible.Promotions.Models
 {
     public class Promotion
     {
         public int Id { get; set; }
-
-        public int TemplateId { get; set; }
 
         public string ElevatorPitch { get; set; }
 
