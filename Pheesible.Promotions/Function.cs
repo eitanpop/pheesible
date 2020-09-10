@@ -53,7 +53,7 @@ namespace Pheesible.Promotions
         /// <returns>The API Gateway response.</returns>
         public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
         {
-            await _app.Run(request.HttpMethod);
+            await _app.Run(request.HttpMethod, request.Body);
 
             var response = new APIGatewayProxyResponse
             {

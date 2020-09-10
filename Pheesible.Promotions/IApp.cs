@@ -7,6 +7,6 @@ namespace Pheesible.Promotions
 {
     public interface IApp
     {
-        Task Run(string method);
+        Task Run(string method, string body);
     }
 }
