@@ -1,33 +1,49 @@
 import React from 'react'
 
+import AdNetworkSetting from '../AdNetworkSetting'
+import { AdNetworks } from '../../constants'
+
 export default ({ promotion, updatePromotion }) => {
-  const updateSettingsOnPromotion = (key, value) => {
-    const settings = { ...promotion.promotionSettings, [key]: value }
+  const updateSettingsOnPromotion = (adNetwork, key, value) => {
+    const settings = {
+      ...promotion.promotionSettings,
+      [adNetwork]: { ...promotion.promotionSettings[adNetwork], [key]: value },
+    }
     updatePromotion('promotionSettings', settings)
   }
 
-  const { lengthInDaysOfPromotion, budgetPerDayInDollars } = promotion.promotionSettings
+  const getPromotionValue = (adNetwork, key) => {
+    return (
+      (promotion.promotionSettings[adNetwork] &&
+        promotion.promotionSettings[adNetwork][key]) ||
+      ''
+    )
+  }
 
   return (
     <>
-      <div className='form-group'>
-        <label htmlFor='title'>Length in days to run the promotion</label>
-        <input
-          className='form-control'
-          id='title'
-          onChange={(e) => updateSettingsOnPromotion('lengthInDaysOfPromotion', e.target.value)}
-          value={lengthInDaysOfPromotion || ''}
-        />
-      </div>
-      <div className='form-group'>
-        <label htmlFor='title'>Budget per day</label>
-        <input
-          className='form-control'
-          id='title'
-          onChange={(e) => updateSettingsOnPromotion('budgetPerDayInDollars', e.target.value)}
-          value={budgetPerDayInDollars || ''}
-        />
-      </div>
+      <AdNetworkSetting
+        adNetwork={AdNetworks.facebook}
+        updateSettingsOnPromotion={updateSettingsOnPromotion}
+        getPromotionValue={getPromotionValue}
+      />
+      <AdNetworkSetting
+        adNetwork={AdNetworks.instagram}
+        updateSettingsOnPromotion={updateSettingsOnPromotion}
+        getPromotionValue={getPromotionValue}
+      />
+
+      <AdNetworkSetting
+        adNetwork={AdNetworks.twitter}
+        updateSettingsOnPromotion={updateSettingsOnPromotion}
+        getPromotionValue={getPromotionValue}
+      />
+
+      <AdNetworkSetting
+        adNetwork={AdNetworks.tiktok}
+        updateSettingsOnPromotion={updateSettingsOnPromotion}
+        getPromotionValue={getPromotionValue}
+      />
     </>
   )
 }

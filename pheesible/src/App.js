@@ -8,9 +8,11 @@ import { loadStripe } from '@stripe/stripe-js'
 import awsConfig from './aws-exports'
 import AuthenticatorContainer from './components/auth/AuthenticatorContainer'
 import SignedInContainer from './components/auth/SignedInContainer'
+import ApiContainer from './components/ApiContainer'
 import { OrderedWizardSteps, Template } from './constants'
 import Wizard from './pages/Wizard'
 import Purchase from './pages/Purchase'
+import Promotions from './pages/Promotions'
 import './App.css'
 
 Amplify.configure(awsConfig)
@@ -28,7 +30,6 @@ const emptyPromotion = {
   promotionSettings: {},
 }
 
-
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK)
@@ -41,23 +42,30 @@ function App() {
       <div className='container-fluid'>
         <AuthenticatorContainer>
           <SignedInContainer>
-            <Router>
-              <Switch>
-                <Route path='/wizard'>
-                  <Wizard promotion={promotion} setPromotion={setPromotion} />
-                </Route>
-                <Route path='/purchase'>
-                  <Elements stripe={stripePromise}>
-                    <Purchase promotion={promotion} />
-                  </Elements>
-                </Route>
-                <Route path='/'>
-                  <div>
-                    <Link to='/wizard'>Create a promotion</Link>
-                  </div>
-                </Route>
-              </Switch>
-            </Router>
+            <ApiContainer>
+              <Router>
+                <Switch>
+                  <Route path='/wizard'>
+                    <Wizard promotion={promotion} setPromotion={setPromotion} />
+                  </Route>
+                  <Route path='/purchase'>
+                    <Elements stripe={stripePromise}>
+                      <Purchase promotion={promotion} />
+                    </Elements>
+                  </Route>
+                  <Route path='/promotions'>
+                    <div>
+                      <Promotions />
+                    </div>
+                  </Route>
+                  <Route path='/'>
+                    <div>
+                      <Link to='/wizard'>Create a promotion</Link>
+                    </div>
+                  </Route>
+                </Switch>
+              </Router>
+            </ApiContainer>
           </SignedInContainer>
         </AuthenticatorContainer>
       </div>

@@ -4,10 +4,16 @@ export const OrderedWizardSteps = {
   SellingPoints: 3,
   Features: 4,
   PromotionSettings: 5,
-  
 }
 
 export const Template = {
   Business: 1,
   WideLogo: 2,
+}
+
+export const AdNetworks = {
+  facebook: 'Facebook',
+  instagram: 'Instagram',
+  twitter: 'Twitter',
+  tiktok: 'Tiktok',
 }
