@@ -8,6 +8,7 @@ using Amazon.Lambda.APIGatewayEvents;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Pheesible.Promotions.EF;
+using Pheesible.Promotions.Handlers;
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -43,6 +44,7 @@ namespace Pheesible.Promotions
                 options.UseNpgsql(connectionString, opt => opt.EnableRetryOnFailure());
             });
             serviceCollection.AddTransient<IApp, App>();
+            serviceCollection.AddTransient<IHandlerFactory, HandlerFactory>();
         }
 
 
@@ -53,19 +55,7 @@ namespace Pheesible.Promotions
         /// <returns>The API Gateway response.</returns>
         public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
         {
-            await _app.Run(request.HttpMethod, request.Body);
-
-            var response = new APIGatewayProxyResponse
-            {
-                StatusCode = (int)HttpStatusCode.OK,
-                Body = "",
-                Headers = new Dictionary<string, string>
-                {
-                    { "Content-Type", "application/json" },
-                    { "Access-Control-Allow-Origin", "*" }
-                }
-            };
-
+            var response = await _app.Run(request);
             return response;
         }
     }

@@ -8,6 +8,7 @@ namespace Pheesible.Promotions.EF
         public Promotions()
         {
             Features = new HashSet<Features>();
+            PromotionFocusGroup = new HashSet<PromotionFocusGroup>();
             SellingPoints = new HashSet<SellingPoints>();
         }
 
@@ -19,6 +20,7 @@ namespace Pheesible.Promotions.EF
         public int? LengthInDaysToRun { get; set; }
 
         public virtual ICollection<Features> Features { get; set; }
+        public virtual ICollection<PromotionFocusGroup> PromotionFocusGroup { get; set; }
         public virtual ICollection<SellingPoints> SellingPoints { get; set; }
     }
 }

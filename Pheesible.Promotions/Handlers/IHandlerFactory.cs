@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Amazon.Lambda.APIGatewayEvents;
+
+namespace Pheesible.Promotions.Handlers
+{
+    public interface IHandlerFactory
+    {
+        IHandler Get(APIGatewayProxyRequest request);
+    }
+}

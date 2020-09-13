@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Pheesible.Promotions.DTO
 {
-
     public class Promotion
     {
         public int stepNumber { get; set; }
@@ -23,6 +22,32 @@ namespace Pheesible.Promotions.DTO
     }
 
     public class Promotionsettings
+    {
+        public Facebook Facebook { get; set; }
+        public Instagram Instagram { get; set; }
+        public Twitter Twitter { get; set; }
+        public Tiktok Tiktok { get; set; }
+    }
+
+    public class Facebook
+    {
+        public string lengthInDaysOfPromotion { get; set; }
+        public string budgetPerDayInDollars { get; set; }
+    }
+
+    public class Instagram
+    {
+        public string lengthInDaysOfPromotion { get; set; }
+        public string budgetPerDayInDollars { get; set; }
+    }
+
+    public class Twitter
+    {
+        public string lengthInDaysOfPromotion { get; set; }
+        public string budgetPerDayInDollars { get; set; }
+    }
+
+    public class Tiktok
     {
         public string lengthInDaysOfPromotion { get; set; }
         public string budgetPerDayInDollars { get; set; }

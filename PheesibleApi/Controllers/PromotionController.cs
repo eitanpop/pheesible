@@ -30,7 +30,23 @@ namespace PheesibleApi.Controllers
         [HttpGet]
         public async Task<string> Get()
         {
-            return "works";
+
+            var body = await GetRequestContent();
+            var function = new Function();
+            var result = await function.FunctionHandler(new APIGatewayProxyRequest { HttpMethod = "get" }, null);
+
+            return result.Body;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<string> Get(string id)
+        {
+
+            var body = await GetRequestContent();
+            var function = new Function();
+            var result = await function.FunctionHandler(new APIGatewayProxyRequest { HttpMethod = "get", PathParameters = new Dictionary<string, string> { { "id", id } } }, null);
+
+            return result.Body;
         }
 
 
