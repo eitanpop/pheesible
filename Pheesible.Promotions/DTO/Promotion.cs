@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Pheesible.Promotions.DTO
 {
@@ -29,26 +30,29 @@ namespace Pheesible.Promotions.DTO
         public Tiktok Tiktok { get; set; }
     }
 
-    public class Facebook
+    public class Facebook : FocusGroupDto
     {
-        public string lengthInDaysOfPromotion { get; set; }
-        public string budgetPerDayInDollars { get; set; }
+        public override string Name => "facebook";
     }
 
-    public class Instagram
+    public class Instagram : FocusGroupDto
     {
-        public string lengthInDaysOfPromotion { get; set; }
-        public string budgetPerDayInDollars { get; set; }
+        public override string Name => "instagram";
     }
 
-    public class Twitter
+    public class Twitter : FocusGroupDto
     {
-        public string lengthInDaysOfPromotion { get; set; }
-        public string budgetPerDayInDollars { get; set; }
+        public override string Name => "twitter";
     }
 
-    public class Tiktok
+    public class Tiktok : FocusGroupDto
     {
+        public override string Name => "tiktok";
+    }
+
+    public abstract class FocusGroupDto
+    {
+        public abstract string Name { get; }
         public string lengthInDaysOfPromotion { get; set; }
         public string budgetPerDayInDollars { get; set; }
     }

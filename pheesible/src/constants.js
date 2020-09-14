@@ -11,7 +11,7 @@ export const Template = {
   WideLogo: 2,
 }
 
-export const AdNetworks = {
+export const FocusGroups = {
   facebook: 'Facebook',
   instagram: 'Instagram',
   twitter: 'Twitter',

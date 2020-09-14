@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Amazon.Lambda.APIGatewayEvents;
+using Microsoft.EntityFrameworkCore;
+using Pheesible.Promotions.DTO;
 using Pheesible.Promotions.EF;
 
 namespace Pheesible.Promotions.Handlers
@@ -17,8 +20,6 @@ namespace Pheesible.Promotions.Handlers
             {
                 SubId = "",
                 Title = promotionDto.fields.title,
-               // LengthInDaysToRun = int.Parse(promotionDto.promotionSettings.lengthInDaysOfPromotion),
-               // BudgetPerDayInDollars = int.Parse(promotionDto.promotionSettings.budgetPerDayInDollars),
                 ElevatorPitch = promotionDto.fields.elevatorPitch
             };
 
@@ -27,9 +28,29 @@ namespace Pheesible.Promotions.Handlers
 
             foreach (var feature in promotionDto.features)
                 promotions.Features.Add(new Features { Description = feature.description, Title = feature.title });
+
+
+            await AddFocusGroups(promotionDto.promotionSettings.Facebook, db, promotions);
+            await AddFocusGroups(promotionDto.promotionSettings.Instagram, db, promotions);
+            await AddFocusGroups(promotionDto.promotionSettings.Tiktok, db, promotions);
+            await AddFocusGroups(promotionDto.promotionSettings.Twitter, db, promotions);
+
             db.Promotions.Add(promotions);
             await db.SaveChangesAsync();
             return new APIGatewayProxyResponse();
+        }
+
+        private async Task AddFocusGroups(FocusGroupDto focusGroupDto, PromotionContext db, EF.Promotions promotions)
+        {
+            if (focusGroupDto == null)
+                return;
+            var focusGroup = await db.FocusGroups.SingleAsync(x => x.Name.ToLower() == focusGroupDto.Name.ToLower());
+            promotions.PromotionFocusGroup.Add(new PromotionFocusGroup
+            {
+                BudgetPerDayInDollars = int.Parse(focusGroupDto.budgetPerDayInDollars),
+                LengthInDaysOfPromotion = int.Parse(focusGroupDto.lengthInDaysOfPromotion),
+                FocusGroupId = focusGroup.Id
+            });
         }
     }
 }

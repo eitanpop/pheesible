@@ -21,7 +21,7 @@ namespace PheesibleApi.Controllers
         {
             var body = await GetRequestContent();
             var function = new Function();
-            var result = await function.FunctionHandler(new APIGatewayProxyRequest { Body = body }, null);
+            var result = await function.FunctionHandler(new APIGatewayProxyRequest { Body = body, HttpMethod = "Post"}, null);
 
             return result.Body;
 

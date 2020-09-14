@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { OrderedWizardSteps, Template } from '../constants.js'
@@ -8,6 +8,7 @@ import Preview from '../components/steps/Preview'
 import SellingPoints from '../components/steps/SellingPoints'
 import Features from '../components/steps/Features'
 import PromotionSettings from '../components/steps/PromotionSettings'
+import { getUserCognitoIdentityPoolId } from '../services/auth'
 
 const getComponentByStep = (promotion, updatePromotion) => {
   const { stepNumber } = promotion
@@ -48,6 +49,13 @@ const getComponentByStep = (promotion, updatePromotion) => {
 }
 
 export default ({ promotion, setPromotion }) => {
+  useEffect(() => {
+    const updateIdentityId = async () => {
+      const identityId = await getUserCognitoIdentityPoolId()
+      setPromotion({ ...promotion, identityId })
+    }
+    updateIdentityId()
+  }, [])
   console.log('promotion', promotion)
 
   const updatePromotion = (key, val) => {

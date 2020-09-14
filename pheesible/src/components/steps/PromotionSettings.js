@@ -1,7 +1,7 @@
 import React from 'react'
 
-import AdNetworkSetting from '../AdNetworkSetting'
-import { AdNetworks } from '../../constants'
+import FocusGroupsSetting from '../FocusGroupSetting'
+import { FocusGroups } from '../../constants'
 
 export default ({ promotion, updatePromotion }) => {
   const updateSettingsOnPromotion = (adNetwork, key, value) => {
@@ -22,25 +22,25 @@ export default ({ promotion, updatePromotion }) => {
 
   return (
     <>
-      <AdNetworkSetting
-        adNetwork={AdNetworks.facebook}
+      <FocusGroupsSetting
+        adNetwork={FocusGroups.facebook}
         updateSettingsOnPromotion={updateSettingsOnPromotion}
         getPromotionValue={getPromotionValue}
       />
-      <AdNetworkSetting
-        adNetwork={AdNetworks.instagram}
-        updateSettingsOnPromotion={updateSettingsOnPromotion}
-        getPromotionValue={getPromotionValue}
-      />
-
-      <AdNetworkSetting
-        adNetwork={AdNetworks.twitter}
+      <FocusGroupsSetting
+        adNetwork={FocusGroups.instagram}
         updateSettingsOnPromotion={updateSettingsOnPromotion}
         getPromotionValue={getPromotionValue}
       />
 
-      <AdNetworkSetting
-        adNetwork={AdNetworks.tiktok}
+      <FocusGroupsSetting
+        adNetwork={FocusGroups.twitter}
+        updateSettingsOnPromotion={updateSettingsOnPromotion}
+        getPromotionValue={getPromotionValue}
+      />
+
+      <FocusGroupsSetting
+        adNetwork={FocusGroups.tiktok}
         updateSettingsOnPromotion={updateSettingsOnPromotion}
         getPromotionValue={getPromotionValue}
       />
