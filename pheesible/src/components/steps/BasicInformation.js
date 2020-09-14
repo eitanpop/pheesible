@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Uploader from '../Uploader'
+
 export default ({ promotion, updatePromotion }) => {
   const updateFieldsOnPromotion = (key, value) => {
     const fields = { ...promotion.fields, [key]: value }
@@ -30,17 +32,25 @@ export default ({ promotion, updatePromotion }) => {
                 Upload
               </span>
             </div>
-            <div className='custom-file'>
-              <input
-                type='file'
-                className='custom-file-input'
-                id='inputGroupFile01'
-                aria-describedby='inputGroupFileAddon01'
-              />
-              <label className='custom-file-label' htmlFor='inputGroupFile01'>
-                Choose file
-              </label>
+            <Uploader
+              path='logos'
+              onUpload={(result) => updateFieldsOnPromotion('logo', result)}
+            />
+          </div>
+        </div>
+
+        <div className='form-group'>
+          <label htmlFor='title'>Banner</label>
+          <div className='input-group'>
+            <div className='input-group-prepend'>
+              <span className='input-group-text' id='inputGroupFileAddon01'>
+                Upload
+              </span>
             </div>
+            <Uploader
+              path='banners'
+              onUpload={(result) => updateFieldsOnPromotion('banner', result)}
+            />
           </div>
         </div>
 

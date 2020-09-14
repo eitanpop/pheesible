@@ -15,7 +15,6 @@ import Purchase from './pages/Purchase'
 import Promotions from './pages/Promotions'
 import './App.css'
 
-import { put } from './services/storage'
 Amplify.configure(awsConfig)
 
 Hub.listen('auth', (data) => {
@@ -37,7 +36,6 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK)
 
 function App() {
   const [promotion, setPromotion] = useState(emptyPromotion)
-  put()
   return (
     <div className='app'>
       <div className='container-fluid'>

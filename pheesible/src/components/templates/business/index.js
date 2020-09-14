@@ -1,13 +1,26 @@
 import React from 'react'
 
-export default ({ promotion }) => {
+export default ({ promotion, logo, banner }) => {
+  console.log('logo', logo)
+  console.log('banner', banner)
   const { title, tagLine, elevatorPitch } = promotion.fields
   return (
     <div>
       {/* Page Content */}
       <div className='container'>
         {/* Jumbotron Header */}
-        <header className='jumbotron my-4'>
+        <header
+          className='jumbotron my-4'
+          style={
+            banner
+              ? {
+                  backgroundImage: `url(${banner})`,
+                  backgroundSize: 'contain',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center',
+                }
+              : {}
+          }>
           <h1 className='display-3'>{title || '[Title]'}</h1>
           <h3>{tagLine || '[Tag Line]'}</h3>
           <p className='lead'>{elevatorPitch || '[Elevator Pitch]'}</p>
