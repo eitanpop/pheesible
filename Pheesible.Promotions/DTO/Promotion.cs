@@ -9,6 +9,7 @@ namespace Pheesible.Promotions.DTO
     {
         public int stepNumber { get; set; }
         public int template { get; set; }
+        public string identityId { get; set; }
         public Fields fields { get; set; }
         public Sellingpoint[] sellingPoints { get; set; }
         public Feature[] features { get; set; }
@@ -20,6 +21,8 @@ namespace Pheesible.Promotions.DTO
         public string title { get; set; }
         public string tagLine { get; set; }
         public string elevatorPitch { get; set; }
+        public string banner { get; set; }
+        public string logo { get; set; }
     }
 
     public class Promotionsettings

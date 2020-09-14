@@ -70,6 +70,12 @@ namespace Pheesible.Promotions.EF
             {
                 entity.Property(e => e.Id).HasDefaultValueSql("nextval('promotions_id_seq'::regclass)");
 
+                entity.Property(e => e.Banner).HasColumnType("character varying");
+
+                entity.Property(e => e.IdentityId).HasColumnType("character varying");
+
+                entity.Property(e => e.Logo).HasColumnType("character varying");
+
                 entity.Property(e => e.SubId)
                     .IsRequired()
                     .HasMaxLength(20);

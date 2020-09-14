@@ -16,8 +16,9 @@ namespace Pheesible.Promotions.EF
         public string SubId { get; set; }
         public string Title { get; set; }
         public string ElevatorPitch { get; set; }
-        public int? BudgetPerDayInDollars { get; set; }
-        public int? LengthInDaysToRun { get; set; }
+        public string Logo { get; set; }
+        public string Banner { get; set; }
+        public string IdentityId { get; set; }
 
         public virtual ICollection<Features> Features { get; set; }
         public virtual ICollection<PromotionFocusGroup> PromotionFocusGroup { get; set; }

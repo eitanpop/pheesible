@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
+import useImageEffect from '../../hooks/useImageEffect'
 import { Template } from '../../constants'
 import Business from '../templates/business'
 import WideLogo from '../templates/widelogo'
-import { get } from '../../services/storage'
+
 
 const getPromotion = (promotion, logo, banner) => {
   const { template } = promotion
@@ -17,16 +18,6 @@ const getPromotion = (promotion, logo, banner) => {
   }
 }
 
-const useImageEffect = (key, identityId, setter) => {
-  useEffect(() => {
-    const getLogo = async () => {
-      if (!key) return
-      setter(await get(key, identityId))
-      console.log('SETTING LOGO!!!')
-    }
-    getLogo()
-  }, [key])
-}
 export default ({ promotion, isLive = false }) => {
   const [logo, setLogo] = useState(null)
   const [banner, setBanner] = useState(null)

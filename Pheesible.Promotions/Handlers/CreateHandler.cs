@@ -20,7 +20,10 @@ namespace Pheesible.Promotions.Handlers
             {
                 SubId = "",
                 Title = promotionDto.fields.title,
-                ElevatorPitch = promotionDto.fields.elevatorPitch
+                ElevatorPitch = promotionDto.fields.elevatorPitch,
+                IdentityId = promotionDto.identityId,
+                Banner = promotionDto.fields.banner,
+                Logo = promotionDto.fields.logo
             };
 
             foreach (var sellingPoint in promotionDto.sellingPoints)
