@@ -1,8 +1,18 @@
 import React from 'react'
 
-export default ({ promotion, logo, banner }) => {
+export default ({
+  promotion,
+  logo,
+  banner,
+  imageOne,
+  imageTwo,
+  imageThree,
+}) => {
   console.log('logo', logo)
   console.log('banner', banner)
+  console.log('imageOne', imageOne)
+  console.log('imageTwo', imageTwo)
+  console.log('imageThree', imageThree)
   const { title, tagLine, elevatorPitch } = promotion.fields
   return (
     <div>
@@ -34,7 +44,7 @@ export default ({ promotion, logo, banner }) => {
             <div className='card h-100'>
               <img
                 className='card-img-top'
-                src='http://placehold.it/500x325'
+                src={imageOne ? imageOne : 'http://placehold.it/500x325'}
                 alt=''
               />
               <div className='card-body'>
@@ -77,7 +87,7 @@ export default ({ promotion, logo, banner }) => {
             <div className='card h-100'>
               <img
                 className='card-img-top'
-                src='http://placehold.it/500x325'
+                src={imageTwo ? imageTwo : 'http://placehold.it/500x325'}
                 alt=''
               />
               <div className='card-body'>
@@ -98,7 +108,7 @@ export default ({ promotion, logo, banner }) => {
             <div className='card h-100'>
               <img
                 className='card-img-top'
-                src='http://placehold.it/500x325'
+                src={imageThree ? imageThree : 'http://placehold.it/500x325'}
                 alt=''
               />
               <div className='card-body'>

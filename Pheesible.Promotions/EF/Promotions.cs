@@ -19,6 +19,9 @@ namespace Pheesible.Promotions.EF
         public string Logo { get; set; }
         public string Banner { get; set; }
         public string IdentityId { get; set; }
+        public string ImageOne { get; set; }
+        public string ImageTwo { get; set; }
+        public string ImageThree { get; set; }
 
         public virtual ICollection<Features> Features { get; set; }
         public virtual ICollection<PromotionFocusGroup> PromotionFocusGroup { get; set; }

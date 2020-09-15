@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { OrderedWizardSteps, Template } from '../constants.js'
+import { OrderedWizardSteps } from '../constants.js'
 import Templates from '../components/steps/Templates'
 import BasicInformation from '../components/steps/BasicInformation'
 import Preview from '../components/steps/Preview'
 import SellingPoints from '../components/steps/SellingPoints'
 import Features from '../components/steps/Features'
 import PromotionSettings from '../components/steps/PromotionSettings'
+import ImageUpload from '../components/steps/ImageUpload'
+import BottomText from '../components/steps/BottomText'
+
 import { getUserCognitoIdentityPoolId } from '../services/auth'
 
 const getComponentByStep = (promotion, updatePromotion) => {
@@ -36,6 +39,14 @@ const getComponentByStep = (promotion, updatePromotion) => {
       return (
         <Features promotion={promotion} updatePromotion={updatePromotion} />
       )
+    case OrderedWizardSteps.ImageUpload:
+      return (
+        <ImageUpload promotion={promotion} updatePromotion={updatePromotion} />
+      )
+    case OrderedWizardSteps.BottomText:
+      return (
+        <BottomText promotion={promotion} updatePromotion={updatePromotion} />
+      )
     case OrderedWizardSteps.PromotionSettings:
       return (
         <PromotionSettings
@@ -43,6 +54,7 @@ const getComponentByStep = (promotion, updatePromotion) => {
           updatePromotion={updatePromotion}
         />
       )
+
     default:
       throw Error('invalid step number')
   }

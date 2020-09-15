@@ -13,6 +13,7 @@ namespace Pheesible.Promotions.DTO
         public Fields fields { get; set; }
         public Sellingpoint[] sellingPoints { get; set; }
         public Feature[] features { get; set; }
+        public Images images { get; set; }
         public Promotionsettings promotionSettings { get; set; }
     }
 
@@ -70,6 +71,12 @@ namespace Pheesible.Promotions.DTO
     {
         public string title { get; set; }
         public string description { get; set; }
+    }
+    public class Images
+    {
+        public string imageOne { get; set; }
+        public string imageTwo { get; set; }
+        public string imageThree { get; set; }
     }
 
 }

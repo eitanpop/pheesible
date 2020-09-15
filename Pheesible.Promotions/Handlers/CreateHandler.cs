@@ -23,7 +23,10 @@ namespace Pheesible.Promotions.Handlers
                 ElevatorPitch = promotionDto.fields.elevatorPitch,
                 IdentityId = promotionDto.identityId,
                 Banner = promotionDto.fields.banner,
-                Logo = promotionDto.fields.logo
+                Logo = promotionDto.fields.logo,
+                ImageOne = promotionDto.images.imageOne,
+                ImageTwo = promotionDto.images.imageTwo,
+                ImageThree = promotionDto.images.imageThree
             };
 
             foreach (var sellingPoint in promotionDto.sellingPoints)
@@ -31,7 +34,6 @@ namespace Pheesible.Promotions.Handlers
 
             foreach (var feature in promotionDto.features)
                 promotions.Features.Add(new Features { Description = feature.description, Title = feature.title });
-
 
             await AddFocusGroups(promotionDto.promotionSettings.Facebook, db, promotions);
             await AddFocusGroups(promotionDto.promotionSettings.Instagram, db, promotions);
