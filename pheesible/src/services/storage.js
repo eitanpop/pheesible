@@ -33,3 +33,9 @@ export const get = async (key, identityId) => {
     identityId, // the identityId of that user
   })
 }
+
+export const remove = async (key) => {
+  Storage.remove(key, { level: 'protected' })
+    .then((result) => console.log(result))
+    .catch((err) => console.log(err))
+}
