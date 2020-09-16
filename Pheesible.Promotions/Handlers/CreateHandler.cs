@@ -26,7 +26,8 @@ namespace Pheesible.Promotions.Handlers
                 Logo = promotionDto.fields.logo,
                 ImageOne = promotionDto.images.imageOne,
                 ImageTwo = promotionDto.images.imageTwo,
-                ImageThree = promotionDto.images.imageThree
+                ImageThree = promotionDto.images.imageThree,
+                FreeText = promotionDto.freeText
             };
 
             foreach (var sellingPoint in promotionDto.sellingPoints)

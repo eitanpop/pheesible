@@ -25,10 +25,11 @@ const emptyPromotion = {
   stepNumber: OrderedWizardSteps.Templates,
   template: Template.Business,
   fields: {},
-  sellingPoints: {},
-  features: {},
+  sellingPoints: [],
+  features: [],
   promotionSettings: {},
-  images:{}
+  images: {},
+  freeText: '',
 }
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid

@@ -10,6 +10,7 @@ namespace Pheesible.Promotions.DTO
         public int stepNumber { get; set; }
         public int template { get; set; }
         public string identityId { get; set; }
+        public string freeText { get; set; }
         public Fields fields { get; set; }
         public Sellingpoint[] sellingPoints { get; set; }
         public Feature[] features { get; set; }
