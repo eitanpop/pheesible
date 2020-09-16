@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Uploader from '../Uploader'
+import FileClear from '../FileClear'
 
 export default ({ promotion, updatePromotion }) => {
   const updateImageOnPromotion = (imageName, key) => {
@@ -11,6 +12,10 @@ export default ({ promotion, updatePromotion }) => {
     <div>
       <div className='form-group'>
         <label htmlFor='title'>Image 1</label>
+        <FileClear
+          value={promotion.images.imageOne}
+          clearFunction={() => updateImageOnPromotion('imageOne', null)}
+        />
         <div className='input-group'>
           <div className='input-group-prepend'>
             <span className='input-group-text' id='inputGroupFileAddon01'>
@@ -25,6 +30,10 @@ export default ({ promotion, updatePromotion }) => {
       </div>
       <div className='form-group'>
         <label htmlFor='title'>Image 2</label>
+        <FileClear
+          value={promotion.images.imageTwo}
+          clearFunction={() => updateImageOnPromotion('imageTwo', null)}
+        />
         <div className='input-group'>
           <div className='input-group-prepend'>
             <span className='input-group-text' id='inputGroupFileAddon01'>
@@ -39,6 +48,10 @@ export default ({ promotion, updatePromotion }) => {
       </div>
       <div className='form-group'>
         <label htmlFor='title'>Image 3</label>
+        <FileClear
+        value={promotion.images.imageThree}
+        clearFunction={() => updateImageOnPromotion('imageThree', null)}
+        />
         <div className='input-group'>
           <div className='input-group-prepend'>
             <span className='input-group-text' id='inputGroupFileAddon01'>

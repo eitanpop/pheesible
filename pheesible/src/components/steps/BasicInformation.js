@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Uploader from '../Uploader'
+import FileClear from '../FileClear'
 
 export default ({ promotion, updatePromotion }) => {
   const updateFieldsOnPromotion = (key, value) => {
@@ -26,6 +27,10 @@ export default ({ promotion, updatePromotion }) => {
 
         <div className='form-group'>
           <label htmlFor='title'>Logo</label>
+          <FileClear
+            value={promotion.fields.logo}
+            clearFunction={() => updateFieldsOnPromotion('logo', null)}
+          />
           <div className='input-group'>
             <div className='input-group-prepend'>
               <span className='input-group-text' id='inputGroupFileAddon01'>
@@ -41,6 +46,10 @@ export default ({ promotion, updatePromotion }) => {
 
         <div className='form-group'>
           <label htmlFor='title'>Banner</label>
+          <FileClear
+            value={promotion.fields.banner}
+            clearFunction={() => updateFieldsOnPromotion('banner', null)}
+          />
           <div className='input-group'>
             <div className='input-group-prepend'>
               <span className='input-group-text' id='inputGroupFileAddon01'>
