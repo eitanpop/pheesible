@@ -8,7 +8,6 @@ namespace Pheesible.Promotions.DTO
     public class Promotion
     {
         public int stepNumber { get; set; }
-        public int template { get; set; }
         public string identityId { get; set; }
         public string freeText { get; set; }
         public Fields fields { get; set; }
@@ -16,6 +15,8 @@ namespace Pheesible.Promotions.DTO
         public Feature[] features { get; set; }
         public Images images { get; set; }
         public Promotionsettings promotionSettings { get; set; }
+        public Ad ad { get; set; }
+        public int templateId { get; set; }
     }
 
     public class Fields
@@ -78,6 +79,11 @@ namespace Pheesible.Promotions.DTO
         public string imageOne { get; set; }
         public string imageTwo { get; set; }
         public string imageThree { get; set; }
+    }
+    public class Ad
+    {
+        public string image { get; set; }
+        public string text { get; set; }
     }
 
 }

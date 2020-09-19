@@ -8,6 +8,7 @@ using Amazon.Lambda.APIGatewayEvents;
 using Microsoft.EntityFrameworkCore;
 using Pheesible.Promotions.DTO;
 using Pheesible.Promotions.EF;
+using Pheesible.Promotions.Enums;
 
 namespace Pheesible.Promotions.Handlers
 {
@@ -19,6 +20,8 @@ namespace Pheesible.Promotions.Handlers
             var promotions = new EF.Promotions
             {
                 SubId = "",
+                TemplateId = promotionDto.templateId,
+                TagLine = promotionDto.fields.tagLine,
                 Title = promotionDto.fields.title,
                 ElevatorPitch = promotionDto.fields.elevatorPitch,
                 IdentityId = promotionDto.identityId,
@@ -40,6 +43,8 @@ namespace Pheesible.Promotions.Handlers
             await AddFocusGroups(promotionDto.promotionSettings.Instagram, db, promotions);
             await AddFocusGroups(promotionDto.promotionSettings.Tiktok, db, promotions);
             await AddFocusGroups(promotionDto.promotionSettings.Twitter, db, promotions);
+
+            promotions.Ads.Add(new Ads{Image = promotionDto.ad.image, Text = promotionDto.ad.text});
 
             db.Promotions.Add(promotions);
             await db.SaveChangesAsync();

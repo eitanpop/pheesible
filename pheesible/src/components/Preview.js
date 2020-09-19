@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
-import useImageEffect from '../../hooks/useImageEffect'
-import { Template } from '../../constants'
-import Business from '../templates/business'
-import WideLogo from '../templates/widelogo'
+import useImageEffect from '../hooks/useImageEffect'
+import { Template } from '../constants'
+import Business from './templates/business'
+import WideLogo from './templates/widelogo'
 
 const getPromotion = (
   promotion,
@@ -13,8 +13,8 @@ const getPromotion = (
   imageTwo,
   imageThree
 ) => {
-  const { template } = promotion
-  switch (template) {
+  const { templateId } = promotion
+  switch (templateId) {
     case Template.Business:
       return (
         <Business

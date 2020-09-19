@@ -8,11 +8,6 @@ export default ({
   imageTwo,
   imageThree,
 }) => {
-  console.log('logo', logo)
-  console.log('banner', banner)
-  console.log('imageOne', imageOne)
-  console.log('imageTwo', imageTwo)
-  console.log('imageThree', imageThree)
   const { title, tagLine, elevatorPitch } = promotion.fields
   return (
     <div>

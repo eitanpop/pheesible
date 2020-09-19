@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom'
 import { OrderedWizardSteps } from '../constants.js'
 import Templates from '../components/steps/Templates'
 import BasicInformation from '../components/steps/BasicInformation'
-import Preview from '../components/steps/Preview'
+import Preview from '../components/Preview'
+import AdPreview from '../components/AdPreview'
 import SellingPoints from '../components/steps/SellingPoints'
 import Features from '../components/steps/Features'
 import PromotionSettings from '../components/steps/PromotionSettings'
 import ImageUpload from '../components/steps/ImageUpload'
 import BottomText from '../components/steps/BottomText'
+import Ad from '../components/steps/Ad'
 
 import { getUserCognitoIdentityPoolId } from '../services/auth'
 
@@ -47,6 +49,8 @@ const getComponentByStep = (promotion, updatePromotion) => {
       return (
         <BottomText promotion={promotion} updatePromotion={updatePromotion} />
       )
+    case OrderedWizardSteps.Ad:
+      return <Ad promotion={promotion} updatePromotion={updatePromotion} />
     case OrderedWizardSteps.PromotionSettings:
       return (
         <PromotionSettings
@@ -118,7 +122,11 @@ export default ({ promotion, setPromotion }) => {
       <div
         className='col-sm-9 pl-3 pb-2  d-flex justify-content-center bg-light'
         style={{ height: '100vh' }}>
-        <Preview promotion={promotion} />
+        {promotion.stepNumber !== OrderedWizardSteps.Ad ? (
+          <Preview promotion={promotion} />
+        ) : (
+          <AdPreview promotion={promotion} />
+        )}
       </div>
     </div>
   )

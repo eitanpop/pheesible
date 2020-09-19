@@ -23,13 +23,14 @@ Hub.listen('auth', (data) => {
 
 const emptyPromotion = {
   stepNumber: OrderedWizardSteps.Templates,
-  template: Template.Business,
+  templateId: Template.Business,
   fields: {},
   sellingPoints: [],
   features: [],
   promotionSettings: {},
   images: {},
   freeText: '',
+  ad: {},
 }
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid

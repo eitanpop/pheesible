@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import PaymentSummary from '../components/PaymentSummary'
 import getTotalCharge from '../selectors/getTotalCharge'
-import Preview from '../components/steps/Preview'
+import Preview from '../components/Preview'
 
 const CARD_OPTIONS = {
   style: {

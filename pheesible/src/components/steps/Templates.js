@@ -7,12 +7,12 @@ export default ({ promotion, updatePromotion }) => {
       <div>TEMPLATES</div>
       <div
         className='form-check'
-        onChange={(e) => updatePromotion('template', parseInt(e.target.value))}>
+        onChange={(e) => updatePromotion('templateId', parseInt(e.target.value))}>
         <input
           type='radio'
           value={Template.Business}
           name='template'
-          defaultChecked={promotion.template === Template.Business}
+          defaultChecked={promotion.templateId === Template.Business}
         />
         Business
         <br />
@@ -20,7 +20,7 @@ export default ({ promotion, updatePromotion }) => {
           type='radio'
           value={Template.WideLogo}
           name='template'
-          defaultChecked={promotion.template === Template.WideLogo}
+          defaultChecked={promotion.templateId === Template.WideLogo}
         />{' '}
         Wide Logo
       </div>

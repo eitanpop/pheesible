@@ -7,6 +7,7 @@ export default (key, identityId, setter) => {
     const getImage = async () => {
       if (!key) {
         setter(null)
+        return
       }
       setter(await get(key, identityId))
     }

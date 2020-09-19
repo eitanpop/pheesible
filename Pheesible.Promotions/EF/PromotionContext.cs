@@ -15,23 +15,29 @@ namespace Pheesible.Promotions.EF
         {
         }
 
+        public virtual DbSet<Ads> Ads { get; set; }
         public virtual DbSet<Features> Features { get; set; }
         public virtual DbSet<FocusGroups> FocusGroups { get; set; }
         public virtual DbSet<PromotionFocusGroup> PromotionFocusGroup { get; set; }
         public virtual DbSet<Promotions> Promotions { get; set; }
         public virtual DbSet<SellingPoints> SellingPoints { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=pheesible-db.ck7pkv6e9kzg.us-east-1.rds.amazonaws.com;Port=5432;Database=pheesible;Username=oystagoymp;Password=Rebbe613");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Ads>(entity =>
+            {
+                entity.Property(e => e.Image).HasColumnType("character varying");
+
+                entity.Property(e => e.Text).HasColumnType("character varying");
+
+                entity.HasOne(d => d.Promotion)
+                    .WithMany(p => p.Ads)
+                    .HasForeignKey(d => d.PromotionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_promotions");
+            });
+
             modelBuilder.Entity<Features>(entity =>
             {
                 entity.Property(e => e.Description).IsRequired();
@@ -85,6 +91,8 @@ namespace Pheesible.Promotions.EF
                 entity.Property(e => e.SubId)
                     .IsRequired()
                     .HasMaxLength(20);
+
+                entity.Property(e => e.TagLine).HasColumnType("character varying");
             });
 
             modelBuilder.Entity<SellingPoints>(entity =>
