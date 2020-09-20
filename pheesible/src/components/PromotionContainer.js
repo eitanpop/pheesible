@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 
-import ApiContext from '../context/apiContext'
+import { getPromotions } from '../services/api'
+import ApiContext from '../context/promotionContext'
 
 export default ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [promotions, setPromotions] = useState(null)
   useEffect(() => {
     async function fetchData() {
-      const promotionData = await axios.get(
-        `${process.env.REACT_APP_API_URL}promotion`
-      )
+      const promotionData = await getPromotions()
       setPromotions(promotionData.data)
       setLoading(false)
     }

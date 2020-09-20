@@ -5,6 +5,7 @@ import axios from 'axios'
 import PaymentSummary from '../components/PaymentSummary'
 import getTotalCharge from '../selectors/getTotalCharge'
 import Preview from '../components/Preview'
+import { savePromotion, createPaymentIntent } from '../services/api'
 
 const CARD_OPTIONS = {
   style: {
@@ -36,15 +37,11 @@ export default ({ promotion }) => {
       return
     }
 
-    const promotionResponse = await axios.post(
-      `${process.env.REACT_APP_API_URL}promotion`,
-      JSON.stringify(promotion)
-    )
+    const promotionResponse = await savePromotion(promotion)
     console.log('promotionResponse', promotionResponse)
 
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/billing/${getTotalCharge(promotion)}`
-    )
+    const response = await createPaymentIntent(getTotalCharge(promotion))
+
     console.log(response)
 
     const stripeResponse = await stripe.confirmCardPayment(response.data, {

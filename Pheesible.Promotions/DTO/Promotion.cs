@@ -7,6 +7,8 @@ namespace Pheesible.Promotions.DTO
 {
     public class Promotion
     {
+        public int id { get; set; }
+        public string title { get; set; }
         public int stepNumber { get; set; }
         public string identityId { get; set; }
         public string freeText { get; set; }

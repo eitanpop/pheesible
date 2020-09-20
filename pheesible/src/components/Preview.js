@@ -42,7 +42,7 @@ const getPromotion = (
   }
 }
 
-export default ({ promotion, isLive = false }) => {
+export default ({ promotion, isLive = false, fullScreen = false }) => {
   const [logo, setLogo] = useState(null)
   const [banner, setBanner] = useState(null)
   const [imageOne, setImageOne] = useState(null)
@@ -59,6 +59,13 @@ export default ({ promotion, isLive = false }) => {
   )
 
   if (!promotion) return <div>Loading...</div>
+
+  if (fullScreen)
+    return (
+      <>
+        {getPromotion(promotion, logo, banner, imageOne, imageTwo, imageThree)}
+      </>
+    )
 
   return (
     <div

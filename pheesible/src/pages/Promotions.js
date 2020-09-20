@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 
-import ApiContext from '../context/apiContext'
+import ApiContext from '../context/promotionContext'
 
 export default () => {
   const { loading, promotions } = useContext(ApiContext)
@@ -8,7 +8,7 @@ export default () => {
   console.log('promotions from API', promotions)
   if (loading) return <div>Loading...</div>
   return promotions.map((x) => {
-    const { Title } = x
-    return <div>{Title}</div>
+    const { title } = x
+    return <div>{title}</div>
   })
 }

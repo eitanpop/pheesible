@@ -22,11 +22,13 @@ namespace Pheesible.Promotions.Handlers
                 promotionQuery = promotionQuery.Where(x => x.Id == int.Parse(id));
 
             var promotions = await promotionQuery
-                .Include(x=>x.Features)
-                .Include(x=>x.Ads)
-                .Include(x=>x.PromotionFocusGroup).ThenInclude(y=>y.FocusGroup)
-                .Include(x=>x.SellingPoints)
+                .Include(x => x.Features)
+                .Include(x => x.Ads)
+                .Include(x => x.PromotionFocusGroup).ThenInclude(y => y.FocusGroup)
+                .Include(x => x.SellingPoints)
                 .ToListAsync();
+            if (!String.IsNullOrEmpty(id))
+                return ApiGatewayHelper.GetSuccessResponse(JsonSerializer.Serialize(promotions.Select(ConvertPromotionToDto).FirstOrDefault()));
 
             return ApiGatewayHelper.GetSuccessResponse(JsonSerializer.Serialize(promotions.Select(ConvertPromotionToDto)));
         }
@@ -35,11 +37,13 @@ namespace Pheesible.Promotions.Handlers
         {
             var promotionDto = new DTO.Promotion
             {
+                id = promotion.Id,
+                title = promotion.Title,
                 templateId = promotion.TemplateId,
                 freeText = promotion.FreeText,
                 identityId = promotion.IdentityId,
                 stepNumber = 1,
-                ad=promotion.Ads?.Select(x=>new Ad{image = x.Image, text=x.Text}).FirstOrDefault(),
+                ad = promotion.Ads?.Select(x => new Ad { image = x.Image, text = x.Text }).FirstOrDefault(),
 
                 fields = new Fields
                 {
@@ -63,7 +67,7 @@ namespace Pheesible.Promotions.Handlers
                     Instagram = GetFocusGroupDto<Instagram>(promotion),
                     Twitter = GetFocusGroupDto<Twitter>(promotion)
                 },
-                sellingPoints = promotion.SellingPoints.Select(x=>new Sellingpoint{description = x.Description, title = x.Title}).ToArray(),
+                sellingPoints = promotion.SellingPoints.Select(x => new Sellingpoint { description = x.Description, title = x.Title }).ToArray(),
             };
 
             return promotionDto;
