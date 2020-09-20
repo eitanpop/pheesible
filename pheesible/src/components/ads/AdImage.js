@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 
-import businessImage from '../templates/business/ad/image.png'
 import PromotionContext from '../../context/promotionContext'
+
+import businessImage from '../templates/business/ad/image.png'
 
 export default ({ promotion, image }) => {
   const { templates } = useContext(PromotionContext)

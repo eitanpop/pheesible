@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
-
-import Preview from '../components/Preview'
+import { getPromotion } from '../services/api'
+import Preview from '../components/preview/Preview'
 
 export default () => {
   const [loading, setLoading] = useState(true)
@@ -10,15 +9,13 @@ export default () => {
   const { id } = useParams()
   useEffect(() => {
     async function fetchData() {
-      const promotionData = await axios.get(
-        `${process.env.REACT_APP_API_URL}promotion/${id}`
-      )
+      const promotionData = await getPromotion(id)
+      console.log('promotionData', promotionData)
       setPromotions(promotionData.data)
       setLoading(false)
     }
-
     fetchData()
-  }, [])
+  }, [id])
 
   if (loading) return <div>Loading...</div>
   console.log('promotions', promotion)

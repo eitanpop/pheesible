@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
-import useImageEffect from '../hooks/useImageEffect'
+import useImageEffect from '../../hooks/useImageEffect'
+import TemplateContainer from './TemplateContainer'
 import Template from './Template'
 
 export default ({ promotion, isLive = false, fullScreen = false }) => {
@@ -19,12 +20,15 @@ export default ({ promotion, isLive = false, fullScreen = false }) => {
     setImageThree
   )
 
+  console.log('promotion', promotion)
+
   if (!promotion) return <div>Loading...</div>
 
   if (fullScreen)
     return (
       <>
         <Template
+          templateName={promotion.templateName}
           promotion={promotion}
           logo={logo}
           banner={banner}
@@ -40,7 +44,7 @@ export default ({ promotion, isLive = false, fullScreen = false }) => {
       className='mt-2 bg-white preview-container'
       style={{ maxWidth: 'calc(100% - 48px)', width: '972px' }}>
       <div className='preview m-3'>
-        <Template
+        <TemplateContainer
           promotion={promotion}
           logo={logo}
           banner={banner}

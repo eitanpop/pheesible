@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const getPromotion = async (id) => {
-  await axios.get(`${process.env.REACT_APP_API_URL}promotion/${id}`)
+  return await axios.get(`${process.env.REACT_APP_API_URL}promotion/${id}`)
 }
 
 export const getPromotions = async () => {

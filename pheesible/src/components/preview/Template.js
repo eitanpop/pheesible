@@ -1,10 +1,9 @@
-import React, { useContext } from 'react'
-
-import PromotionContext from '../context/promotionContext'
-import Business from './templates/business'
-import WideLogo from './templates/widelogo'
+import React from 'react'
+import Business from '../templates/business'
+import WideLogo from '../templates/widelogo'
 
 export default ({
+  templateName,
   promotion,
   logo,
   banner,
@@ -12,12 +11,8 @@ export default ({
   imageTwo,
   imageThree,
 }) => {
-  const { templates } = useContext(PromotionContext)
-  const name = templates
-    .find((x) => x.Id === promotion.templateId)
-    .Name.toLowerCase()
   let component = null
-  switch (name) {
+  switch (templateName.toLowerCase()) {
     case 'business':
       component = <Business />
       break

@@ -26,6 +26,7 @@ namespace Pheesible.Promotions.Handlers
                 .Include(x => x.Ads)
                 .Include(x => x.PromotionFocusGroup).ThenInclude(y => y.FocusGroup)
                 .Include(x => x.SellingPoints)
+                .Include(x=>x.Template)
                 .ToListAsync();
             if (!String.IsNullOrEmpty(id))
                 return ApiGatewayHelper.GetSuccessResponse(JsonSerializer.Serialize(promotions.Select(ConvertPromotionToDto).FirstOrDefault()));
@@ -40,6 +41,7 @@ namespace Pheesible.Promotions.Handlers
                 id = promotion.Id,
                 title = promotion.Title,
                 templateId = promotion.TemplateId,
+                templateName = promotion.Template.Name,
                 freeText = promotion.FreeText,
                 identityId = promotion.IdentityId,
                 stepNumber = 1,

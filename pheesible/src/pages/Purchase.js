@@ -3,7 +3,7 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 
 import PaymentSummary from '../components/PaymentSummary'
 import getTotalCharge from '../selectors/getTotalCharge'
-import Preview from '../components/Preview'
+import Preview from '../components/preview/Preview'
 import { savePromotion, createPaymentIntent } from '../services/api'
 
 const CARD_OPTIONS = {

@@ -19,6 +19,7 @@ namespace Pheesible.Promotions.DTO
         public Promotionsettings promotionSettings { get; set; }
         public Ad ad { get; set; }
         public int templateId { get; set; }
+        public string templateName { get; set; }
     }
 
     public class Fields
