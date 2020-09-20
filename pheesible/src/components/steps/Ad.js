@@ -25,6 +25,7 @@ export default ({ promotion, updatePromotion }) => {
           <Uploader
             path='ad'
             onUpload={(result) => updateAdOnPromotion('image', result)}
+            templateId={promotion.templateId}
           />
         </div>
       </div>

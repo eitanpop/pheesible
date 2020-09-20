@@ -2,7 +2,7 @@ import React from 'react'
 
 import { upload } from '../../services/storage'
 
-export default ({ path = '', onUpload }) => {
+export default ({ path = '', onUpload, templateId }) => {
   return (
     <div className='custom-file'>
       <input
@@ -11,7 +11,10 @@ export default ({ path = '', onUpload }) => {
         id='inputGroupFile01'
         aria-describedby='inputGroupFileAddon01'
         onChange={async (e) => {
-          const result = await upload(e.target.files[0], path)
+          const result = await upload(
+            e.target.files[0],
+            `${templateId}${templateId ? '/' : ''}${path}`
+          )
           onUpload(result.key)
         }}
       />

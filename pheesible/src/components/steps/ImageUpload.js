@@ -23,6 +23,7 @@ export default ({ promotion, updatePromotion }) => {
             </span>
           </div>
           <Uploader
+            templateId={promotion.templateId}
             path='images'
             onUpload={(result) => updateImageOnPromotion('imageOne', result)}
           />
@@ -41,6 +42,7 @@ export default ({ promotion, updatePromotion }) => {
             </span>
           </div>
           <Uploader
+            templateId={promotion.templateId}
             path='images'
             onUpload={(result) => updateImageOnPromotion('imageTwo', result)}
           />
@@ -49,8 +51,8 @@ export default ({ promotion, updatePromotion }) => {
       <div className='form-group'>
         <label htmlFor='title'>Image 3</label>
         <FileClear
-        value={promotion.images.imageThree}
-        clearFunction={() => updateImageOnPromotion('imageThree', null)}
+          value={promotion.images.imageThree}
+          clearFunction={() => updateImageOnPromotion('imageThree', null)}
         />
         <div className='input-group'>
           <div className='input-group-prepend'>
@@ -59,6 +61,7 @@ export default ({ promotion, updatePromotion }) => {
             </span>
           </div>
           <Uploader
+            templateId={promotion.templateId}
             path='images'
             onUpload={(result) => updateImageOnPromotion('imageThree', result)}
           />

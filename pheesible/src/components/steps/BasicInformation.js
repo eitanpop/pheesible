@@ -38,6 +38,7 @@ export default ({ promotion, updatePromotion }) => {
               </span>
             </div>
             <Uploader
+              templateId={promotion.templateId}
               path='logos'
               onUpload={(result) => updateFieldsOnPromotion('logo', result)}
             />
@@ -57,6 +58,7 @@ export default ({ promotion, updatePromotion }) => {
               </span>
             </div>
             <Uploader
+              templateId={promotion.templateId}
               path='banners'
               onUpload={(result) => updateFieldsOnPromotion('banner', result)}
             />
