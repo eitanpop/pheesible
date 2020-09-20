@@ -27,6 +27,7 @@ namespace Pheesible.Promotions.EF
         public string TagLine { get; set; }
         public int TemplateId { get; set; }
 
+        public virtual Templates Template { get; set; }
         public virtual ICollection<Ads> Ads { get; set; }
         public virtual ICollection<Features> Features { get; set; }
         public virtual ICollection<PromotionFocusGroup> PromotionFocusGroup { get; set; }

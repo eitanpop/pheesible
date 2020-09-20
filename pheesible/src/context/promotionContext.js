@@ -1,5 +1,5 @@
-import React, {createContext} from 'react';
+import {createContext} from 'react';
  
-const ApiContext = createContext(null);
+const PromotionContext = createContext(null);
  
-export default ApiContext;
+export default PromotionContext;

@@ -1,6 +1,5 @@
 import React from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import axios from 'axios'
 
 import PaymentSummary from '../components/PaymentSummary'
 import getTotalCharge from '../selectors/getTotalCharge'

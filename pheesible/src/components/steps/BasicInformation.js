@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Uploader from '../Uploader'
-import FileClear from '../FileClear'
+import Uploader from '../file/Uploader'
+import FileClear from '../file/FileClear'
 
 export default ({ promotion, updatePromotion }) => {
   const updateFieldsOnPromotion = (key, value) => {

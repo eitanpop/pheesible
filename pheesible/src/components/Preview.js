@@ -1,46 +1,7 @@
 import React, { useState } from 'react'
 
 import useImageEffect from '../hooks/useImageEffect'
-import { Template } from '../constants'
-import Business from './templates/business'
-import WideLogo from './templates/widelogo'
-
-const getPromotion = (
-  promotion,
-  logo,
-  banner,
-  imageOne,
-  imageTwo,
-  imageThree
-) => {
-  const { templateId } = promotion
-  switch (templateId) {
-    case Template.Business:
-      return (
-        <Business
-          promotion={promotion}
-          logo={logo}
-          banner={banner}
-          imageOne={imageOne}
-          imageTwo={imageTwo}
-          imageThree={imageThree}
-        />
-      )
-    case Template.WideLogo:
-      return (
-        <WideLogo
-          promotion={promotion}
-          logo={logo}
-          banner={banner}
-          imageOne={imageOne}
-          imageTwo={imageTwo}
-          imageThree={imageThree}
-        />
-      )
-    default:
-      throw Error('invalid template')
-  }
-}
+import Template from './Template'
 
 export default ({ promotion, isLive = false, fullScreen = false }) => {
   const [logo, setLogo] = useState(null)
@@ -63,7 +24,14 @@ export default ({ promotion, isLive = false, fullScreen = false }) => {
   if (fullScreen)
     return (
       <>
-        {getPromotion(promotion, logo, banner, imageOne, imageTwo, imageThree)}
+        <Template
+          promotion={promotion}
+          logo={logo}
+          banner={banner}
+          imageOne={imageOne}
+          imageTwo={imageTwo}
+          imageThree={imageThree}
+        />
       </>
     )
 
@@ -72,7 +40,14 @@ export default ({ promotion, isLive = false, fullScreen = false }) => {
       className='mt-2 bg-white preview-container'
       style={{ maxWidth: 'calc(100% - 48px)', width: '972px' }}>
       <div className='preview m-3'>
-        {getPromotion(promotion, logo, banner, imageOne, imageTwo, imageThree)}
+        <Template
+          promotion={promotion}
+          logo={logo}
+          banner={banner}
+          imageOne={imageOne}
+          imageTwo={imageTwo}
+          imageThree={imageThree}
+        />
       </div>
     </div>
   )

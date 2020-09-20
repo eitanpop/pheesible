@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { upload } from '../services/storage'
+import { upload } from '../../services/storage'
 
 export default ({ path = '', onUpload }) => {
   return (

@@ -13,7 +13,12 @@ namespace Pheesible.Promotions.Handlers
                 return new CreateHandler();
 
             if (request.HttpMethod.ToLower() == "get")
+            {
+                if (request.Path.Equals("/promotion/templates", StringComparison.CurrentCultureIgnoreCase))
+                    return new TemplateGetHandler();
                 return new GetHandler();
+            }
+                
 
             throw new Exception("Unsupported verb passed!");
         }

@@ -15,6 +15,10 @@ export const savePromotion = async (promotion) => {
   )
 }
 
+export const getTemplates = async () => {
+    return await axios.get(`${process.env.REACT_APP_API_URL}promotion/templates`)
+}
+
 export const createPaymentIntent = async (amount) => {
   await axios.get(`${process.env.REACT_APP_API_URL}/billing/${amount}`)
 }

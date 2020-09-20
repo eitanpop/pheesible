@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { remove } from '../services/storage'
+import { remove } from '../../services/storage'
 
 export default ({ value, clearFunction }) => {
   return value ? (

@@ -33,7 +33,7 @@ namespace PheesibleApi.Controllers
 
             var body = await GetRequestContent();
             var function = new Function();
-            var result = await function.FunctionHandler(new APIGatewayProxyRequest { HttpMethod = "get" }, null);
+            var result = await function.FunctionHandler(new APIGatewayProxyRequest { HttpMethod = "get", Path = $"/promotion" }, null);
 
             return result.Body;
         }
@@ -44,8 +44,17 @@ namespace PheesibleApi.Controllers
 
             var body = await GetRequestContent();
             var function = new Function();
-            var result = await function.FunctionHandler(new APIGatewayProxyRequest { HttpMethod = "get", PathParameters = new Dictionary<string, string> { { "id", id } } }, null);
+            var result = await function.FunctionHandler(new APIGatewayProxyRequest { HttpMethod = "get", Path = $"/promotion/{id}", PathParameters = new Dictionary<string, string> { { "id", id } } }, null);
 
+            return result.Body;
+        }
+
+        [HttpGet("templates")]
+        public async Task<string> GetTemplates()
+        {
+            var function = new Function();
+            var result =
+                await function.FunctionHandler(new APIGatewayProxyRequest {HttpMethod = "get", Path = "/promotion/templates"}, null);
             return result.Body;
         }
 

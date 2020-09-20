@@ -1,26 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Template } from '../constants'
-import useImageEffect from '../hooks/useImageEffect'
+import useImageEffect from '../../hooks/useImageEffect'
+import AdImage from './AdImage'
 
-import businessImage from './templates/business/ad/image.png'
-
-const getDefaultImage = (template) => {
-  switch (template) {
-    case Template.Business:
-      return businessImage
-    case Template.WideLogo:
-      return businessImage
-    default:
-      throw Error('invalid template')
-  }
-}
 const getPromotion = (promotion, image) => {
-  const { templateId } = promotion
-  if (!image) image = getDefaultImage(templateId)
   return (
     <>
       <div>
-        <img alt='ad' src={image} />
+        <AdImage promotion={promotion} image={image} />
       </div>
       <div>{promotion.ad.text}</div>
     </>
