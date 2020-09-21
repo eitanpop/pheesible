@@ -10,8 +10,8 @@ export default () => {
   useEffect(() => {
     async function fetchData() {
       const promotionData = await getPromotion(id)
-      console.log('promotionData', promotionData)
-      setPromotions(promotionData)
+      console.log('promotionData', promotionData.data)
+      setPromotions(promotionData.data)
       setLoading(false)
     }
     fetchData()

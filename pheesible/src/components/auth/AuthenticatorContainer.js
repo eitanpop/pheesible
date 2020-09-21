@@ -15,6 +15,7 @@ export default ({ children }) => {
     return onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState)
       setUser(authData)
+      console.log('authData',authData)
     })
   }, [])
 

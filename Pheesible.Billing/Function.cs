@@ -53,7 +53,12 @@ namespace Pheesible.Billing
             return new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = (await BillingProvider.Bill(amount))?.Message
+                Body = (await BillingProvider.Bill(amount))?.Message,
+                Headers = new Dictionary<string, string>
+                {
+                    {"Content-Type", "application/json"}, {"Access-Control-Allow-Headers", "*"},
+                    {"Access-Control-Allow-Origin", "*"}
+                }
             };
 
         }

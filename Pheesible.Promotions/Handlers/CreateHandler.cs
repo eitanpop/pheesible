@@ -19,7 +19,7 @@ namespace Pheesible.Promotions.Handlers
             var promotionDto = JsonSerializer.Deserialize<DTO.Promotion>(request.Body);
             var promotions = new EF.Promotions
             {
-                SubId = "",
+                SubId = request.RequestContext?.Authorizer?.Claims["sub"],
                 TemplateId = promotionDto.templateId,
                 TagLine = promotionDto.fields.tagLine,
                 Title = promotionDto.fields.title,

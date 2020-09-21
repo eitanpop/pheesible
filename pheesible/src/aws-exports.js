@@ -20,9 +20,13 @@ export default {
   API: {
     endpoints: [
       {
-        name: 'pheesible-api',
+        name: 'pheesible-rest',
         endpoint: process.env.REACT_APP_API_URL,
-       
+        custom_header: async () => ({
+          Authorization: (await Auth.currentSession())
+            .getIdToken()
+            .getJwtToken(),
+        }),
       },
     ],
   },

@@ -13,7 +13,12 @@ namespace Pheesible.Promotions
             return new APIGatewayProxyResponse
             {
                 Body = responseData,
-                StatusCode = (int) HttpStatusCode.OK
+                StatusCode = (int) HttpStatusCode.OK,
+                Headers = new Dictionary<string, string>
+                {
+                    {"Content-Type", "application/json"}, {"Access-Control-Allow-Headers", "*"},
+                    {"Access-Control-Allow-Origin", "*"}
+                }
             };
         }
     }

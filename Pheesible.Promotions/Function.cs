@@ -58,6 +58,7 @@ namespace Pheesible.Promotions
         {
             context.Logger.Log($"request: {JsonSerializer.Serialize(request)}");
             context.Logger.Log($"context: {JsonSerializer.Serialize(context)}");
+            context.Logger.Log("SubId: " + request.RequestContext?.Authorizer?.Claims["sub"]);
             var response = await _app.Run(request);
             return response;
         }
