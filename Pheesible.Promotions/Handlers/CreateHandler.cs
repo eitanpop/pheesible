@@ -44,11 +44,11 @@ namespace Pheesible.Promotions.Handlers
             await AddFocusGroups(promotionDto.promotionSettings.Tiktok, db, promotions);
             await AddFocusGroups(promotionDto.promotionSettings.Twitter, db, promotions);
 
-            promotions.Ads.Add(new Ads{Image = promotionDto.ad.image, Text = promotionDto.ad.text});
+            promotions.Ads.Add(new Ads { Image = promotionDto.ad.image, Text = promotionDto.ad.text });
 
             db.Promotions.Add(promotions);
             await db.SaveChangesAsync();
-            return new APIGatewayProxyResponse();
+            return ApiGatewayHelper.GetSuccessResponse("success");
         }
 
         private async Task AddFocusGroups(FocusGroupDto focusGroupDto, PromotionContext db, EF.Promotions promotions)

@@ -11,7 +11,7 @@ export default () => {
     async function fetchData() {
       const promotionData = await getPromotion(id)
       console.log('promotionData', promotionData)
-      setPromotions(promotionData.data)
+      setPromotions(promotionData)
       setLoading(false)
     }
     fetchData()

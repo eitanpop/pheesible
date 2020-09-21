@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
-
+using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Pheesible.Billing.BillingProviders;
@@ -43,9 +45,17 @@ namespace Pheesible.Billing
         /// <param name="amount"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public string FunctionHandler(int amount, ILambdaContext context)
+        public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
         {
-            return BillingProvider.Bill(amount)?.Message;
+            context.Logger.Log($"request: {JsonSerializer.Serialize(request)}");
+            context.Logger.Log($"context: {JsonSerializer.Serialize(context)}");
+            int amount = int.Parse(request.PathParameters["amount"]);
+            return new APIGatewayProxyResponse
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Body = (await BillingProvider.Bill(amount))?.Message
+            };
+
         }
     }
 }

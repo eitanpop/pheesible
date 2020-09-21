@@ -11,8 +11,8 @@ export default ({ children }) => {
     async function fetchData() {
       const promotionData = await getPromotions()
       const templateData = await getTemplates()
-      setPromotions(promotionData.data)
-      setTemplates(templateData.data)
+      setPromotions(promotionData)
+      setTemplates(templateData)
       setLoading(false)
     }
 

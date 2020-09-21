@@ -39,11 +39,13 @@ export default ({ promotion }) => {
     const promotionResponse = await savePromotion(promotion)
     console.log('promotionResponse', promotionResponse)
 
-    const response = await createPaymentIntent(getTotalCharge(promotion))
+    const response = await createPaymentIntent(123)
+
+    // const response = await createPaymentIntent(getTotalCharge(promotion))
 
     console.log(response)
 
-    const stripeResponse = await stripe.confirmCardPayment(response.data, {
+    const stripeResponse = await stripe.confirmCardPayment(response, {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {

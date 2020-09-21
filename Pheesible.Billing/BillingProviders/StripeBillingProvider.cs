@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Stripe;
 
 namespace Pheesible.Billing.BillingProviders
@@ -12,7 +13,7 @@ namespace Pheesible.Billing.BillingProviders
         {
             _configuration = configuration;
         }
-        public BillingResponse Bill(int amount)
+        public async Task<BillingResponse> Bill(int amount)
         {
             StripeConfiguration.ApiKey = _configuration.StripeSecret;
             var options = new PaymentIntentCreateOptions
@@ -27,7 +28,7 @@ namespace Pheesible.Billing.BillingProviders
             };
 
             var service = new PaymentIntentService();
-            var paymentIntent = service.Create(options);
+            var paymentIntent = await service.CreateAsync(options);
 
             return new BillingResponse(BillingStatus.Success, paymentIntent.ClientSecret);
         }

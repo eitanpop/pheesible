@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Pheesible.Billing.BillingProviders
 {
     public interface IBillingProvider
     {
-        public BillingResponse Bill(int amount);
+        public Task<BillingResponse> Bill(int amount);
     }
 }

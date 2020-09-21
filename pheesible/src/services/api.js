@@ -1,24 +1,21 @@
-import axios from 'axios'
+import API from '@aws-amplify/api'
 
 export const getPromotion = async (id) => {
-  return await axios.get(`${process.env.REACT_APP_API_URL}promotion/${id}`)
+  return await API.get('pheesible-api', `/promotion/${id}`)
 }
 
 export const getPromotions = async () => {
-  return await axios.get(`${process.env.REACT_APP_API_URL}promotion`)
+  return await API.get('pheesible-api', '/promotion')
 }
 
 export const savePromotion = async (promotion) => {
-  await axios.post(
-    `${process.env.REACT_APP_API_URL}promotion`,
-    JSON.stringify(promotion)
-  )
+  API.post('pheesible-api', '/promotion', { body: promotion })
 }
 
 export const getTemplates = async () => {
-    return await axios.get(`${process.env.REACT_APP_API_URL}promotion/templates`)
+  return await API.get('pheesible-api', '/promotion/templates')
 }
 
 export const createPaymentIntent = async (amount) => {
-  await axios.get(`${process.env.REACT_APP_API_URL}/billing/${amount}`)
+  return await API.get('pheesible-api', `/billing/${amount}`)
 }

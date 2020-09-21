@@ -7,6 +7,7 @@ import businessImage from '../templates/business/ad/image.png'
 export default ({ promotion, image }) => {
   const { templates } = useContext(PromotionContext)
 
+  console.log('templates', templates)
   if (!image) {
     const name = templates
       .find((x) => x.Id === promotion.templateId)

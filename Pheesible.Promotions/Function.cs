@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.APIGatewayEvents;
@@ -55,6 +56,8 @@ namespace Pheesible.Promotions
         /// <returns>The API Gateway response.</returns>
         public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
         {
+            context.Logger.Log($"request: {JsonSerializer.Serialize(request)}");
+            context.Logger.Log($"context: {JsonSerializer.Serialize(context)}");
             var response = await _app.Run(request);
             return response;
         }
