@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import useStateWithCallback from 'use-state-with-callback'
 
 import { OrderedWizardSteps } from '../constants.js'
 import Templates from '../components/steps/Templates'
@@ -65,6 +66,12 @@ const getComponentByStep = (promotion, updatePromotion) => {
 }
 
 export default ({ promotion, setPromotion }) => {
+  const updatePromotion = (key, val) => {
+    setPromotion({ ...promotion, [key]: val })
+  }
+  const [component, setComponent] = useState(
+    getComponentByStep(promotion, updatePromotion)
+  )
   useEffect(() => {
     const updateIdentityId = async () => {
       const identityId = await getUserCognitoIdentityPoolId()
@@ -72,11 +79,11 @@ export default ({ promotion, setPromotion }) => {
     }
     updateIdentityId()
   }, [])
-  console.log('promotion', promotion)
 
-  const updatePromotion = (key, val) => {
-    setPromotion({ ...promotion, [key]: val })
-  }
+  useEffect(() => {
+    setComponent(getComponentByStep(promotion, updatePromotion))
+    console.log('promotion', promotion)
+  }, [JSON.stringify(promotion)])
 
   const nextStep = () => {
     updatePromotion('stepNumber', promotion.stepNumber + 1)
@@ -89,7 +96,7 @@ export default ({ promotion, setPromotion }) => {
   return (
     <div className='row'>
       <div className='col-sm-3 right-shadow' style={{ zIndex: 100 }}>
-        {getComponentByStep(promotion, updatePromotion)}
+        {component}
         <br />
         <div className='row pb-3'>
           <div className='col d-flex justify-content-center'>
@@ -121,7 +128,7 @@ export default ({ promotion, setPromotion }) => {
       </div>
       <div className='col-sm-9 pl-3 pb-2  d-flex justify-content-center bg-light'>
         {promotion.stepNumber !== OrderedWizardSteps.Ad ? (
-          <Preview promotion={promotion} isLive={true} />
+          <Preview promotion={promotion} isLive={false} />
         ) : (
           <AdPreview promotion={promotion} />
         )}
