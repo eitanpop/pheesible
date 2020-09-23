@@ -10,6 +10,7 @@ export default ({
   imageOne,
   imageTwo,
   imageThree,
+  isLive,
 }) => {
   let component = null
   switch (templateName.toLowerCase()) {
@@ -22,7 +23,6 @@ export default ({
     default:
       throw Error('invalid template')
   }
-
   return React.cloneElement(component, {
     promotion,
     logo,
@@ -30,5 +30,6 @@ export default ({
     imageOne,
     imageTwo,
     imageThree,
+    isLive,
   })
 }

@@ -18,6 +18,7 @@ namespace Pheesible.Promotions.EF
         public virtual DbSet<Ads> Ads { get; set; }
         public virtual DbSet<Features> Features { get; set; }
         public virtual DbSet<FocusGroups> FocusGroups { get; set; }
+        public virtual DbSet<Leads> Leads { get; set; }
         public virtual DbSet<PromotionFocusGroup> PromotionFocusGroup { get; set; }
         public virtual DbSet<Promotions> Promotions { get; set; }
         public virtual DbSet<SellingPoints> SellingPoints { get; set; }
@@ -58,6 +59,22 @@ namespace Pheesible.Promotions.EF
                     .HasColumnType("character varying");
             });
 
+            modelBuilder.Entity<Leads>(entity =>
+            {
+                entity.Property(e => e.Email).HasColumnType("character varying");
+
+                entity.Property(e => e.FirstName).HasColumnType("character varying");
+
+                entity.Property(e => e.LastName).HasColumnType("character varying");
+
+                entity.Property(e => e.Phone).HasColumnType("character varying");
+
+                entity.HasOne(d => d.Promotion)
+                    .WithMany(p => p.Leads)
+                    .HasForeignKey(d => d.PromotionId)
+                    .HasConstraintName("fk_promotions");
+            });
+
             modelBuilder.Entity<PromotionFocusGroup>(entity =>
             {
                 entity.HasOne(d => d.FocusGroup)
@@ -90,7 +107,7 @@ namespace Pheesible.Promotions.EF
 
                 entity.Property(e => e.SubId)
                     .IsRequired()
-                    .HasMaxLength(20);
+                    .HasColumnType("character varying");
 
                 entity.Property(e => e.TagLine).HasColumnType("character varying");
 

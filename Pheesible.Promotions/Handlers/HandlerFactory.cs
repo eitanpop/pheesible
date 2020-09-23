@@ -10,7 +10,11 @@ namespace Pheesible.Promotions.Handlers
         public IHandler Get(APIGatewayProxyRequest request)
         {
             if (request.HttpMethod.ToLower() == "post")
+            {
+                if (request.Path.Equals("/promotion/lead", StringComparison.CurrentCultureIgnoreCase))
+                    return new CreateLeadHandler();
                 return new CreateHandler();
+            }
 
             if (request.HttpMethod.ToLower() == "get")
             {
@@ -18,7 +22,6 @@ namespace Pheesible.Promotions.Handlers
                     return new TemplateGetHandler();
                 return new GetHandler();
             }
-                
 
             throw new Exception("Unsupported verb passed!");
         }

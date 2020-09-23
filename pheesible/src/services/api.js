@@ -22,3 +22,11 @@ export const getTemplates = async () => {
 export const createPaymentIntent = async (amount) => {
   return await API.get(apiName, `/billing/${amount}`)
 }
+
+export const saveLead = async (promotionId, lead) => {
+  console.log('lead', { promotionId, ...lead })
+  return await axios.post(
+    `${process.env.REACT_APP_API_URL}/promotion/lead`,
+    JSON.stringify({ promotionId, ...lead })
+  )
+}

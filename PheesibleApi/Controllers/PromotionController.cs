@@ -58,6 +58,17 @@ namespace PheesibleApi.Controllers
             return result.Body;
         }
 
+        [HttpPost("lead")]
+        public async Task<string> PostLead()
+        {
+            var body = await GetRequestContent();
+            var function = new Function();
+            var result = await function.FunctionHandler(new APIGatewayProxyRequest { Body = body, HttpMethod = "Post", Path = "/promotion/lead" }, null);
+
+            return result.Body;
+
+        }
+
 
         private async Task<string> GetRequestContent()
         {

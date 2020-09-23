@@ -10,6 +10,7 @@ export default ({
   imageOne,
   imageTwo,
   imageThree,
+  isLive,
 }) => {
   const { templates } = useContext(PromotionContext)
   const name = templates
@@ -25,6 +26,7 @@ export default ({
       imageOne={imageOne}
       imageTwo={imageTwo}
       imageThree={imageThree}
+      isLive={isLive}
     />
   )
 }

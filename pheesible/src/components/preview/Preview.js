@@ -23,7 +23,7 @@ export default ({ promotion, isLive = false, fullScreen = false }) => {
   console.log('promotion', promotion)
 
   if (!promotion) return <div>Loading...</div>
-
+  
   if (fullScreen)
     return (
       <>
@@ -35,6 +35,7 @@ export default ({ promotion, isLive = false, fullScreen = false }) => {
           imageOne={imageOne}
           imageTwo={imageTwo}
           imageThree={imageThree}
+          isLive={isLive}
         />
       </>
     )
@@ -51,6 +52,7 @@ export default ({ promotion, isLive = false, fullScreen = false }) => {
           imageOne={imageOne}
           imageTwo={imageTwo}
           imageThree={imageThree}
+          isLive={isLive}
         />
       </div>
     </div>

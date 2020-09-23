@@ -1,5 +1,7 @@
 import React from 'react'
 
+import useLeadGenerator from '../../../hooks/useLeadGenerator'
+
 export default ({
   promotion,
   logo,
@@ -7,7 +9,9 @@ export default ({
   imageOne,
   imageTwo,
   imageThree,
+  isLive,
 }) => {
+  const { properties, setProperty, save } = useLeadGenerator(isLive)
   const { title, tagLine, elevatorPitch } = promotion.fields
   return (
     <div>
@@ -103,6 +107,25 @@ export default ({
         </div>
         <div className='row'>{promotion.freeText}</div>
         {/* /.row */}
+        <div className='row'>
+          <div className='col'>
+            {properties.map((x) => {
+              return (
+                <div>
+                  <label>{x.displayName}</label>
+                  <br />
+                  <input
+                    type={x.type}
+                    value={x[x.value || '']}
+                    onChange={(e) => setProperty(x.name, e.target.value)}
+                  />
+                </div>
+              )
+            })}
+            <br />
+            <input type='button' onClick={() => save(promotion.id)} value='Save' />
+          </div>
+        </div>
       </div>
       {/* /.container */}
     </div>

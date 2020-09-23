@@ -19,5 +19,5 @@ export default () => {
 
   if (loading) return <div>Loading...</div>
   console.log('promotions', promotion)
-  return <Preview promotion={promotion} fullScreen={true} />
+  return <Preview promotion={promotion} isLive={true} fullScreen={true} />
 }

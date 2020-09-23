@@ -119,11 +119,9 @@ export default ({ promotion, setPromotion }) => {
           )}
         </div>
       </div>
-      <div
-        className='col-sm-9 pl-3 pb-2  d-flex justify-content-center bg-light'
-        style={{ height: '100vh' }}>
+      <div className='col-sm-9 pl-3 pb-2  d-flex justify-content-center bg-light'>
         {promotion.stepNumber !== OrderedWizardSteps.Ad ? (
-          <Preview promotion={promotion} />
+          <Preview promotion={promotion} isLive={true} />
         ) : (
           <AdPreview promotion={promotion} />
         )}

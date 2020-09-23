@@ -9,6 +9,7 @@ namespace Pheesible.Promotions.EF
         {
             Ads = new HashSet<Ads>();
             Features = new HashSet<Features>();
+            Leads = new HashSet<Leads>();
             PromotionFocusGroup = new HashSet<PromotionFocusGroup>();
             SellingPoints = new HashSet<SellingPoints>();
         }
@@ -30,6 +31,7 @@ namespace Pheesible.Promotions.EF
         public virtual Templates Template { get; set; }
         public virtual ICollection<Ads> Ads { get; set; }
         public virtual ICollection<Features> Features { get; set; }
+        public virtual ICollection<Leads> Leads { get; set; }
         public virtual ICollection<PromotionFocusGroup> PromotionFocusGroup { get; set; }
         public virtual ICollection<SellingPoints> SellingPoints { get; set; }
     }
