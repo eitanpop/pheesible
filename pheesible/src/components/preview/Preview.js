@@ -20,8 +20,6 @@ export default ({ promotion, isLive = false, fullScreen = false }) => {
     setImageThree
   )
 
-  console.log('promotion', promotion)
-
   if (!promotion) return <div>Loading...</div>
   
   if (fullScreen)

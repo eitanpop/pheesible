@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import useStateWithCallback from 'use-state-with-callback'
 
 import { OrderedWizardSteps } from '../constants.js'
 import Templates from '../components/steps/Templates'
@@ -16,61 +15,70 @@ import Ad from '../components/steps/Ad'
 
 import { getUserCognitoIdentityPoolId } from '../services/auth'
 
-const getComponentByStep = (promotion, updatePromotion) => {
+const getComponentByStep = (
+  promotion,
+  updatePromotion,
+  isValidating,
+  setStepValid
+) => {
   const { stepNumber } = promotion
+
+  console.log('stepNumber', stepNumber)
+
+  let component = null
 
   switch (stepNumber) {
     case OrderedWizardSteps.Templates:
-      return (
-        <Templates promotion={promotion} updatePromotion={updatePromotion} />
-      )
+      component = <Templates />
+      break
     case OrderedWizardSteps.BasicInformation:
-      return (
-        <BasicInformation
-          promotion={promotion}
-          updatePromotion={updatePromotion}
-        />
-      )
+      component = <BasicInformation />
+      break
     case OrderedWizardSteps.SellingPoints:
-      return (
-        <SellingPoints
-          promotion={promotion}
-          updatePromotion={updatePromotion}
-        />
-      )
+      component = <SellingPoints />
+      break
     case OrderedWizardSteps.Features:
-      return (
-        <Features promotion={promotion} updatePromotion={updatePromotion} />
-      )
+      component = <Features />
+      break
     case OrderedWizardSteps.ImageUpload:
-      return (
-        <ImageUpload promotion={promotion} updatePromotion={updatePromotion} />
-      )
+      component = <ImageUpload />
+      break
     case OrderedWizardSteps.BottomText:
-      return (
-        <BottomText promotion={promotion} updatePromotion={updatePromotion} />
-      )
+      component = <BottomText />
+      break
     case OrderedWizardSteps.Ad:
-      return <Ad promotion={promotion} updatePromotion={updatePromotion} />
+      component = <Ad />
+      break
     case OrderedWizardSteps.PromotionSettings:
-      return (
-        <PromotionSettings
-          promotion={promotion}
-          updatePromotion={updatePromotion}
-        />
-      )
+      component = <PromotionSettings />
+      break
 
     default:
       throw Error('invalid step number')
   }
+
+  return React.cloneElement(component, {
+    promotion,
+    updatePromotion,
+    isValidating,
+    setStepValid,
+  })
 }
 
 export default ({ promotion, setPromotion }) => {
+  const [currentStepValid, setCurrentStepValid] = useState(false)
+  const [isValidating, setIsValidating] = useState(false)
+
+  const setStepValid = (isValid) => {
+    setIsValidating(false)
+    setCurrentStepValid(isValid)
+  }
+
   const updatePromotion = (key, val) => {
     setPromotion({ ...promotion, [key]: val })
   }
   const [component, setComponent] = useState(
-    getComponentByStep(promotion, updatePromotion)
+    getComponentByStep(promotion, updatePromotion, isValidating, setStepValid)
   )
   useEffect(() => {
     const updateIdentityId = async () => {
@@ -81,12 +89,30 @@ export default ({ promotion, setPromotion }) => {
   }, [])
 
   useEffect(() => {
-    setComponent(getComponentByStep(promotion, updatePromotion))
     console.log('promotion', promotion)
-  }, [JSON.stringify(promotion)])
+    setComponent(
+      getComponentByStep(promotion, updatePromotion, isValidating, setStepValid)
+    )
+  }, [JSON.stringify(promotion), isValidating])
+
+  useEffect(() => {
+    console.log('currentStepValid in currentStepValid useEffect')
+    if (currentStepValid) {
+        updatePromotion('stepNumber', promotion.stepNumber + 1)
+    }
+    setCurrentStepValid(false)
+    setIsValidating(false)
+  }, [currentStepValid])
 
   const nextStep = () => {
-    updatePromotion('stepNumber', promotion.stepNumber + 1)
+    console.log('called nextStep  in nextstep')
+    console.log('isValidating  in nextstep', isValidating)
+    console.log('currentStepValid in nextstep', currentStepValid)
+    console.log(
+      'isValidating should be false and currentStepValid should be false'
+    )
+    console.log('setIsValidating to true')
+    setIsValidating(true)
   }
 
   const previousStep = () => {

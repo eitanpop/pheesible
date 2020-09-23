@@ -1,6 +1,11 @@
 import React from 'react'
 
-export default ({ promotion, updatePromotion }) => {
+export default ({ promotion, updatePromotion, isValidating, setStepValid }) => {
+  if (isValidating) {
+    console.log('isValidating is true and setting currentStepValid to true')
+    setStepValid(true)
+  }
+
   return (
     <div class='form-group'>
       <label for='exampleFormControlTextarea1'>Bottom Text</label>
