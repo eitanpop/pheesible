@@ -19,11 +19,13 @@ import { getUserCognitoIdentityPoolId } from '../services/auth'
 const getComponentByStep = (
   promotion,
   updatePromotion,
-  isValidating,
-  setCurrentStepValid,
-  setIsValidating
+  isRequestingNextStep,
+  setIsRequestingNextStep,
+  setIsNextStepConfirmed
 ) => {
   const { stepNumber } = promotion
+
+  const stopRequestingNextStep = () => setIsRequestingNextStep(false)
 
   //console.log('stepNumber', stepNumber)
 
@@ -62,15 +64,15 @@ const getComponentByStep = (
   return React.cloneElement(component, {
     promotion,
     updatePromotion,
-    isValidating,
-    setCurrentStepValid,
-    setIsValidating,
+    isRequestingNextStep,
+    stopRequestingNextStep,
+    setIsNextStepConfirmed,
   })
 }
 
 export default ({ promotion, setPromotion }) => {
-  const [currentStepValid, setCurrentStepValid] = useState(false)
-  const [isValidating, setIsValidating] = useState(false)
+  const [isRequestingNextStep, setIsRequestingNextStep] = useState(false)
+  const [isNextStepConfirmed, setIsNextStepConfirmed] = useState(false)
 
   const updatePromotion = (key, val) => {
     setPromotion({ ...promotion, [key]: val })
@@ -79,9 +81,9 @@ export default ({ promotion, setPromotion }) => {
     getComponentByStep(
       promotion,
       updatePromotion,
-      isValidating,
-      setCurrentStepValid,
-      setIsValidating
+      isRequestingNextStep,
+      setIsRequestingNextStep,
+      setIsNextStepConfirmed
     )
   )
 
@@ -99,28 +101,25 @@ export default ({ promotion, setPromotion }) => {
       getComponentByStep(
         promotion,
         updatePromotion,
-        isValidating,
-        setCurrentStepValid,
-        setIsValidating
+        isRequestingNextStep,
+        setIsRequestingNextStep,
+        setIsNextStepConfirmed
       )
     )
-  }, [JSON.stringify(promotion), isValidating])
+  }, [JSON.stringify(promotion), isRequestingNextStep])
 
+  // calback when the child component confirms next step
   useEffect(() => {
-    console.log(
-      'currentStepValid in currentStepValid useEffect',
-      currentStepValid
-    )
-    if (currentStepValid) {
+    if (isNextStepConfirmed) {
       updatePromotion('stepNumber', promotion.stepNumber + 1)
     }
-    setCurrentStepValid(false)
-    setIsValidating(false)
-  }, [currentStepValid])
+    setIsNextStepConfirmed(false)
+    setIsRequestingNextStep(false)
+  }, [isNextStepConfirmed])
 
   const nextStep = () => {
-    // start the validation process, if the process of validating is true and the child component set currentStepValid, we go to next step
-    setIsValidating(true)
+    // Asks the child component if we're cool to go to next step
+    setIsRequestingNextStep(true)
   }
 
   const previousStep = () => {

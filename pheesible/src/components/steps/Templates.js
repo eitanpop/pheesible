@@ -5,17 +5,17 @@ import PromotionContext from '../../context/promotionContext'
 export default ({
   promotion,
   updatePromotion,
-  isValidating,
-  setCurrentStepValid,
-  setIsValidating,
+  isRequestingNextStep,
+  stopRequestingNextStep,
+  setIsNextStepConfirmed,
 }) => {
   const { templates } = useContext(PromotionContext)
 
-  if (isValidating) {
+  if (isRequestingNextStep) {
     console.log('isValidating is true and setting currentStepValid to true')
-    setIsValidating(false)
-    setCurrentStepValid(true)
+    setIsNextStepConfirmed(true)
   }
+
   return (
     <div>
       <div>TEMPLATES</div>

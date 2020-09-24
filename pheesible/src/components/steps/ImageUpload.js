@@ -3,15 +3,20 @@ import React from 'react'
 import Uploader from '../file/Uploader'
 import FileClear from '../file/FileClear'
 
-export default ({ promotion, updatePromotion, isValidating,  setCurrentStepValid, setIsValidating }) => {
+export default ({
+  promotion,
+  updatePromotion,
+  isRequestingNextStep,
+  stopRequestingNextStep,
+  setIsNextStepConfirmed,
+}) => {
   const updateImageOnPromotion = (imageName, key) => {
     const images = { ...promotion.images, [imageName]: key }
     updatePromotion('images', images)
   }
-  if (isValidating) {
+  if (isRequestingNextStep) {
     console.log('isValidating is true and setting currentStepValid to true')
-    setIsValidating(false)
-    setCurrentStepValid(true)
+    setIsNextStepConfirmed(true)
   }
 
   return (

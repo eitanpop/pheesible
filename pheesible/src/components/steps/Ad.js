@@ -3,17 +3,23 @@ import React from 'react'
 import Uploader from '../file/Uploader'
 import FileClear from '../file/FileClear'
 
-export default ({ promotion, updatePromotion, isValidating, setStepValid }) => {
+export default ({
+  promotion,
+  updatePromotion,
+  isRequestingNextStep,
+  stopRequestingNextStep,
+  setIsNextStepConfirmed,
+}) => {
   const updateAdOnPromotion = (key, value) => {
     const ad = { ...promotion.ad, [key]: value }
     updatePromotion('ad', ad)
   }
 
-  if (isValidating) {
+  if (isRequestingNextStep) {
     console.log('isValidating is true and setting currentStepValid to true')
-    setStepValid(true)
+    setIsNextStepConfirmed(true)
   }
-
+  
   return (
     <>
       <div className='form-group'>

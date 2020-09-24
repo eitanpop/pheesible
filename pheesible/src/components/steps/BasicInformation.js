@@ -5,7 +5,13 @@ import Uploader from '../file/Uploader'
 import FileClear from '../file/FileClear'
 import ErrorMessage from '../ErrorMessage'
 
-export default ({ promotion, updatePromotion, isValidating,  setCurrentStepValid, setIsValidating }) => {
+export default ({
+  promotion,
+  updatePromotion,
+  isRequestingNextStep,
+  stopRequestingNextStep,
+  setIsNextStepConfirmed,
+}) => {
   const updateFieldsOnPromotion = (key, value) => {
     const fields = { ...promotion.fields, [key]: value }
     updatePromotion('fields', fields)
@@ -14,9 +20,9 @@ export default ({ promotion, updatePromotion, isValidating,  setCurrentStepValid
   const { title, tagLine, elevatorPitch } = promotion.fields
 
   const error = useError(
-    isValidating,
-    setIsValidating,
-    setCurrentStepValid,
+    isRequestingNextStep,
+    stopRequestingNextStep,
+    setIsNextStepConfirmed,
     (addError, setIsValid) => {
       if (!tagLine) {
         setIsValid(false)

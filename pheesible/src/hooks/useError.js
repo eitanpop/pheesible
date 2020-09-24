@@ -2,41 +2,38 @@ import { useState, useEffect } from 'react'
 import _ from 'lodash'
 
 export default (
-  isValidating,
-  setIsValidating,
-  setCurrentStepValid,
+  isRequestingNextStep,
+  stopRequestingNextStep,
+  setIsNextStepConfirmed,
   validatorFunction,
   dependencies
 ) => {
   const [error, setError] = useState({})
-  const [isInternallyValidating, setIsInternallyValidating] = useState(false)
+  const [isValidating, setIsValidating] = useState(false)
 
-  let internalError = {}
+  let errorAggregate = {}
   const addError = (key, value) => {
-    internalError = { ...internalError, [key]: value }
+    errorAggregate = { ...errorAggregate, [key]: value }
   }
 
   useEffect(() => {
-    console.log('isValidating in setIsInternallyValidating block')
-    if (isValidating) setIsInternallyValidating(true)
-    setIsValidating(false)
-  }, [isValidating, setIsValidating])
+    if (isRequestingNextStep) setIsValidating(true)
+  }, [isRequestingNextStep])
 
   useEffect(() => {
-    console.log('isInternallyValidating', isInternallyValidating)
-    if (!isInternallyValidating) return
+    if (!isValidating) return
     let isValid = true
     const setIsValid = (valid) => {
       isValid = valid
     }
     validatorFunction(addError, setIsValid)
 
-    if (!_.isEqual(error, internalError)) setError(internalError)
-    console.log('isValid', isValid)
-    console.log('error', error)
-    console.log('internalError', internalError)
-    if (isValid && isValidating) setCurrentStepValid(true)
-  }, [isInternallyValidating, dependencies])
+    if (!_.isEqual(error, errorAggregate)) setError(errorAggregate)
+
+    if (!isValid) stopRequestingNextStep()
+
+    if (isValid && isRequestingNextStep) setIsNextStepConfirmed(true)
+  }, [isValidating, dependencies])
 
   return error
 }

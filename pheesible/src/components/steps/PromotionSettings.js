@@ -3,7 +3,13 @@ import React from 'react'
 import FocusGroupsSetting from '../FocusGroupSetting'
 import { FocusGroups } from '../../constants'
 
-export default ({ promotion, updatePromotion, isValidating,  setCurrentStepValid, setIsValidating }) => {
+export default ({
+  promotion,
+  updatePromotion,
+  isRequestingNextStep,
+  stopRequestingNextStep,
+  setIsNextStepConfirmed,
+}) => {
   const updateSettingsOnPromotion = (adNetwork, key, value) => {
     const settings = {
       ...promotion.promotionSettings,
@@ -20,10 +26,9 @@ export default ({ promotion, updatePromotion, isValidating,  setCurrentStepValid
     )
   }
 
-  if (isValidating) {
+  if (isRequestingNextStep) {
     console.log('isValidating is true and setting currentStepValid to true')
-    setIsValidating(false)
-    setCurrentStepValid(true)
+    setIsNextStepConfirmed(true)
   }
 
   return (

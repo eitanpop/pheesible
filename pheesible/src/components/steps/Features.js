@@ -2,15 +2,21 @@ import React from 'react'
 
 import NameDescribe from '../TitleDescribe'
 
-export default ({ promotion, updatePromotion, isValidating,  setCurrentStepValid, setIsValidating }) => {
-  if (isValidating) {
+export default ({
+  promotion,
+  updatePromotion,
+  isRequestingNextStep,
+  stopRequestingNextStep,
+  setIsNextStepConfirmed,
+}) => {
+  if (isRequestingNextStep) {
     console.log('isValidating is true and setting currentStepValid to true')
-    setIsValidating(false)
-    setCurrentStepValid(true)
+    setIsNextStepConfirmed(true)
   }
+
   return (
     <div>
-        <h1>Features</h1>
+      <h1>Features</h1>
       <NameDescribe
         sellingPoint={promotion.features[0] || {}}
         onSellingPointChange={(e) => {
