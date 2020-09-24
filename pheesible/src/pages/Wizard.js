@@ -15,6 +15,7 @@ import Ad from '../components/steps/Ad'
 
 import { getUserCognitoIdentityPoolId } from '../services/auth'
 
+// we pass 'setIsValidating' to stop the wizard from proceeding to next step. This happens when there were errors and the user wants to fix them and click next again
 const getComponentByStep = (
   promotion,
   updatePromotion,
@@ -63,7 +64,7 @@ const getComponentByStep = (
     updatePromotion,
     isValidating,
     setCurrentStepValid,
-    setIsValidating
+    setIsValidating,
   })
 }
 
@@ -75,8 +76,15 @@ export default ({ promotion, setPromotion }) => {
     setPromotion({ ...promotion, [key]: val })
   }
   const [component, setComponent] = useState(
-    getComponentByStep(promotion, updatePromotion, isValidating, setCurrentStepValid, setIsValidating)
+    getComponentByStep(
+      promotion,
+      updatePromotion,
+      isValidating,
+      setCurrentStepValid,
+      setIsValidating
+    )
   )
+
   useEffect(() => {
     const updateIdentityId = async () => {
       const identityId = await getUserCognitoIdentityPoolId()
@@ -85,11 +93,16 @@ export default ({ promotion, setPromotion }) => {
     updateIdentityId()
   }, [])
 
+  // gets the component according to what step we are on
   useEffect(() => {
-    console.log('promotion', promotion)
-    console.log('isValidating', isValidating)
     setComponent(
-      getComponentByStep(promotion, updatePromotion, isValidating,  setCurrentStepValid, setIsValidating)
+      getComponentByStep(
+        promotion,
+        updatePromotion,
+        isValidating,
+        setCurrentStepValid,
+        setIsValidating
+      )
     )
   }, [JSON.stringify(promotion), isValidating])
 
@@ -106,6 +119,7 @@ export default ({ promotion, setPromotion }) => {
   }, [currentStepValid])
 
   const nextStep = () => {
+    // start the validation process, if the process of validating is true and the child component set currentStepValid, we go to next step
     setIsValidating(true)
   }
 
