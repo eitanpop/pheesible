@@ -19,11 +19,12 @@ const getComponentByStep = (
   promotion,
   updatePromotion,
   isValidating,
-  setStepValid
+  setCurrentStepValid,
+  setIsValidating
 ) => {
   const { stepNumber } = promotion
 
-  console.log('stepNumber', stepNumber)
+  //console.log('stepNumber', stepNumber)
 
   let component = null
 
@@ -61,7 +62,8 @@ const getComponentByStep = (
     promotion,
     updatePromotion,
     isValidating,
-    setStepValid,
+    setCurrentStepValid,
+    setIsValidating
   })
 }
 
@@ -69,16 +71,11 @@ export default ({ promotion, setPromotion }) => {
   const [currentStepValid, setCurrentStepValid] = useState(false)
   const [isValidating, setIsValidating] = useState(false)
 
-  const setStepValid = (isValid) => {
-    setIsValidating(false)
-    setCurrentStepValid(isValid)
-  }
-
   const updatePromotion = (key, val) => {
     setPromotion({ ...promotion, [key]: val })
   }
   const [component, setComponent] = useState(
-    getComponentByStep(promotion, updatePromotion, isValidating, setStepValid)
+    getComponentByStep(promotion, updatePromotion, isValidating, setCurrentStepValid, setIsValidating)
   )
   useEffect(() => {
     const updateIdentityId = async () => {
@@ -90,28 +87,25 @@ export default ({ promotion, setPromotion }) => {
 
   useEffect(() => {
     console.log('promotion', promotion)
+    console.log('isValidating', isValidating)
     setComponent(
-      getComponentByStep(promotion, updatePromotion, isValidating, setStepValid)
+      getComponentByStep(promotion, updatePromotion, isValidating,  setCurrentStepValid, setIsValidating)
     )
   }, [JSON.stringify(promotion), isValidating])
 
   useEffect(() => {
-    console.log('currentStepValid in currentStepValid useEffect')
+    console.log(
+      'currentStepValid in currentStepValid useEffect',
+      currentStepValid
+    )
     if (currentStepValid) {
-        updatePromotion('stepNumber', promotion.stepNumber + 1)
+      updatePromotion('stepNumber', promotion.stepNumber + 1)
     }
     setCurrentStepValid(false)
     setIsValidating(false)
   }, [currentStepValid])
 
   const nextStep = () => {
-    console.log('called nextStep  in nextstep')
-    console.log('isValidating  in nextstep', isValidating)
-    console.log('currentStepValid in nextstep', currentStepValid)
-    console.log(
-      'isValidating should be false and currentStepValid should be false'
-    )
-    console.log('setIsValidating to true')
     setIsValidating(true)
   }
 

@@ -1,33 +1,52 @@
 import React from 'react'
 
+import useError from '../../hooks/useError'
 import Uploader from '../file/Uploader'
 import FileClear from '../file/FileClear'
+import ErrorMessage from '../ErrorMessage'
 
-export default ({ promotion, updatePromotion, isValidating, setStepValid }) => {
+export default ({ promotion, updatePromotion, isValidating,  setCurrentStepValid, setIsValidating }) => {
   const updateFieldsOnPromotion = (key, value) => {
     const fields = { ...promotion.fields, [key]: value }
     updatePromotion('fields', fields)
   }
 
-  if (isValidating) {
-    console.log('isValidating is true and setting currentStepValid to true')
-    setStepValid(true)
-  }
-
   const { title, tagLine, elevatorPitch } = promotion.fields
+
+  const error = useError(
+    isValidating,
+    setIsValidating,
+    setCurrentStepValid,
+    (addError, setIsValid) => {
+      if (!tagLine) {
+        setIsValid(false)
+        addError('tagLine', 'Please fill out a tag line')
+      }
+      if (!title) {
+        setIsValid(false)
+        addError('title', 'Please fill out a title')
+      }
+
+      if (!elevatorPitch) {
+        setIsValid(false)
+        addError('elevatorPitch', 'Please fill out an elevator pitch')
+      }
+    },
+    [JSON.stringify(promotion)]
+  )
 
   return (
     <>
       <div>
         <div className='form-group'>
-          <label htmlFor='title'>Title</label>
+          <label htmlFor='title'>Title*</label>
           <input
-            className='form-control'
+            className={`form-control ${error.title ? ' has-error ' : ''}`}
             id='title'
-            placeholder='Title'
             onChange={(e) => updateFieldsOnPromotion('title', e.target.value)}
             value={title || ''}
           />
+          <ErrorMessage errorMessage={error.title} />
         </div>
 
         <div className='form-group'>
@@ -71,25 +90,29 @@ export default ({ promotion, updatePromotion, isValidating, setStepValid }) => {
         </div>
 
         <div className='form-group'>
-          <label htmlFor='tagLine'>Tag line</label>
+          <label htmlFor='tagLine'>Tag line*</label>
           <textarea
-            className='form-control'
+            className={`form-control ${error.tagLine ? ' has-error ' : ''}`}
             id='tagLine'
             rows='2'
             onChange={(e) => updateFieldsOnPromotion('tagLine', e.target.value)}
             value={tagLine || ''}></textarea>
+          <ErrorMessage errorMessage={error.tagLine} />
         </div>
 
         <div className='form-group'>
-          <label htmlFor='summary'>Elevator Pitch</label>
+          <label htmlFor='summary'>Elevator Pitch*</label>
           <textarea
-            className='form-control'
+            className={`form-control ${
+              error.elevatorPitch ? ' has-error ' : ''
+            }`}
             id='tagLine'
             rows='6'
             onChange={(e) =>
               updateFieldsOnPromotion('elevatorPitch', e.target.value)
             }
             value={elevatorPitch || ''}></textarea>
+          <ErrorMessage errorMessage={error.elevatorPitch} />
         </div>
       </div>
     </>

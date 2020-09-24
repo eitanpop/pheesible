@@ -6,13 +6,15 @@ export default ({
   promotion,
   updatePromotion,
   isValidating,
-  setStepValid,
+  setCurrentStepValid,
+  setIsValidating,
 }) => {
   const { templates } = useContext(PromotionContext)
 
   if (isValidating) {
-    console.log('isValidating is true and setting currentStepValid to true')    
-    setStepValid(true)    
+    console.log('isValidating is true and setting currentStepValid to true')
+    setIsValidating(false)
+    setCurrentStepValid(true)
   }
   return (
     <div>

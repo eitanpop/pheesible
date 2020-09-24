@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default ({ promotion, updatePromotion, isValidating, setStepValid }) => {
+export default ({ promotion, updatePromotion, isValidating,  setCurrentStepValid, setIsValidating }) => {
   if (isValidating) {
     console.log('isValidating is true and setting currentStepValid to true')
-    setStepValid(true)
+    setIsValidating(false)
+    setCurrentStepValid(true)
   }
 
   return (
