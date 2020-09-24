@@ -1,6 +1,8 @@
 import React from 'react'
 
+import useError from '../../hooks/useError'
 import NameDescribe from '../TitleDescribe'
+import ErrorMessage from '../ErrorMessage'
 
 export default ({
   promotion,
@@ -9,10 +11,18 @@ export default ({
   stopRequestingNextStep,
   setIsNextStepConfirmed,
 }) => {
-  if (isRequestingNextStep) {
-    console.log('isValidating is true and setting currentStepValid to true')
-    setIsNextStepConfirmed(true)
-  }
+  const error = useError(
+    isRequestingNextStep,
+    stopRequestingNextStep,
+    setIsNextStepConfirmed,
+    (addError, setIsValid) => {
+      if (!promotion.features.length) {
+        setIsValid(false)
+        addError('global', 'Please add at least one feature')
+      }
+    },
+    [JSON.stringify(promotion)]
+  )
 
   return (
     <div>
@@ -60,6 +70,7 @@ export default ({
       />
 
       <hr stlye={{ width: '90%' }} />
+      <ErrorMessage errorMessage={error.global} />
     </div>
   )
 }

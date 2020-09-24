@@ -1,7 +1,9 @@
 import React from 'react'
 
+import useError from '../../hooks/useError'
 import Uploader from '../file/Uploader'
 import FileClear from '../file/FileClear'
+import ErrorMessage from '../ErrorMessage'
 
 export default ({
   promotion,
@@ -15,11 +17,19 @@ export default ({
     updatePromotion('ad', ad)
   }
 
-  if (isRequestingNextStep) {
-    console.log('isValidating is true and setting currentStepValid to true')
-    setIsNextStepConfirmed(true)
-  }
-  
+  const error = useError(
+    isRequestingNextStep,
+    stopRequestingNextStep,
+    setIsNextStepConfirmed,
+    (addError, setIsValid) => {
+      if (!promotion.ad.text) {
+        setIsValid(false)
+        addError('text', 'Please add some text for the ad')
+      }
+    },
+    [JSON.stringify(promotion)]
+  )
+
   return (
     <>
       <div className='form-group'>
@@ -44,11 +54,12 @@ export default ({
       <div className='form-group'>
         <label htmlFor='summary'>AD Text</label>
         <textarea
-          className='form-control'
+          className={`form-control ${error.text ? ' has-error ' : ''}`}
           id='tagLine'
           rows='6'
           onChange={(e) => updateAdOnPromotion('text', e.target.value)}
           value={promotion.ad.text || ''}></textarea>
+        <ErrorMessage errorMessage={error.text} />
       </div>
     </>
   )
