@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,14 +9,14 @@ namespace Pheesible.Console
     {
         private static string[] _args;
         private static IApp _app;
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             _args = args;
             var services = new ServiceCollection();
             ConfigureServices(services);
             var serviceProvider = services.BuildServiceProvider();
             _app = serviceProvider.GetService<IApp>();
-            _app.Run();
+            await _app.Run();
         }
 
         static void ConfigureServices(IServiceCollection serviceCollection)

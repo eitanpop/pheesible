@@ -18,6 +18,8 @@ namespace Pheesible.Promotions.Handlers
 
             if (request.HttpMethod.ToLower() == "get")
             {
+                if(request.Path.Contains("/promotion/public/", StringComparison.CurrentCultureIgnoreCase))
+                    return new PublicHandler();
                 if (request.Path.Equals("/promotion/templates", StringComparison.CurrentCultureIgnoreCase))
                     return new TemplateGetHandler();
                 return new GetHandler();
