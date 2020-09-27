@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Pheesible.Integrations.Facebook.Models;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Pheesible.Integrations.Facebook
 {
@@ -15,7 +19,7 @@ namespace Pheesible.Integrations.Facebook
             _config = config;
         }
 
-        public async Task<HttpResponseMessage> CreateCampaign(string name, string status = "PAUSED")
+        public async Task<Id> CreateCampaign(string name, string status = "PAUSED")
         {
             using var httpClient = new HttpClient();
             using var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://graph.facebook.com/v{_config.ApiVersion}/act_{_config.AdAccountId}/campaigns");
@@ -26,13 +30,12 @@ namespace Pheesible.Integrations.Facebook
             multipartContent.Add(new StringContent("[]"), "special_ad_categories");
             multipartContent.Add(new StringContent(_config.AccessToken), "access_token");
             request.Content = multipartContent;
-
             var response = await httpClient.SendAsync(request);
-            return response;
+            return await ReturnModelOrThrowError<Id>(response);
         }
 
 
-        public async Task<HttpResponseMessage> CreateAdSet(string name, int days, int budget, string campaignId, string status = "PAUSED")
+        public async Task<Id> CreateAdSet(string name, int days, int budget, string campaignId, string status = "PAUSED")
         {
             using var httpClient = new HttpClient();
             using var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://graph.facebook.com/v{_config.ApiVersion}/act_{_config.AdAccountId}/adsets");
@@ -43,7 +46,7 @@ namespace Pheesible.Integrations.Facebook
             multipartContent.Add(new StringContent("LOWEST_COST_WITHOUT_CAP"), "bid_strategy");
             multipartContent.Add(new StringContent(budget.ToString()), "daily_budget");
             multipartContent.Add(new StringContent(campaignId), "campaign_id");
-            multipartContent.Add(new StringContent("{\"geo_locations\": {\"countries\":[\"US\"]}}"),"targeting");
+            multipartContent.Add(new StringContent("{\"geo_locations\": {\"countries\":[\"US\"]}}"), "targeting");
             multipartContent.Add(new StringContent(DateTime.UtcNow.ToString("o")), "start_time");
             multipartContent.Add(new StringContent(DateTime.UtcNow.AddDays(days).ToString("o")), "end_time");
             multipartContent.Add(new StringContent(status), "status");
@@ -51,10 +54,10 @@ namespace Pheesible.Integrations.Facebook
             request.Content = multipartContent;
 
             var response = await httpClient.SendAsync(request);
-            return response;
+            return await ReturnModelOrThrowError<Id>(response);
         }
 
-        public async Task<HttpResponseMessage> CreateAdImageObject(byte[] image, string fileName)
+        public async Task<Image> CreateAdImageObject(byte[] image, string fileName)
         {
             using var httpClient = new HttpClient();
             using var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://graph.facebook.com/v{_config.ApiVersion}/act_{_config.AdAccountId}/adimages");
@@ -64,10 +67,17 @@ namespace Pheesible.Integrations.Facebook
             request.Content = multipartContent;
 
             var response = await httpClient.SendAsync(request);
-            return response;
+
+            if (response.IsSuccessStatusCode != true)
+                throw new Exception(response.ReasonPhrase);
+
+            string content = await response.Content.ReadAsStringAsync();
+            JObject obj = JObject.Parse(content);
+            return obj.SelectToken("images.*").ToObject<Image>();
+
         }
 
-        public async Task<HttpResponseMessage> CreateAdCreative(string name, AdCreative adCreative)
+        public async Task<Id> CreateAdCreative(string name, AdCreative adCreative)
         {
             using var httpClient = new HttpClient();
             using var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://graph.facebook.com/v{_config.ApiVersion}/act_{_config.AdAccountId}/adcreatives");
@@ -77,10 +87,10 @@ namespace Pheesible.Integrations.Facebook
             multipartContent.Add(new StringContent(_config.AccessToken), "access_token");
             request.Content = multipartContent;
             var response = await httpClient.SendAsync(request);
-            return response;
+            return await ReturnModelOrThrowError<Id>(response);
         }
 
-        public async Task<HttpResponseMessage> CreateAd(string name, string adSetId, string creativeId, string status="PAUSED")
+        public async Task<Id> CreateAd(string name, string adSetId, string creativeId, string status = "PAUSED")
         {
             using var httpClient = new HttpClient();
             using var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://graph.facebook.com/v8.0/act_{_config.AdAccountId}/ads");
@@ -93,20 +103,26 @@ namespace Pheesible.Integrations.Facebook
             request.Content = multipartContent;
 
             var response = await httpClient.SendAsync(request);
-            return response;
+            return await ReturnModelOrThrowError<Id>(response);
         }
 
-        public async Task<HttpResponseMessage> GetReportForAdSet(string adSetId, string[] fields)
+        public async Task<Report> GetReportForAdSet(string adSetId, string[] fields)
         {
             using (var httpClient = new HttpClient())
             {
-                using var request = new HttpRequestMessage(new HttpMethod("GET"), 
+                using var request = new HttpRequestMessage(new HttpMethod("GET"),
                     $"https://graph.facebook.com/v{_config.ApiVersion}/{adSetId}/insights?fields=" +
                     $"{HttpUtility.UrlEncode(String.Join(",", fields))}&access_token={_config.AccessToken}");
                 var response = await httpClient.SendAsync(request);
-
-                return response;
+                return await ReturnModelOrThrowError<Report>(response);
             }
+        }
+
+        private async Task<T> ReturnModelOrThrowError<T>(HttpResponseMessage response)
+        {
+            if (response.IsSuccessStatusCode != true)
+                throw new Exception(response.ReasonPhrase);
+            return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync());
         }
     }
 }

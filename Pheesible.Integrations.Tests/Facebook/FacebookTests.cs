@@ -1,6 +1,7 @@
 using Pheesible.Integrations.Facebook;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -14,9 +15,7 @@ namespace Pheesible.Integrations.Tests
             var config = new FacebookConfigTestObject();
             var api = new FacebookApi(config);
             var response = await api.CreateCampaign("Test Campaign");
-            string content = await response.Content.ReadAsStringAsync();
-
-            Console.WriteLine(content);
+            Console.WriteLine(response.id);
         }
 
         [Fact]
@@ -24,10 +23,9 @@ namespace Pheesible.Integrations.Tests
         {
             var config = new FacebookConfigTestObject();
             var api = new FacebookApi(config);
-            var response = await api.CreateAdSet("Vivi Adset", 3, 5000, "23845686494730146");
-
-            string content = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(content);
+            string campaignId = "23845688148570146";
+            var response = await api.CreateAdSet("Vivi Adset", 3, 5000, campaignId);
+            Console.WriteLine(response.id);
         }
 
         [Fact]
@@ -39,9 +37,8 @@ namespace Pheesible.Integrations.Tests
             var bytes = File.ReadAllBytes(filePath);
             string fileName = Path.GetFileName(filePath);
             var response = await api.CreateAdImageObject(bytes, fileName);
-            string content = await response.Content.ReadAsStringAsync();
 
-            Console.WriteLine(content);
+            Console.WriteLine(response.hash);
         }
 
         [Fact]
@@ -50,7 +47,7 @@ namespace Pheesible.Integrations.Tests
             var config = new FacebookConfigTestObject();
             var api = new FacebookApi(config);
 
-            string imageHash = "0a19d9d3156f0d1e79532c64703703e2";
+            string imageHash = "93991e897f8f220c7f8b1b8f120954d6";
             string link = "http://www.pheesible.com";
             string message = "This is the ad text from the API call";
             AdCreative creative = new AdCreative
@@ -64,15 +61,14 @@ namespace Pheesible.Integrations.Tests
                     call_to_action = new Call_To_Action
                     {
                         type = "LEARN_MORE"
-                   
+
                     }
                 }
             };
 
             var response = await api.CreateAdCreative("Test Creative", creative);
-            string content = await response.Content.ReadAsStringAsync();
 
-            Console.WriteLine(content);
+            Console.WriteLine(response.id);
         }
 
         [Fact]
@@ -80,11 +76,10 @@ namespace Pheesible.Integrations.Tests
         {
             var config = new FacebookConfigTestObject();
             var api = new FacebookApi(config);
-            string adSetId = "23845686498240146";
-            string creativeId = "23845686860340146";
+            string adSetId = "23845688150210146";
+            string creativeId = "23845688154920146";
             var response = await api.CreateAd("Test AD", adSetId, creativeId);
-            string content = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(content);
+            Console.WriteLine(response.id);
         }
 
         [Fact]
@@ -92,9 +87,9 @@ namespace Pheesible.Integrations.Tests
         {
             var config = new FacebookConfigTestObject();
             var api = new FacebookApi(config);
-            string adSetId = "";
-            var response = await api.GetReportForAdSet(adSetId, new string[] { "breakdowns" });
-            string content = await response.Content.ReadAsStringAsync();
+            string adSetId = "23845686498240146";
+            var response = await api.GetReportForAdSet(adSetId, new string[] { "actions", "clicks", "date_start", "date_stop", "impressions" });
+            var content = response?.data?.FirstOrDefault();
             Console.WriteLine(content);
 
         }
