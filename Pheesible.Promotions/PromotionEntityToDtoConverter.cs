@@ -20,6 +20,7 @@ namespace Pheesible.Promotions
                 freeText = promotion.FreeText,
                 identityId = promotion.IdentityId,
                 stepNumber = 1,
+                statusId = promotion.StatusId,
                 ad = promotion.Ads?.Select(x => new Ad { image = x.Image, text = x.Text }).FirstOrDefault(),
 
                 fields = new Fields

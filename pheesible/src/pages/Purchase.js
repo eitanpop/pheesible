@@ -36,7 +36,7 @@ export default ({ promotion }) => {
       return
     }
 
-    const promotionResponse = await savePromotion(promotion)
+    const promotionResponse = await savePromotion({ ...promotion, statusId: 2 })
     console.log('promotionResponse', promotionResponse)
 
     const response = await createPaymentIntent(123)

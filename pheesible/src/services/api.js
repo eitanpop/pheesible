@@ -16,7 +16,7 @@ export const getPromotions = async () => {
 }
 
 export const savePromotion = async (promotion) => {
-  API.post(apiName, '/promotion', { body: promotion })
+  return await API.post(apiName, '/promotion', { body: promotion })
 }
 
 export const getTemplates = async () => {

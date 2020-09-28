@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import { OrderedWizardSteps } from '../constants.js'
 import Templates from '../components/steps/Templates'
@@ -14,7 +14,7 @@ import BottomText from '../components/steps/BottomText'
 import Ad from '../components/steps/Ad'
 
 import { getUserCognitoIdentityPoolId } from '../services/auth'
-
+import { savePromotion } from '../services/api'
 // we pass 'setIsValidating' to stop the wizard from proceeding to next step. This happens when there were errors and the user wants to fix them and click next again
 const getComponentByStep = (
   promotion,
@@ -73,6 +73,11 @@ const getComponentByStep = (
 export default ({ promotion, setPromotion }) => {
   const [isRequestingNextStep, setIsRequestingNextStep] = useState(false)
   const [isNextStepConfirmed, setIsNextStepConfirmed] = useState(false)
+  const [isRedirecting, setIsRedirecting] = useState(
+    !!localStorage.getItem('wolp')
+  )
+
+  console.log('promotion', promotion)
 
   const updatePromotion = (key, val) => {
     setPromotion({ ...promotion, [key]: val })
@@ -89,8 +94,10 @@ export default ({ promotion, setPromotion }) => {
 
   useEffect(() => {
     const updateIdentityId = async () => {
-      const identityId = await getUserCognitoIdentityPoolId()
-      setPromotion({ ...promotion, identityId })
+      if (!promotion.identityId) {
+        const identityId = await getUserCognitoIdentityPoolId()
+        setPromotion({ ...promotion, identityId })
+      }
     }
     updateIdentityId()
   }, [])
@@ -111,8 +118,20 @@ export default ({ promotion, setPromotion }) => {
   // calback when the child component confirms next step
   useEffect(() => {
     if (isNextStepConfirmed) {
-      updatePromotion('stepNumber', promotion.stepNumber + 1)
+      if (promotion.stepNumber < 2) {
+        updatePromotion('stepNumber', promotion.stepNumber + 1)
+      } else {
+        savePromotion(promotion).then((x) => {
+          localStorage.setItem('wolp', '1')
+          setPromotion({
+            ...promotion,
+            id: parseInt(x.id),
+            stepNumber: promotion.stepNumber + 1,
+          })
+        })
+      }
     }
+
     setIsNextStepConfirmed(false)
     setIsRequestingNextStep(false)
   }, [isNextStepConfirmed])
@@ -126,46 +145,52 @@ export default ({ promotion, setPromotion }) => {
     updatePromotion('stepNumber', promotion.stepNumber - 1)
   }
 
+  if (isRedirecting) {
+    return <Redirect to='/campaigns' />
+  }
+
   return (
-    <div className='row'>
-      <div className='col-sm-3 right-shadow' style={{ zIndex: 100 }}>
-        {component}
-        <br />
-        <div className='row pb-3'>
-          <div className='col d-flex justify-content-center'>
-            <button
-              type='button'
-              className='btn btn-primary'
-              disabled={promotion.stepNumber === OrderedWizardSteps.Templates}
-              onClick={() => previousStep()}>
-              Back
-            </button>
-          </div>
-          {promotion.stepNumber === OrderedWizardSteps.PromotionSettings ? (
-            <div className='col d-flex justify-content-center'>
-              <Link className='btn btn-primary' to='purchase'>
-                Purchase
-              </Link>
-            </div>
-          ) : (
+    <>
+      <div className='row'>
+        <div className='col-sm-3 right-shadow' style={{ zIndex: 100 }}>
+          {component}
+          <br />
+          <div className='row pb-3'>
             <div className='col d-flex justify-content-center'>
               <button
                 type='button'
                 className='btn btn-primary'
-                onClick={() => nextStep()}>
-                Next
+                disabled={promotion.stepNumber === OrderedWizardSteps.Templates}
+                onClick={() => previousStep()}>
+                Back
               </button>
             </div>
+            {promotion.stepNumber === OrderedWizardSteps.PromotionSettings ? (
+              <div className='col d-flex justify-content-center'>
+                <Link className='btn btn-primary' to='purchase'>
+                  Purchase
+                </Link>
+              </div>
+            ) : (
+              <div className='col d-flex justify-content-center'>
+                <button
+                  type='button'
+                  className='btn btn-primary'
+                  onClick={() => nextStep()}>
+                  Next
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className='col-sm-9 pl-3 pb-2  d-flex justify-content-center bg-light'>
+          {promotion.stepNumber !== OrderedWizardSteps.Ad ? (
+            <Preview promotion={promotion} isLive={false} />
+          ) : (
+            <AdPreview promotion={promotion} />
           )}
         </div>
       </div>
-      <div className='col-sm-9 pl-3 pb-2  d-flex justify-content-center bg-light'>
-        {promotion.stepNumber !== OrderedWizardSteps.Ad ? (
-          <Preview promotion={promotion} isLive={false} />
-        ) : (
-          <AdPreview promotion={promotion} />
-        )}
-      </div>
-    </div>
+    </>
   )
 }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Amplify, { Hub } from 'aws-amplify'
-
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 
@@ -12,8 +11,9 @@ import PromotionContainer from './components/PromotionContainer'
 import { OrderedWizardSteps, Template } from './constants'
 import Wizard from './pages/Wizard'
 import Purchase from './pages/Purchase'
-import Promotions from './pages/Promotions'
+import Campaigns from './pages/Campaigns'
 import Site from './pages/Site'
+import Home from './pages/Home'
 import './App.css'
 
 Amplify.configure(awsConfig)
@@ -40,6 +40,7 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK)
 
 function App() {
   const [promotion, setPromotion] = useState(emptyPromotion)
+
   return (
     <>
       <Router>
@@ -66,15 +67,13 @@ function App() {
                               <Purchase promotion={promotion} />
                             </Elements>
                           </Route>
-                          <Route path='/promotions'>
+                          <Route path='/campaigns'>
                             <div>
-                              <Promotions />
+                              <Campaigns setPromotion={setPromotion} />
                             </div>
                           </Route>
                           <Route path='/'>
-                            <div>
-                              <Link to='/wizard'>Create a promotion</Link>
-                            </div>
+                            <Home />
                           </Route>
                         </Switch>
                       </Router>
