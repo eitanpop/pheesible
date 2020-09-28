@@ -6,7 +6,7 @@ namespace Pheesible.Promotions.DTO
 {
     public class PublicPromotion
     {
-        public int id { get; set; }
+        public int? id { get; set; }
         public string title { get; set; }
         public int stepNumber { get; set; }
         public string freeText { get; set; }
@@ -17,5 +17,7 @@ namespace Pheesible.Promotions.DTO
       
         public int templateId { get; set; }
         public string templateName { get; set; }
+
+        public int? statusId { get; set; }
     }
 }

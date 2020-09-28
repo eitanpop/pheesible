@@ -21,7 +21,7 @@ namespace Pheesible.Promotions
     {
         private readonly IApp _app;
 
-        public Function(App app)
+        public Function(IApp app)
         {
             _app = app;
         }

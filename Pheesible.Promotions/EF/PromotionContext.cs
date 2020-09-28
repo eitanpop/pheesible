@@ -35,7 +35,6 @@ namespace Pheesible.Promotions.EF
                 entity.HasOne(d => d.Promotion)
                     .WithMany(p => p.Ads)
                     .HasForeignKey(d => d.PromotionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_promotions");
             });
 
@@ -48,7 +47,6 @@ namespace Pheesible.Promotions.EF
                 entity.HasOne(d => d.Promotion)
                     .WithMany(p => p.Features)
                     .HasForeignKey(d => d.PromotionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_promotions");
             });
 
@@ -85,8 +83,7 @@ namespace Pheesible.Promotions.EF
                 entity.HasOne(d => d.Promotion)
                     .WithMany(p => p.PromotionFocusGroup)
                     .HasForeignKey(d => d.PromotionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_promotion");
+                    .HasConstraintName("fk_promotions");
             });
 
             modelBuilder.Entity<Promotions>(entity =>
@@ -123,7 +120,6 @@ namespace Pheesible.Promotions.EF
                 entity.HasOne(d => d.Promotion)
                     .WithMany(p => p.SellingPoints)
                     .HasForeignKey(d => d.PromotionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_promotions");
             });
 

@@ -21,7 +21,7 @@ namespace PheesibleApi.Controllers
         {
             var body = await GetRequestContent();
             var function = new Function();
-            var result = await function.FunctionHandler(new APIGatewayProxyRequest { Body = body, HttpMethod = "Post"}, null);
+            var result = await function.FunctionHandler(new APIGatewayProxyRequest { Body = body, HttpMethod = "Post", Path = "/promotion" }, null);
 
             return result.Body;
 
@@ -33,7 +33,7 @@ namespace PheesibleApi.Controllers
 
             var body = await GetRequestContent();
             var function = new Function();
-            var result = await function.FunctionHandler(new APIGatewayProxyRequest { HttpMethod = "get", Path = $"/promotion" }, null);
+            var result = await function.FunctionHandler(new APIGatewayProxyRequest { HttpMethod = "get", Path = "/promotion" }, null);
 
             return result.Body;
         }
