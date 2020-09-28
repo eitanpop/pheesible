@@ -21,6 +21,6 @@ namespace Pheesible.Console
         public string Get(string property) =>
             _configuration[property];
 
-
+        public string ConnectionString => Get("DbContextSettings:ConnectionString");
     }
 }

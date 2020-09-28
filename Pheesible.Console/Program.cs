@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Pheesible.Promotions.EF;
 
 namespace Pheesible.Console
 {
@@ -22,6 +24,13 @@ namespace Pheesible.Console
         static void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IConsoleConfig>(x => new ConsoleConfig(_args));
+
+            serviceCollection.AddDbContext<PromotionContext>((serviceProvider, options) =>
+            {
+                var connectionString = serviceProvider.GetService<IConsoleConfig>().ConnectionString;
+                options.UseNpgsql(connectionString, opt => opt.EnableRetryOnFailure());
+            });
+            serviceCollection.AddTransient<PromotionContext>();
             serviceCollection.AddTransient<IApp, App>();
         }
     }
