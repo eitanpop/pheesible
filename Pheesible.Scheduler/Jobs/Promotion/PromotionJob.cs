@@ -31,7 +31,6 @@ namespace Pheesible.Scheduler.Jobs.Promotion
                     .Where(x => x.StatusId == (int)PromotionStatus.ReadyForAdPublish).ToListAsync();
                 if (promotionsToBePublished.Any())
                 {
-                    var focusGroups = await db.FocusGroups.ToListAsync();
                     foreach (var promotion in promotionsToBePublished)
                     {
                         var facebook =
@@ -43,11 +42,11 @@ namespace Pheesible.Scheduler.Jobs.Promotion
                         string landingPageLink = _config.LandingPageLink.Replace("{PROMOTION_ID}", promotion.Id.ToString());
                         var ad = promotion.Ads.FirstOrDefault();
                         if (facebook != null)
-                            await _promotionPublisher.PublishToFaceBook(name, landingPageLink, ad, facebook);
+                            await _promotionPublisher.PublishToFaceBook(promotion, landingPageLink, facebook);
                         if (insta != null)
-                            await _promotionPublisher.PublishToInstagram(name, landingPageLink, ad, insta);
+                            await _promotionPublisher.PublishToInstagram(promotion, landingPageLink, insta);
                         if (google != null)
-                            await _promotionPublisher.PublishToGoogle(name, landingPageLink, ad, google);
+                            await _promotionPublisher.PublishToGoogle(promotion, landingPageLink, google);
                     }
                 }
                 else
@@ -66,7 +65,6 @@ namespace Pheesible.Scheduler.Jobs.Promotion
                 response.AdditionalInformation = ex.Message;
                 return response;
             }
-
         }
 
         private PromotionFocusGroup GetPromotionFocusGroup(Promotions.EF.Promotions promotion, IList<FocusGroups> focusGroups, string name)

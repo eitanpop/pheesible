@@ -6,8 +6,8 @@ namespace Pheesible.Scheduler.Jobs.Promotion
 {
     public interface IPromotionPublisher
     {
-        Task<bool> PublishToFaceBook(string name, string landingPageLink, Ads ad, PromotionFocusGroup facebook);
-        Task<bool> PublishToInstagram(string name, string landingPageLink, Ads ad, PromotionFocusGroup instagram);
-        Task<bool> PublishToGoogle(string name, string landingPageLink, Ads ad, PromotionFocusGroup google);
+        Task<bool> PublishToFaceBook(Promotions.EF.Promotions promotion, string landingPageLink, PromotionFocusGroup facebook);
+        Task<bool> PublishToInstagram(Promotions.EF.Promotions promotion, string landingPageLink, PromotionFocusGroup instagram);
+        Task<bool> PublishToGoogle(Promotions.EF.Promotions promotion, string landingPageLink, PromotionFocusGroup google);
     }
 }

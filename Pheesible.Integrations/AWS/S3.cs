@@ -9,7 +9,7 @@ using Amazon.S3.Model;
 
 namespace Pheesible.Integrations.AWS
 {
-    public class S3
+    public class S3 : IS3
     {
         public async Task<byte[]> GetObject(string bucketName, string key)
         {

@@ -134,7 +134,7 @@ namespace Pheesible.Integrations.Facebook
         private async Task<T> ReturnModelOrThrowError<T>(HttpResponseMessage response)
         {
             if (response.IsSuccessStatusCode != true)
-                throw new Exception(response.ReasonPhrase);
+                throw new Exception(await response.Content.ReadAsStringAsync());
             return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync());
         }
     }

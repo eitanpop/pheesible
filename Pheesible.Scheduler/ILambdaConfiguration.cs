@@ -9,6 +9,8 @@ namespace Pheesible.Scheduler
         string ConnectionString { get; }
 
         string LandingPageLink { get; }
+        string BucketName { get; }
+        string AwsRegion { get; }
 
         string Get(string property);
     }

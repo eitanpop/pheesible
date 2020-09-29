@@ -9,6 +9,7 @@ using Amazon.Lambda.Core;
 using Amazon.Lambda.CloudWatchEvents;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Pheesible.Integrations.AWS;
 using Pheesible.Integrations.Facebook;
 using Pheesible.Promotions.EF;
 using Pheesible.Scheduler.Jobs;
@@ -51,6 +52,7 @@ namespace Pheesible.Scheduler
             serviceCollection.AddTransient<IPromotionPublisher, PromotionPublisher>();
             serviceCollection.AddTransient<PromotionJob>();
             serviceCollection.AddTransient<IFacebookConfig, FacebookConfig>();
+            serviceCollection.AddTransient<IS3, S3>();
             serviceCollection.AddTransient((x) =>
             {
                 var jobQueue = new Queue<IJob>();

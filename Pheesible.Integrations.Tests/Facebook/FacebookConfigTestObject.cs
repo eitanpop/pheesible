@@ -22,7 +22,7 @@ namespace Pheesible.Integrations.Tests
         public string AppSecret => "d325b2ebb5b150bb22adfc0b7998666f";
 
         public string PageId => "110027460859590";
-        public string CampaignId => "23";
+        public string CampaignId => "23845705642030146";
         public string CallToAction => "LEARN_MORE";
     }
 }
