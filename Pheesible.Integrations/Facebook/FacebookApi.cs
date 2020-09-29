@@ -11,7 +11,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Pheesible.Integrations.Facebook
 {
-    public class FacebookApi
+    public class FacebookApi : IFacebookApi
     {
         private readonly IFacebookConfig _config;
         public FacebookApi(IFacebookConfig config)
@@ -35,7 +35,7 @@ namespace Pheesible.Integrations.Facebook
         }
 
 
-        public async Task<Id> CreateAdSet(string name, int days, int budget, string campaignId, string status = "PAUSED")
+        public async Task<Id> CreateAdSet(string name, int days, int budget, string status = "PAUSED")
         {
             using var httpClient = new HttpClient();
             using var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://graph.facebook.com/v{_config.ApiVersion}/act_{_config.AdAccountId}/adsets");
@@ -45,7 +45,7 @@ namespace Pheesible.Integrations.Facebook
             multipartContent.Add(new StringContent(_config.BillingEvent), "billing_event");
             multipartContent.Add(new StringContent("LOWEST_COST_WITHOUT_CAP"), "bid_strategy");
             multipartContent.Add(new StringContent(budget.ToString()), "daily_budget");
-            multipartContent.Add(new StringContent(campaignId), "campaign_id");
+            multipartContent.Add(new StringContent(_config.CampaignId), "campaign_id");
             multipartContent.Add(new StringContent("{\"geo_locations\": {\"countries\":[\"US\"]}}"), "targeting");
             multipartContent.Add(new StringContent(DateTime.UtcNow.ToString("o")), "start_time");
             multipartContent.Add(new StringContent(DateTime.UtcNow.AddDays(days).ToString("o")), "end_time");
@@ -77,13 +77,26 @@ namespace Pheesible.Integrations.Facebook
 
         }
 
-        public async Task<Id> CreateAdCreative(string name, AdCreative adCreative)
+        public async Task<Id> CreateAdCreative(string name, Image image, string landingPageLink, string adText)
         {
             using var httpClient = new HttpClient();
             using var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://graph.facebook.com/v{_config.ApiVersion}/act_{_config.AdAccountId}/adcreatives");
             var multipartContent = new MultipartFormDataContent();
             multipartContent.Add(new StringContent(name), "name");
-            multipartContent.Add(new StringContent(JsonSerializer.Serialize(adCreative)), "object_story_spec");
+            multipartContent.Add(new StringContent(JsonSerializer.Serialize(new AdCreative
+            {
+                link_data = new Link_Data
+                {
+                    call_to_action = new Call_To_Action
+                    {
+                        type = _config.CallToAction
+                    },
+                    image_hash = image.hash,
+                    link=landingPageLink,
+                    message=adText
+                },
+                page_id = _config.PageId
+            })), "object_story_spec");
             multipartContent.Add(new StringContent(_config.AccessToken), "access_token");
             request.Content = multipartContent;
             var response = await httpClient.SendAsync(request);

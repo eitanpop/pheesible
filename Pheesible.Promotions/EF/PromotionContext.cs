@@ -78,6 +78,7 @@ namespace Pheesible.Promotions.EF
                 entity.HasOne(d => d.FocusGroup)
                     .WithMany(p => p.PromotionFocusGroup)
                     .HasForeignKey(d => d.FocusGroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_focusgroup");
 
                 entity.HasOne(d => d.Promotion)

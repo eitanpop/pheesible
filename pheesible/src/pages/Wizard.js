@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 
+import { useUnload } from '../hooks/useUnload'
 import { OrderedWizardSteps } from '../constants.js'
 import Templates from '../components/steps/Templates'
 import BasicInformation from '../components/steps/BasicInformation'
@@ -71,6 +72,10 @@ const getComponentByStep = (
 }
 
 export default ({ promotion, setPromotion }) => {
+  useUnload((e) => {
+    e.preventDefault()
+    e.returnValue = 'Changes you made may not be saved.'
+  })
   const [isRequestingNextStep, setIsRequestingNextStep] = useState(false)
   const [isNextStepConfirmed, setIsNextStepConfirmed] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(

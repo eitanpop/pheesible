@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Pheesible.Integrations.Facebook.Models;
 using Xunit;
 
 namespace Pheesible.Integrations.Tests
@@ -46,27 +47,14 @@ namespace Pheesible.Integrations.Tests
         {
             var config = new FacebookConfigTestObject();
             var api = new FacebookApi(config);
-
-            string imageHash = "93991e897f8f220c7f8b1b8f120954d6";
+            var image = new Image()
+            {
+                hash = "93991e897f8f220c7f8b1b8f120954d6"
+            };
             string link = "http://www.pheesible.com";
             string message = "This is the ad text from the API call";
-            AdCreative creative = new AdCreative
-            {
-                page_id = config.PageId,
-                link_data = new Link_Data
-                {
-                    image_hash = imageHash,
-                    link = link,
-                    message = message,
-                    call_to_action = new Call_To_Action
-                    {
-                        type = "LEARN_MORE"
 
-                    }
-                }
-            };
-
-            var response = await api.CreateAdCreative("Test Creative", creative);
+            var response = await api.CreateAdCreative("Test Creative", image, link, message);
 
             Console.WriteLine(response.id);
         }

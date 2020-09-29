@@ -8,7 +8,7 @@ using Amazon.Lambda.APIGatewayEvents;
 using Microsoft.EntityFrameworkCore;
 using Pheesible.Promotions.DTO;
 using Pheesible.Promotions.EF;
-using Pheesible.Promotions.Enums;
+
 
 namespace Pheesible.Promotions.Handlers
 {

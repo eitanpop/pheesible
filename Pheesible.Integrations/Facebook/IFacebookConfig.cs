@@ -10,7 +10,8 @@
         string Objective { get; }
         string OptimizationGoal { get; }
         string BillingEvent { get; }
-
         string PageId { get; }
+        string CampaignId { get; }
+        string CallToAction { get; }
     }
 }

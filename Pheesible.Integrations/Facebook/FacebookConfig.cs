@@ -15,5 +15,7 @@
         public string BillingEvent => "IMPRESSIONS";
 
         public string PageId => "110027460859590";
+        public string CampaignId => "23";
+        public string CallToAction => "LEARN_MORE";
     }
 }
