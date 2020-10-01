@@ -75,6 +75,8 @@ namespace Pheesible.Promotions.EF
 
             modelBuilder.Entity<PromotionFocusGroup>(entity =>
             {
+                entity.Property(e => e.CustomInformation).HasColumnType("json");
+
                 entity.HasOne(d => d.FocusGroup)
                     .WithMany(p => p.PromotionFocusGroup)
                     .HasForeignKey(d => d.FocusGroupId)

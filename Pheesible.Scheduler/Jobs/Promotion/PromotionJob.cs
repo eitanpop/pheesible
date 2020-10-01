@@ -25,29 +25,26 @@ namespace Pheesible.Scheduler.Jobs.Promotion
             var response = new JobResponse { StartTime = DateTime.UtcNow, JobName = "Promotion" };
             try
             {
-                var promotionsToBePublished = await db.Promotions
-                    .Include(x => x.PromotionFocusGroup).ThenInclude(x => x.FocusGroup)
-                    .Include(x => x.Ads)
-                    .Where(x => x.StatusId == (int)PromotionStatus.ReadyForAdPublish).ToListAsync();
-                if (promotionsToBePublished.Any())
+                var promotion = await db.Promotions.Include(x => x.PromotionFocusGroup)
+                    .ThenInclude(x => x.FocusGroup)
+                    .Include(x => x.Ads).FirstOrDefaultAsync(x => x.StatusId == (int)PromotionStatus.ReadyForAdPublish);
+                if (promotion != null)
                 {
-                    foreach (var promotion in promotionsToBePublished)
-                    {
-                        var facebook =
-                            promotion.PromotionFocusGroup.FirstOrDefault(x => x.FocusGroup.Name.ToLower() == "facebook");
-                        var insta = promotion.PromotionFocusGroup.FirstOrDefault(x => x.FocusGroup.Name.ToLower() == "instagram");
-                        var google = promotion.PromotionFocusGroup.FirstOrDefault(x => x.FocusGroup.Name.ToLower() == "google");
+                    promotion.StatusId = (int)PromotionStatus.Running;
+                    var facebook =
+                        promotion.PromotionFocusGroup.FirstOrDefault(x => x.FocusGroup.Name.ToLower() == "facebook");
+                    var insta = promotion.PromotionFocusGroup.FirstOrDefault(x => x.FocusGroup.Name.ToLower() == "instagram");
+                    var google = promotion.PromotionFocusGroup.FirstOrDefault(x => x.FocusGroup.Name.ToLower() == "google");
 
-                        string name = promotion.Id.ToString();
-                        string landingPageLink = _config.LandingPageLink.Replace("{PROMOTION_ID}", promotion.Id.ToString());
-                        var ad = promotion.Ads.FirstOrDefault();
-                        if (facebook != null)
-                            await _promotionPublisher.PublishToFaceBook(promotion, landingPageLink, facebook);
-                        if (insta != null)
-                            await _promotionPublisher.PublishToInstagram(promotion, landingPageLink, insta);
-                        if (google != null)
-                            await _promotionPublisher.PublishToGoogle(promotion, landingPageLink, google);
-                    }
+                    string name = promotion.Id.ToString();
+                    string landingPageLink = _config.LandingPageLink.Replace("{PROMOTION_ID}", promotion.Id.ToString());
+                    var ad = promotion.Ads.FirstOrDefault();
+                    if (facebook != null)
+                        await _promotionPublisher.PublishToFaceBook(promotion, landingPageLink, facebook);
+                    if (insta != null)
+                        await _promotionPublisher.PublishToInstagram(promotion, landingPageLink, insta);
+                    if (google != null)
+                        await _promotionPublisher.PublishToGoogle(promotion, landingPageLink, google);
                 }
                 else
                 {
@@ -60,6 +57,7 @@ namespace Pheesible.Scheduler.Jobs.Promotion
             }
             catch (Exception ex)
             {
+                response.IsSuccess = false;
                 response.EndTime = DateTime.UtcNow;
                 response.ResultSummary = ex.Message;
                 response.AdditionalInformation = ex.Message;
