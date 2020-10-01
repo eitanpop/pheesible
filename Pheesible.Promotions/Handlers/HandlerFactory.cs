@@ -2,30 +2,37 @@
 using System.Collections.Generic;
 using System.Text;
 using Amazon.Lambda.APIGatewayEvents;
+using Amazon.Lambda.Core;
 
 namespace Pheesible.Promotions.Handlers
 {
     public class HandlerFactory : IHandlerFactory
     {
+        private readonly ILambdaConfiguration _config;
+
+        public HandlerFactory(ILambdaConfiguration configuration)
+        {
+            _config = configuration;
+        }
         public IHandler Get(APIGatewayProxyRequest request)
         {
-            if (request.HttpMethod.ToLower() == "post")
+            switch (request.HttpMethod.ToLower())
             {
-                if (request.Path.Equals("/promotion/lead", StringComparison.CurrentCultureIgnoreCase))
+                case "post" when request.Path.Equals("/promotion/stripe", StringComparison.CurrentCultureIgnoreCase):
+                    return new StripeHandler(_config);
+                case "post" when request.Path.Equals("/promotion/lead", StringComparison.CurrentCultureIgnoreCase):
                     return new CreateLeadHandler();
-                return new CreateHandler();
-            }
-
-            if (request.HttpMethod.ToLower() == "get")
-            {
-                if(request.Path.Contains("/promotion/public/", StringComparison.CurrentCultureIgnoreCase))
+                case "post":
+                    return new CreateHandler();
+                case "get" when request.Path.Contains("/promotion/public/", StringComparison.CurrentCultureIgnoreCase):
                     return new PublicHandler();
-                if (request.Path.Equals("/promotion/templates", StringComparison.CurrentCultureIgnoreCase))
+                case "get" when request.Path.Equals("/promotion/templates", StringComparison.CurrentCultureIgnoreCase):
                     return new TemplateGetHandler();
-                return new GetHandler();
+                case "get":
+                    return new GetHandler();
+                default:
+                    throw new Exception("Unsupported verb passed!");
             }
-
-            throw new Exception("Unsupported verb passed!");
         }
     }
 }

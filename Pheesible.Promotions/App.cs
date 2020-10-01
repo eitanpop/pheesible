@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Amazon.Lambda.APIGatewayEvents;
+using Amazon.Lambda.Core;
 using Pheesible.Promotions.EF;
 using Pheesible.Promotions.Handlers;
 

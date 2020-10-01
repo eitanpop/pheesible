@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
@@ -20,10 +21,12 @@ namespace Pheesible.Promotions
     public class Function
     {
         private readonly IApp _app;
+        private readonly ILambdaConfiguration _config;
 
-        public Function(IApp app)
+        public Function(IApp app, ILambdaConfiguration config)
         {
             _app = app;
+            _config = config;
         }
 
         public Function()
@@ -32,13 +35,13 @@ namespace Pheesible.Promotions
             ConfigureServices(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
             _app = serviceProvider.GetService<IApp>();
+            _config = serviceProvider.GetService<ILambdaConfiguration>();
         }
 
         private void ConfigureServices(IServiceCollection serviceCollection)
         {
             // add dependencies here
             serviceCollection.AddTransient<ILambdaConfiguration, LambdaConfiguration>();
-
             serviceCollection.AddDbContext<PromotionContext>((serviceProvider, options) =>
             {
                 var connectionString = serviceProvider.GetService<ILambdaConfiguration>().ConnectionString;
@@ -59,6 +62,7 @@ namespace Pheesible.Promotions
             context.Logger.Log($"request: {JsonSerializer.Serialize(request)}");
             context.Logger.Log($"context: {JsonSerializer.Serialize(context)}");
             context.Logger.Log("SubId: " + request.RequestContext?.Authorizer?.Claims["sub"]);
+
             var response = await _app.Run(request);
             return response;
         }
