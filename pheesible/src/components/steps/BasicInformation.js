@@ -5,6 +5,8 @@ import Uploader from '../file/Uploader'
 import FileClear from '../file/FileClear'
 import ErrorMessage from '../ErrorMessage'
 import CardTitle from '../wizard/CardTitle'
+import CardSubTitle from '../wizard/CardSubTitle'
+import HeaderSpacer from '../wizard/HeaderSpacer'
 
 export default ({
   promotion,
@@ -46,9 +48,9 @@ export default ({
     <>
       <div className='card'>
         <div className='card-body'>
-          <CardTitle toolTip='This is a test tooltip'>Landing Page</CardTitle>
-          <div className='text-body'>Basic Information</div>
-
+          <CardTitle toolTip='This is a test tooltip'>Landing Page</CardTitle>{' '}
+          <HeaderSpacer />
+          <CardSubTitle>Basic Information</CardSubTitle>
           <div className='form-group'>
             <label htmlFor='title'>Title*</label>
             <input
@@ -59,47 +61,32 @@ export default ({
             />
             <ErrorMessage errorMessage={error.title} />
           </div>
-
           <div className='form-group'>
             <label htmlFor='title'>Logo</label>
-            <FileClear
-              value={promotion.fields.logo}
-              clearFunction={() => updateFieldsOnPromotion('logo', null)}
-            />
+
             <div className='input-group'>
-              <div className='input-group-prepend'>
-                <span className='input-group-text' id='inputGroupFileAddon01'>
-                  Upload
-                </span>
-              </div>
               <Uploader
                 templateId={promotion.templateId}
                 path='logos'
                 onUpload={(result) => updateFieldsOnPromotion('logo', result)}
+                value={promotion.fields.logo}
+                clearFunction={() => updateFieldsOnPromotion('logo', null)}
               />
             </div>
           </div>
-
           <div className='form-group'>
             <label htmlFor='title'>Banner</label>
-            <FileClear
-              value={promotion.fields.banner}
-              clearFunction={() => updateFieldsOnPromotion('banner', null)}
-            />
+
             <div className='input-group'>
-              <div className='input-group-prepend'>
-                <span className='input-group-text' id='inputGroupFileAddon01'>
-                  Upload
-                </span>
-              </div>
               <Uploader
                 templateId={promotion.templateId}
                 path='banners'
                 onUpload={(result) => updateFieldsOnPromotion('banner', result)}
+                value={promotion.fields.banner}
+                clearFunction={() => updateFieldsOnPromotion('banner', null)}
               />
             </div>
           </div>
-
           <div className='form-group'>
             <label htmlFor='tagLine'>Tag line*</label>
             <textarea
@@ -112,7 +99,6 @@ export default ({
               value={tagLine || ''}></textarea>
             <ErrorMessage errorMessage={error.tagLine} />
           </div>
-
           <div className='form-group'>
             <label htmlFor='summary'>Elevator Pitch*</label>
             <textarea

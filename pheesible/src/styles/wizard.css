@@ -152,9 +152,7 @@ input.custom-control-input:checked + label > img {
 .file_upload:hover {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
-.file_upload img {
-  width: 43px;
-}
+
 
 .file_upload input[type='file'] {
   position: absolute;

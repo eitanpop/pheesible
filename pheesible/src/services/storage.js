@@ -36,6 +36,6 @@ export const get = async (key, identityId) => {
 
 export const remove = async (key) => {
   Storage.remove(key, { level: 'protected' })
-    .then((result) => console.log(result))
-    .catch((err) => console.log(err))
+    .then((result) => console.log('success: ' + result))
+    .catch((err) => console.log('error: ' + err))
 }

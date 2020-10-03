@@ -37,7 +37,7 @@ namespace Pheesible.Promotions.Handlers
             if (isUpdate)
                 db.SellingPoints.RemoveRange(promotions.SellingPoints);
             foreach (var sellingPoint in promotionDto.sellingPoints)
-                promotions.SellingPoints.Add(new SellingPoints { Description = sellingPoint.description, Title = sellingPoint.title });
+                promotions.SellingPoints.Add(new SellingPoints { Description = sellingPoint?.description, Title = sellingPoint?.title });
 
             if (isUpdate)
                 db.Features.RemoveRange(promotions.Features);
