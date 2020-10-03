@@ -10,12 +10,13 @@ export const put = () => {
     .catch((err) => console.log(err))
 }
 
-export const upload = async (file, path = '') => {
+export const upload = async (file, path = '', progressCallback) => {
   console.log('file', file)
   const { name, type } = file
   try {
     const result = await Storage.put(`${path}/${name}`, file, {
       contentType: type,
+      progressCallback
     })
     console.log('result', result)
     return result
