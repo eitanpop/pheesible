@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom'
 
 import { useUnload } from '../hooks/useUnload'
 import { OrderedWizardSteps } from '../constants.js'
+import StepLine from '../components/wizard/steps'
 import Templates from '../components/steps/Templates'
 import BasicInformation from '../components/steps/BasicInformation'
 import Preview from '../components/preview/Preview'
@@ -16,6 +17,8 @@ import Ad from '../components/steps/Ad'
 
 import { getUserCognitoIdentityPoolId } from '../services/auth'
 import { savePromotion } from '../services/api'
+import '../styles/wizard.css'
+
 // we pass 'setIsValidating' to stop the wizard from proceeding to next step. This happens when there were errors and the user wants to fix them and click next again
 const getComponentByStep = (
   promotion,
@@ -72,10 +75,10 @@ const getComponentByStep = (
 }
 
 export default ({ promotion, setPromotion }) => {
-  useUnload((e) => {
+/*  useUnload((e) => {
     e.preventDefault()
     e.returnValue = 'Changes you made may not be saved.'
-  })
+  })*/
   const [isRequestingNextStep, setIsRequestingNextStep] = useState(false)
   const [isNextStepConfirmed, setIsNextStepConfirmed] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(
@@ -155,47 +158,61 @@ export default ({ promotion, setPromotion }) => {
   }
 
   return (
-    <>
-      <div className='row'>
-        <div className='col-sm-3 right-shadow' style={{ zIndex: 100 }}>
-          {component}
-          <br />
-          <div className='row pb-3'>
-            <div className='col d-flex justify-content-center'>
-              <button
-                type='button'
-                className='btn btn-primary'
-                disabled={promotion.stepNumber === OrderedWizardSteps.Templates}
-                onClick={() => previousStep()}>
-                Back
-              </button>
-            </div>
-            {promotion.stepNumber === OrderedWizardSteps.PromotionSettings ? (
-              <div className='col d-flex justify-content-center'>
-                <Link className='btn btn-primary' to='purchase'>
-                  Purchase
-                </Link>
-              </div>
-            ) : (
+    <main>
+      <div className='container-fluid'>
+        <div className='row steps'>
+          <div className='col-lg-3 steps-line-container'>
+            <StepLine />
+          </div>
+          <div className='col-lg-9 d-flex justify-content-end align-items-center'>
+            <p className='small text-black-50'>
+              Step <span>3</span> of <span>6</span>
+            </p>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-lg-3 summary' style={{ zIndex: 100 }}>
+            {component}
+            <br />
+            <div className='row pb-3'>
               <div className='col d-flex justify-content-center'>
                 <button
                   type='button'
                   className='btn btn-primary'
-                  onClick={() => nextStep()}>
-                  Next
+                  disabled={
+                    promotion.stepNumber === OrderedWizardSteps.Templates
+                  }
+                  onClick={() => previousStep()}>
+                  Back
                 </button>
               </div>
+              {promotion.stepNumber === OrderedWizardSteps.PromotionSettings ? (
+                <div className='col d-flex justify-content-center'>
+                  <Link className='btn btn-primary' to='purchase'>
+                    Purchase
+                  </Link>
+                </div>
+              ) : (
+                <div className='col d-flex justify-content-center'>
+                  <button
+                    type='button'
+                    className='btn btn-primary'
+                    onClick={() => nextStep()}>
+                    Next
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+          <div className='col-lg-9 preview'>
+            {promotion.stepNumber !== OrderedWizardSteps.Ad ? (
+              <Preview promotion={promotion} isLive={false} />
+            ) : (
+              <AdPreview promotion={promotion} />
             )}
           </div>
         </div>
-        <div className='col-sm-9 pl-3 pb-2  d-flex justify-content-center bg-light'>
-          {promotion.stepNumber !== OrderedWizardSteps.Ad ? (
-            <Preview promotion={promotion} isLive={false} />
-          ) : (
-            <AdPreview promotion={promotion} />
-          )}
-        </div>
       </div>
-    </>
+    </main>
   )
 }

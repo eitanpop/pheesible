@@ -1,6 +1,11 @@
-.app {
-  color: black;
-}
+body {
+    background-color: #F7F8F8;
+  }
+  html,body {
+    margin:0;
+    padding:0;
+  }
+
 
 .right-shadow {
   -webkit-box-shadow: 7px 3px 5px -4px rgba(0, 0, 0, 0.25);
@@ -36,6 +41,7 @@ amplify-authenticator {
   margin: 5px 0 0;
 }
 
+
 .link-button {
   background: none !important;
   border: none;
@@ -47,3 +53,8 @@ amplify-authenticator {
   text-decoration: underline;
   cursor: pointer;
 }
+
+
+
+
+

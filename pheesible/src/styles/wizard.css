@@ -1,0 +1,196 @@
+.steps-line-container,
+.preview .needs-validation,
+.summary,
+.summary .order-details {
+  background-color: #fff;
+}
+.preview .needs-validation {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+.steps-line-container,
+.summary {
+  border-right: 1px solid rgba(0, 0, 0, 0.125);
+  border-left: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.summary {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.summary label,
+.preview label,
+.preview .form-control,
+.summary .form-control {
+  font-size: 0.8rem;
+}
+.summary h5,
+.preview h5 {
+  font-size: 1.1rem;
+}
+.summary .card-header .btn:focus {
+  box-shadow: none;
+}
+.summary .card-header .close:focus {
+  outline: none;
+  opacity: 1;
+}
+.summary .table tbody {
+  font-size: 0.9rem;
+}
+.steps-line-container {
+  padding: 1rem 0 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+/*Header*/
+.navbar.bg-dark {
+  background: #6a7086 !important;
+  box-shadow: 0px 1px 4px #27272780;
+  -webkit-box-shadow: 0px 1px 4px #27272780;
+  -moz-box-shadow: 0px 1px 4px #27272780;
+}
+.btn-round {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+.my-account {
+  color: #fff;
+  background: #aaa;
+  padding: 0;
+}
+.my-account:hover {
+  color: #aaa;
+  background: #fff;
+}
+.my-account span {
+  line-height: 2.7;
+}
+main p,
+main span,
+main div,
+main a {
+  color: #aaa;
+}
+.product-thumb:hover {
+  text-decoration: none;
+}
+.product-thumb img {
+  max-width: 25px;
+}
+.btn-new {
+  background: #41c3b9;
+}
+.btn-new:hover {
+  background: #41c3b9;
+}
+.submit-buttons .btn {
+  min-width: 170px;
+}
+.infotext-small {
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: bold;
+  font-family: monospace, serif;
+  width: 17px;
+  height: 18px;
+  line-height: 1;
+  padding: 3px;
+}
+.infotext-medium {
+  border-radius: 50%;
+  font-weight: bold;
+  font-family: monospace, serif;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  padding: 2px;
+}
+.tooltip-inner {
+  color: #000;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+input.custom-control-input:checked + label > img {
+  border-color: #007bff;
+}
+.card {
+  border-color: transparent;
+}
+.card-header {
+  background-color: transparent;
+}
+.card-header img {
+  max-width: 45px;
+}
+.card-header .btn.w-100 {
+  padding-left: 0;
+}
+.card-checkbox img {
+  display: block;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  margin-top: 0.7rem;
+}
+.card-header .duration,
+.card-header .price {
+  font-size: 0.8rem;
+}
+/*Custom File upload*/
+.file_upload {
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid #ccc;
+  font-size: 30px;
+  line-height: 1;
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+  transition: 0.15s ease-in-out;
+}
+.file_upload:hover {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.file_upload img {
+  width: 43px;
+}
+
+.file_upload input[type='file'] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  cursor: pointer;
+}
+
+.file_name img {
+  width: 16px;
+  margin-right: 5px;
+}
+.progress {
+  padding-left: 0;
+}
+
+@media all and (min-width: 990px) {
+  .needs-validation {
+    margin: 0 auto;
+  }
+}
+@media all and (max-width: 990px) {
+  .preview {
+    padding: 15px;
+    background-color: #fff;
+  }
+  .card-header,
+  .card-body {
+    padding: 0;
+  }
+  h5 {
+    margin-top: 1rem;
+  }
+}

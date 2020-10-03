@@ -8,6 +8,7 @@ import awsConfig from './aws-exports'
 import AuthenticatorContainer from './components/auth/AuthenticatorContainer'
 import SignedInContainer from './components/auth/SignedInContainer'
 import PromotionContainer from './components/PromotionContainer'
+import Header from './components/Header'
 import { OrderedWizardSteps, Template } from './constants'
 import Wizard from './pages/Wizard'
 import Purchase from './pages/Purchase'
@@ -50,35 +51,34 @@ function App() {
           </Route>
           <Route>
             <div className='app'>
-              <div className='container-fluid'>
+              <div >
                 <AuthenticatorContainer>
-                  <SignedInContainer>
-                    <PromotionContainer>
-                      <Router>
-                        <Switch>
-                          <Route path='/wizard'>
-                            <Wizard
-                              promotion={promotion}
-                              setPromotion={setPromotion}
-                            />
-                          </Route>
-                          <Route path='/purchase'>
-                            <Elements stripe={stripePromise}>
-                              <Purchase promotion={promotion} />
-                            </Elements>
-                          </Route>
-                          <Route path='/campaigns'>
-                            <div>
-                              <Campaigns setPromotion={setPromotion} />
-                            </div>
-                          </Route>
-                          <Route path='/'>
-                            <Home />
-                          </Route>
-                        </Switch>
-                      </Router>
-                    </PromotionContainer>
-                  </SignedInContainer>
+                  <Header />
+                  <PromotionContainer>
+                    <Router>
+                      <Switch>
+                        <Route path='/wizard'>
+                          <Wizard
+                            promotion={promotion}
+                            setPromotion={setPromotion}
+                          />
+                        </Route>
+                        <Route path='/purchase'>
+                          <Elements stripe={stripePromise}>
+                            <Purchase promotion={promotion} />
+                          </Elements>
+                        </Route>
+                        <Route path='/campaigns'>
+                          <div>
+                            <Campaigns setPromotion={setPromotion} />
+                          </div>
+                        </Route>
+                        <Route path='/'>
+                          <Home />
+                        </Route>
+                      </Switch>
+                    </Router>
+                  </PromotionContainer>
                 </AuthenticatorContainer>
               </div>
             </div>

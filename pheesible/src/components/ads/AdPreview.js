@@ -11,8 +11,8 @@ export default ({ promotion, isLive = false }) => {
 
   return (
     <div
-      className='mt-2 bg-white preview-container'
-      style={{ maxWidth: 'calc(100% - 48px)', width: '972px' }}>
+      className='mt-2 bg-white '
+      style={{  width: '972px' }}>
       <div className='preview m-3'>
         <>
           <div>
