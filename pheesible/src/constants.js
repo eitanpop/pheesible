@@ -4,8 +4,7 @@ export const OrderedWizardSteps = {
   SellingPoints: 3,
   Features: 4,
   ImageUpload: 5,
-  Ad: 6,
-  PromotionSettings: 7,
+  Ad: 6
 }
 
 export const Template = {

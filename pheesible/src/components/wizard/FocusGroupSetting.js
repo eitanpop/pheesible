@@ -1,7 +1,12 @@
 import React from 'react'
 
-export default ({ name, img, otherFocusGroup }) => {
-  const { name: otherFocusGroupName, img: otherFocusGroupImg } = otherFocusGroup
+export default ({ name, img, getValue, updateValue, otherFocusGroup }) => {
+  const {
+    name: otherFocusGroupName,
+    img: otherFocusGroupImg,
+    getValue: otherFocusGroupGetValue,
+    updateValue: otherFocusGroupUpdateValue,
+  } = otherFocusGroup
   return (
     <>
       <div className='d-flex align-items-center justify-content-between'>
@@ -14,6 +19,8 @@ export default ({ name, img, otherFocusGroup }) => {
             type='checkbox'
             className='custom-control-input'
             id='customSwitch1'
+            checked={getValue('isEnabled') === true}
+            onClick={(e) => updateValue('isEnabled', e.target.checked)}
           />
           <label className='custom-control-label' for='customSwitch1'></label>
         </div>
@@ -31,14 +38,16 @@ export default ({ name, img, otherFocusGroup }) => {
               <input
                 type='checkbox'
                 className='custom-control-input'
-                id='customSwitch1'
+                id='customSwitch2'
+                checked={otherFocusGroupGetValue('isEnabled') === true}
+                onChange={(e) => otherFocusGroupUpdateValue(e.target.checked)}
               />
               <label
                 className='custom-control-label'
-                for='customSwitch1'></label>
+                for='customSwitch2'></label>
             </div>
           </div>
-          <div className="mt-4"></div>
+          <div className='mt-4'></div>
         </div>
       ) : (
         ''
@@ -51,6 +60,8 @@ export default ({ name, img, otherFocusGroup }) => {
             className='form-control'
             id='inputSpecificDuration'
             placeholder='Days'
+            value={getValue('numberOfDays')}
+            onChange={(e) => updateValue('numberOfDays', e.target.value)}
           />
         </div>
         <div className='form-group col-md-5'>
@@ -60,6 +71,10 @@ export default ({ name, img, otherFocusGroup }) => {
             className='form-control'
             id='inputBudget'
             placeholder='$'
+            value={getValue('budgetPerDayInDollars')}
+            onChange={(e) =>
+              updateValue('budgetPerDayInDollars', e.target.value)
+            }
           />
         </div>
       </div>

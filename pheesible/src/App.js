@@ -33,6 +33,7 @@ const emptyPromotion = {
   images: {},
   freeText: '',
   ad: {},
+  facebook:{}
 }
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid

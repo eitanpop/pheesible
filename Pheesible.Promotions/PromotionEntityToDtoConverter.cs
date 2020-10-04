@@ -35,36 +35,21 @@ namespace Pheesible.Promotions
                 features = promotion.Features
                     ?.Select(x => new Feature { description = x.Description, title = x.Title }).ToArray(),
 
-                images = new Images
-                    { imageOne = promotion.ImageOne, imageTwo = promotion.ImageTwo, imageThree = promotion.ImageThree },
-
-                promotionSettings = new Promotionsettings
+                facebook = promotion.Facebook?.Select(x => new DTO.Facebook
                 {
-                    Facebook = GetFocusGroupDto<Facebook>(promotion),
-                    Tiktok = GetFocusGroupDto<Tiktok>(promotion),
-                    Instagram = GetFocusGroupDto<Instagram>(promotion),
-                    Twitter = GetFocusGroupDto<Twitter>(promotion)
-                },
+                    budgetPerDayInDollars = x.BudgetPerDayInDollars.ToString(),
+                    includeInstagram = x.IncludeInstagram == true,
+                    isEnabled = x.IsEnabled == true,
+                    numberOfDays = x.NumberOfDays.ToString()
+                }).FirstOrDefault(),
+
+                images = new Images
+                { imageOne = promotion.ImageOne, imageTwo = promotion.ImageTwo, imageThree = promotion.ImageThree },
+
                 sellingPoints = promotion.SellingPoints.Select(x => new Sellingpoint { description = x.Description, title = x.Title }).ToArray(),
             };
 
             return promotionDto;
-        }
-
-       
-        private static PromotionFocusGroup GetFocusGroupByName(EF.Promotions promotion, string name)
-            => promotion.PromotionFocusGroup.FirstOrDefault(x => x.FocusGroup.Name.ToLower() == name.ToLowerInvariant());
-
-        private static T GetFocusGroupDto<T>(EF.Promotions promotion) where T : FocusGroupDto, new()
-        {
-            var focusGroup = new T();
-            var promotionFocusGroup = GetFocusGroupByName(promotion, focusGroup.Name);
-            if (promotionFocusGroup == null)
-                return null;
-            focusGroup.lengthInDaysOfPromotion = promotionFocusGroup.LengthInDaysOfPromotion.ToString();
-            focusGroup.budgetPerDayInDollars = promotionFocusGroup.BudgetPerDayInDollars.ToString();
-
-            return focusGroup;
         }
     }
 }

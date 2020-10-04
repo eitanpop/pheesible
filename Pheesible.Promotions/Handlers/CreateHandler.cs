@@ -8,6 +8,7 @@ using Amazon.Lambda.APIGatewayEvents;
 using Microsoft.EntityFrameworkCore;
 using Pheesible.Promotions.DTO;
 using Pheesible.Promotions.EF;
+using Facebook = Pheesible.Promotions.EF.Facebook;
 
 
 namespace Pheesible.Promotions.Handlers
@@ -45,12 +46,16 @@ namespace Pheesible.Promotions.Handlers
                 promotions.Features.Add(new Features { Description = feature.description, Title = feature.title });
 
             if (isUpdate)
-                db.PromotionFocusGroup.RemoveRange(promotions.PromotionFocusGroup);
-
-            await AddFocusGroups(promotionDto.promotionSettings.Facebook, db, promotions);
-            await AddFocusGroups(promotionDto.promotionSettings.Instagram, db, promotions);
-            await AddFocusGroups(promotionDto.promotionSettings.Tiktok, db, promotions);
-            await AddFocusGroups(promotionDto.promotionSettings.Twitter, db, promotions);
+                db.Facebook.RemoveRange(promotions.Facebook);
+            if (promotionDto.facebook?.numberOfDays != null)
+            {
+                var facebookDto = promotionDto.facebook;
+                promotions.Facebook = new List<Facebook>{new Facebook
+                {
+                    BudgetPerDayInDollars = int.Parse(facebookDto.budgetPerDayInDollars), IncludeInstagram = facebookDto.includeInstagram,
+                    IsEnabled = facebookDto.isEnabled, NumberOfDays = int.Parse(facebookDto.numberOfDays)
+                } };
+            }
 
             if (isUpdate)
                 db.Ads.RemoveRange(promotions.Ads);
@@ -59,25 +64,13 @@ namespace Pheesible.Promotions.Handlers
             if (!isUpdate)
                 db.Promotions.Add(promotions);
 
-            promotions.StatusId = promotionDto.statusId == (int) PromotionStatus.WaitingForPaymentConfirmation
-                ? (int) PromotionStatus.WaitingForPaymentConfirmation
-                : (int) PromotionStatus.Draft;
+            promotions.StatusId = promotionDto.statusId == (int)PromotionStatus.WaitingForPaymentConfirmation
+                ? (int)PromotionStatus.WaitingForPaymentConfirmation
+                : (int)PromotionStatus.Draft;
 
             await db.SaveChangesAsync();
             return ApiGatewayHelper.GetSuccessResponse(JsonSerializer.Serialize(new IdResponse { id = promotions.Id.ToString() }));
         }
 
-        private async Task AddFocusGroups(FocusGroupDto focusGroupDto, PromotionContext db, EF.Promotions promotions)
-        {
-            if (focusGroupDto == null)
-                return;
-            var focusGroup = await db.FocusGroups.SingleAsync(x => x.Name.ToLower() == focusGroupDto.Name.ToLower());
-            promotions.PromotionFocusGroup.Add(new PromotionFocusGroup
-            {
-                BudgetPerDayInDollars = int.Parse(focusGroupDto.budgetPerDayInDollars),
-                LengthInDaysOfPromotion = int.Parse(focusGroupDto.lengthInDaysOfPromotion),
-                FocusGroupId = focusGroup.Id
-            });
-        }
     }
 }

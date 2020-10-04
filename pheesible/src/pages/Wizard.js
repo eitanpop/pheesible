@@ -187,7 +187,7 @@ export default ({ promotion, setPromotion }) => {
                   Back
                 </button>
               </div>
-              {promotion.stepNumber === OrderedWizardSteps.PromotionSettings ? (
+              {promotion.stepNumber === OrderedWizardSteps.Ad ? (
                 <div className='col d-flex justify-content-center'>
                   <Link className='btn btn-primary' to='purchase'>
                     Purchase

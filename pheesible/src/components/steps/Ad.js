@@ -75,7 +75,23 @@ export default ({
         <FocusGroupSetting
           img={facebookImg}
           name='Facebook'
-          otherFocusGroup={{ name: 'Instagram', img: instagramImg }}
+          updateValue={(key, value) => {
+            const facebook = { ...promotion.facebook, [key]: value }
+            updatePromotion('facebook', facebook)
+          }}
+          getValue={(key) => promotion.facebook[key]}
+          otherFocusGroup={{
+            name: 'Instagram',
+            img: instagramImg,
+            updateValue: (toggledOn) => {
+              const facebook = {
+                ...promotion.facebook,
+                includeInstagram: toggledOn,
+              }
+              updatePromotion('facebook', facebook)
+            },
+            getValue: (key) => promotion.facebook.includeInstagram,
+          }}
         />
       </div>
     </div>

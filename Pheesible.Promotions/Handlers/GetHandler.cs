@@ -23,9 +23,9 @@ namespace Pheesible.Promotions.Handlers
                 promotionQuery = promotionQuery.Where(x => x.Id == int.Parse(id));
 
             var promotions = await promotionQuery
+                .Include(x => x.Facebook)
                 .Include(x => x.Features)
                 .Include(x => x.Ads)
-                .Include(x => x.PromotionFocusGroup).ThenInclude(y => y.FocusGroup)
                 .Include(x => x.SellingPoints)
                 .Include(x => x.Template)
                 .ToListAsync();

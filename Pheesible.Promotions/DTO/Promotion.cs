@@ -8,7 +8,7 @@ namespace Pheesible.Promotions.DTO
     public class Promotion : PublicPromotion
     {
         public string identityId { get; set; }
-        public Promotionsettings promotionSettings { get; set; }
+        public Facebook facebook { get; set; }
         public Ad ad { get; set; }
     }
 
@@ -21,40 +21,7 @@ namespace Pheesible.Promotions.DTO
         public string logo { get; set; }
     }
 
-    public class Promotionsettings
-    {
-        public Facebook Facebook { get; set; }
-        public Instagram Instagram { get; set; }
-        public Twitter Twitter { get; set; }
-        public Tiktok Tiktok { get; set; }
-    }
 
-    public class Facebook : FocusGroupDto
-    {
-        public override string Name => "facebook";
-    }
-
-    public class Instagram : FocusGroupDto
-    {
-        public override string Name => "instagram";
-    }
-
-    public class Twitter : FocusGroupDto
-    {
-        public override string Name => "twitter";
-    }
-
-    public class Tiktok : FocusGroupDto
-    {
-        public override string Name => "tiktok";
-    }
-
-    public abstract class FocusGroupDto
-    {
-        public abstract string Name { get; }
-        public string lengthInDaysOfPromotion { get; set; }
-        public string budgetPerDayInDollars { get; set; }
-    }
 
     public class Sellingpoint
     {
@@ -77,6 +44,14 @@ namespace Pheesible.Promotions.DTO
     {
         public string image { get; set; }
         public string text { get; set; }
+    }
+
+    public class Facebook
+    {
+        public bool isEnabled { get; set; }
+        public bool includeInstagram { get; set; }
+        public string numberOfDays { get; set; }
+        public string budgetPerDayInDollars { get; set; }
     }
 
 }

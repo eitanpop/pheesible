@@ -16,13 +16,21 @@ namespace Pheesible.Promotions.EF
         }
 
         public virtual DbSet<Ads> Ads { get; set; }
+        public virtual DbSet<Facebook> Facebook { get; set; }
         public virtual DbSet<Features> Features { get; set; }
-        public virtual DbSet<FocusGroups> FocusGroups { get; set; }
         public virtual DbSet<Leads> Leads { get; set; }
-        public virtual DbSet<PromotionFocusGroup> PromotionFocusGroup { get; set; }
         public virtual DbSet<Promotions> Promotions { get; set; }
         public virtual DbSet<SellingPoints> SellingPoints { get; set; }
         public virtual DbSet<Templates> Templates { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseNpgsql("Host=pheesible-db.ck7pkv6e9kzg.us-east-1.rds.amazonaws.com;Port=5432;Database=pheesible;Username=oystagoymp;Password=Rebbe613");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +46,23 @@ namespace Pheesible.Promotions.EF
                     .HasConstraintName("fk_promotions");
             });
 
+            modelBuilder.Entity<Facebook>(entity =>
+            {
+                entity.Property(e => e.AdId).HasColumnType("character varying");
+
+                entity.Property(e => e.AdSetId).HasColumnType("character varying");
+
+                entity.Property(e => e.CampaignId).HasColumnType("character varying");
+
+                entity.Property(e => e.CreativeId).HasColumnType("character varying");
+
+                entity.HasOne(d => d.Promotion)
+                    .WithMany(p => p.Facebook)
+                    .HasForeignKey(d => d.PromotionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_promotions");
+            });
+
             modelBuilder.Entity<Features>(entity =>
             {
                 entity.Property(e => e.Description).IsRequired();
@@ -48,13 +73,6 @@ namespace Pheesible.Promotions.EF
                     .WithMany(p => p.Features)
                     .HasForeignKey(d => d.PromotionId)
                     .HasConstraintName("fk_promotions");
-            });
-
-            modelBuilder.Entity<FocusGroups>(entity =>
-            {
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasColumnType("character varying");
             });
 
             modelBuilder.Entity<Leads>(entity =>
@@ -69,22 +87,6 @@ namespace Pheesible.Promotions.EF
 
                 entity.HasOne(d => d.Promotion)
                     .WithMany(p => p.Leads)
-                    .HasForeignKey(d => d.PromotionId)
-                    .HasConstraintName("fk_promotions");
-            });
-
-            modelBuilder.Entity<PromotionFocusGroup>(entity =>
-            {
-                entity.Property(e => e.CustomInformation).HasColumnType("json");
-
-                entity.HasOne(d => d.FocusGroup)
-                    .WithMany(p => p.PromotionFocusGroup)
-                    .HasForeignKey(d => d.FocusGroupId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_focusgroup");
-
-                entity.HasOne(d => d.Promotion)
-                    .WithMany(p => p.PromotionFocusGroup)
                     .HasForeignKey(d => d.PromotionId)
                     .HasConstraintName("fk_promotions");
             });

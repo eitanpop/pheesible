@@ -25,26 +25,23 @@ namespace Pheesible.Scheduler.Jobs.Promotion
             var response = new JobResponse { StartTime = DateTime.UtcNow, JobName = "Promotion" };
             try
             {
-                var promotion = await db.Promotions.Include(x => x.PromotionFocusGroup)
-                    .ThenInclude(x => x.FocusGroup)
-                    .Include(x => x.Ads).FirstOrDefaultAsync(x => x.StatusId == (int)PromotionStatus.ReadyForAdPublish);
+                var promotion = await db.Promotions
+                    .Include(x => x.Facebook)
+                    .Include(x => x.Ads)
+                    .FirstOrDefaultAsync(x => x.StatusId == (int)PromotionStatus.ReadyForAdPublish);
                 if (promotion != null)
                 {
                     promotion.StatusId = (int)PromotionStatus.Running;
-                    var facebook =
-                        promotion.PromotionFocusGroup.FirstOrDefault(x => x.FocusGroup.Name.ToLower() == "facebook");
-                    var insta = promotion.PromotionFocusGroup.FirstOrDefault(x => x.FocusGroup.Name.ToLower() == "instagram");
-                    var google = promotion.PromotionFocusGroup.FirstOrDefault(x => x.FocusGroup.Name.ToLower() == "google");
-
-                    string name = promotion.Id.ToString();
+                    await db.SaveChangesAsync();
+                    var facebook = promotion.Facebook.FirstOrDefault();
                     string landingPageLink = _config.LandingPageLink.Replace("{PROMOTION_ID}", promotion.Id.ToString());
-                    var ad = promotion.Ads.FirstOrDefault();
+
                     if (facebook != null)
                         await _promotionPublisher.PublishToFaceBook(promotion, landingPageLink, facebook);
-                    if (insta != null)
-                        await _promotionPublisher.PublishToInstagram(promotion, landingPageLink, insta);
-                    if (google != null)
-                        await _promotionPublisher.PublishToGoogle(promotion, landingPageLink, google);
+                    /*  if (insta != null)
+                          await _promotionPublisher.PublishToInstagram(promotion, landingPageLink, insta);
+                      if (google != null)
+                          await _promotionPublisher.PublishToGoogle(promotion, landingPageLink, google);*/
                 }
                 else
                 {
@@ -63,12 +60,6 @@ namespace Pheesible.Scheduler.Jobs.Promotion
                 response.AdditionalInformation = ex.Message;
                 return response;
             }
-        }
-
-        private PromotionFocusGroup GetPromotionFocusGroup(Promotions.EF.Promotions promotion, IList<FocusGroups> focusGroups, string name)
-        {
-            return promotion.PromotionFocusGroup.FirstOrDefault(x =>
-                focusGroups.Any(y => y.Name.ToLower() == name.ToLower() && x.FocusGroupId == y.Id));
         }
     }
 }
