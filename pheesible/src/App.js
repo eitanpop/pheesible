@@ -6,10 +6,9 @@ import { loadStripe } from '@stripe/stripe-js'
 
 import awsConfig from './aws-exports'
 import AuthenticatorContainer from './components/auth/AuthenticatorContainer'
-import SignedInContainer from './components/auth/SignedInContainer'
 import PromotionContainer from './components/PromotionContainer'
 import Header from './components/Header'
-import { OrderedWizardSteps, Template } from './constants'
+import { OrderedWizardSteps } from './constants'
 import Wizard from './pages/Wizard'
 import Purchase from './pages/Purchase'
 import Campaigns from './pages/Campaigns'
@@ -25,7 +24,7 @@ Hub.listen('auth', (data) => {
 
 const emptyPromotion = {
   stepNumber: OrderedWizardSteps.Templates,
-  templateId: Template.Business,
+  templateId: 1,
   fields: {},
   sellingPoints: [],
   features: [],
@@ -33,7 +32,7 @@ const emptyPromotion = {
   images: {},
   freeText: '',
   ad: {},
-  facebook:{}
+  facebook: {},
 }
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
@@ -52,33 +51,30 @@ function App() {
           </Route>
           <Route>
             <div className='app'>
-              <div >
+              <div>
                 <AuthenticatorContainer>
                   <Header />
                   <PromotionContainer>
-                    <Router>
-                      <Switch>
-                        <Route path='/wizard'>
-                          <Wizard
-                            promotion={promotion}
-                            setPromotion={setPromotion}
-                          />
-                        </Route>
-                        <Route path='/purchase'>
-                          <Elements stripe={stripePromise}>
-                            <Purchase promotion={promotion} />
-                          </Elements>
-                        </Route>
-                        <Route path='/campaigns'>
-                          <div>
-                            <Campaigns setPromotion={setPromotion} />
-                          </div>
-                        </Route>
-                        <Route path='/'>
-                          <Home />
-                        </Route>
-                      </Switch>
-                    </Router>
+                    <Elements stripe={stripePromise}>
+                      <Router>
+                        <Switch>
+                          <Route path='/wizard'>
+                            <Wizard
+                              promotion={promotion}
+                              setPromotion={setPromotion}
+                            />
+                          </Route>                         
+                          <Route path='/campaigns'>
+                            <div>
+                              <Campaigns setPromotion={setPromotion} />
+                            </div>
+                          </Route>
+                          <Route path='/'>
+                            <Home />
+                          </Route>
+                        </Switch>
+                      </Router>
+                    </Elements>
                   </PromotionContainer>
                 </AuthenticatorContainer>
               </div>

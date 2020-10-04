@@ -10,7 +10,8 @@ import Preview from '../components/preview/Preview'
 import AdPreview from '../components/ads/AdPreview'
 import SellingPoints from '../components/steps/SellingPoints'
 import Features from '../components/steps/Features'
-import PromotionSettings from '../components/steps/PromotionSettings'
+import Payment from '../components/steps/Payment'
+
 import ImageUpload from '../components/steps/ImageUpload'
 import BottomText from '../components/steps/BottomText'
 import Ad from '../components/steps/Ad'
@@ -57,8 +58,9 @@ const getComponentByStep = (
     case OrderedWizardSteps.Ad:
       component = <Ad />
       break
-    case OrderedWizardSteps.PromotionSettings:
-      component = <PromotionSettings />
+
+    case OrderedWizardSteps.Payment:
+      component = <Payment />
       break
 
     default:
@@ -75,7 +77,7 @@ const getComponentByStep = (
 }
 
 export default ({ promotion, setPromotion }) => {
-/*  useUnload((e) => {
+  /*  useUnload((e) => {
     e.preventDefault()
     e.returnValue = 'Changes you made may not be saved.'
   })*/
@@ -178,7 +180,6 @@ export default ({ promotion, setPromotion }) => {
               <div className='col d-flex justify-content-center'>
                 <button
                   type='button'
-                  
                   className='btn btn-outline-dark'
                   disabled={
                     promotion.stepNumber === OrderedWizardSteps.Templates
@@ -187,12 +188,8 @@ export default ({ promotion, setPromotion }) => {
                   Back
                 </button>
               </div>
-              {promotion.stepNumber === OrderedWizardSteps.Ad ? (
-                <div className='col d-flex justify-content-center'>
-                  <Link className='btn btn-primary' to='purchase'>
-                    Purchase
-                  </Link>
-                </div>
+              {promotion.stepNumber === OrderedWizardSteps.Payment ? (
+                ''
               ) : (
                 <div className='col d-flex justify-content-center'>
                   <button
