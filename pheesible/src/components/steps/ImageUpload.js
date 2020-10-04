@@ -1,7 +1,8 @@
 import React from 'react'
 
 import Uploader from '../file/Uploader'
-import FileClear from '../file/FileClear'
+import CardSubTitle from '../wizard/CardSubTitle'
+import HeaderSpacer from '../wizard/HeaderSpacer'
 
 export default ({
   promotion,
@@ -20,62 +21,70 @@ export default ({
   }
 
   return (
-    <div>
-      <div className='form-group'>
-        <label htmlFor='title'>Image 1</label>
-        <FileClear
-          value={promotion.images.imageOne}
-          clearFunction={() => updateImageOnPromotion('imageOne', null)}
-        />
-        <div className='input-group'>
-          <div className='input-group-prepend'>
-            <span className='input-group-text' id='inputGroupFileAddon01'>
-              Upload:
-            </span>
+    <div className='card'>
+      <div className='card-body'>
+        <CardSubTitle tooltip=''>Images</CardSubTitle>
+        <HeaderSpacer />
+        <div className='form-group'>
+          <label htmlFor='title' className='fieldTitle'>
+            Image 1
+          </label>
+          <div className='input-group'>
+            <Uploader
+              templateId={promotion.templateId}
+              path='images'
+              onUpload={(result) => updateImageOnPromotion('imageOne', result)}
+              value={promotion.images.imageOne}
+              clearFunction={() => updateImageOnPromotion('imageOne', null)}
+            />
           </div>
-          <Uploader
-            templateId={promotion.templateId}
-            path='images'
-            onUpload={(result) => updateImageOnPromotion('imageOne', result)}
-          />
         </div>
-      </div>
-      <div className='form-group'>
-        <label htmlFor='title'>Image 2</label>
-        <FileClear
-          value={promotion.images.imageTwo}
-          clearFunction={() => updateImageOnPromotion('imageTwo', null)}
-        />
-        <div className='input-group'>
-          <div className='input-group-prepend'>
-            <span className='input-group-text' id='inputGroupFileAddon01'>
-              Upload
-            </span>
+        <div className='form-group'>
+          <label htmlFor='title' className='fieldTitle'>
+            Image 2
+          </label>
+          <div className='input-group'>
+            <Uploader
+              templateId={promotion.templateId}
+              path='images'
+              onUpload={(result) => updateImageOnPromotion('imageTwo', result)}
+              value={promotion.images.imageTwo}
+              clearFunction={() => updateImageOnPromotion('imageTwo', null)}
+            />
           </div>
-          <Uploader
-            templateId={promotion.templateId}
-            path='images'
-            onUpload={(result) => updateImageOnPromotion('imageTwo', result)}
-          />
         </div>
-      </div>
-      <div className='form-group'>
-        <label htmlFor='title'>Image 3</label>
-        <FileClear
-          value={promotion.images.imageThree}
-          clearFunction={() => updateImageOnPromotion('imageThree', null)}
-        />
-        <div className='input-group'>
-          <div className='input-group-prepend'>
-            <span className='input-group-text' id='inputGroupFileAddon01'>
-              Upload
-            </span>
+        <div className='form-group'>
+          <label htmlFor='title' className='fieldTitle'>
+            Image 3
+          </label>
+
+          <div className='input-group'>
+            <Uploader
+              templateId={promotion.templateId}
+              path='images'
+              onUpload={(result) =>
+                updateImageOnPromotion('imageThree', result)
+              }
+              value={promotion.images.imageThree}
+              clearFunction={() => updateImageOnPromotion('imageThree', null)}
+            />
           </div>
-          <Uploader
-            templateId={promotion.templateId}
-            path='images'
-            onUpload={(result) => updateImageOnPromotion('imageThree', result)}
-          />
+        </div>
+        <br />
+        <hr stlye={{ width: '90%' }} />
+        <CardSubTitle tooltip=''>Additional Information</CardSubTitle>
+        <div class='form-group'>
+          <label for='exampleFormControlTextarea1' className='fieldTitle'>
+            Description
+          </label>
+          <textarea
+            class='form-control'
+            id='exampleFormControlTextarea1'
+            rows='3'
+            value={promotion.freeText}
+            onChange={(e) =>
+              updatePromotion('freeText', e.target.value)
+            }></textarea>
         </div>
       </div>
     </div>

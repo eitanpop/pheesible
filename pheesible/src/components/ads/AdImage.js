@@ -25,5 +25,5 @@ export default ({ promotion, image }) => {
     }
   }
 
-  return <img src={image} alt='AD' />
+  return <img style={{ maxWidth: '900px' }} src={image} alt='AD' />
 }

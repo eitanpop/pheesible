@@ -73,7 +73,7 @@ export default ({ path = '', onUpload, templateId, value, clearFunction }) => {
       ) : (
         <div class='progress' style={{ width: '100%' }}>
           <div
-            class='progress-bar progress-bar-striped bg-success'
+            class='progress-bar progress-bar-striped bg-primary'
             role='progressbar'
             style={{ width: now + '%' }}
             aria-valuenow={now}

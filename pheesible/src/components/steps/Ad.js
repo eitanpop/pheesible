@@ -2,8 +2,14 @@ import React from 'react'
 
 import useError from '../../hooks/useError'
 import Uploader from '../file/Uploader'
-import FileClear from '../file/FileClear'
 import ErrorMessage from '../ErrorMessage'
+import CardTitle from '../wizard/CardTitle'
+import CardSubTitle from '../wizard/CardSubTitle'
+import HeaderSpacer from '../wizard/HeaderSpacer'
+import FocusGroupSetting from '../wizard/FocusGroupSetting'
+
+import facebookImg from '../wizard/img/facebook.png'
+import instagramImg from '../wizard/img/instagram.png'
 
 export default ({
   promotion,
@@ -31,36 +37,47 @@ export default ({
   )
 
   return (
-    <>
-      <div className='form-group'>
-        <label htmlFor='title'>Image</label>
-        <FileClear
-          value={promotion.ad.image}
-          clearFunction={() => updateAdOnPromotion('image', null)}
-        />
-        <div className='input-group'>
-          <div className='input-group-prepend'>
-            <span className='input-group-text' id='inputGroupFileAddon01'>
-              Upload
-            </span>
+    <div className='card'>
+      <div className='card-body'>
+        <CardTitle toolTip='This is a test tooltip'>Ad Set Up</CardTitle>{' '}
+        <HeaderSpacer />
+        <CardSubTitle>Basic Information</CardSubTitle>
+        <div className='form-group'>
+          <label htmlFor='title' className='fieldTitle'>
+            Image
+          </label>
+          <div className='input-group'>
+            <Uploader
+              path='ad'
+              onUpload={(result) => updateAdOnPromotion('image', result)}
+              templateId={promotion.templateId}
+              value={promotion.ad.image}
+              clearFunction={() => updateAdOnPromotion('image', null)}
+            />
           </div>
-          <Uploader
-            path='ad'
-            onUpload={(result) => updateAdOnPromotion('image', result)}
-            templateId={promotion.templateId}
-          />
         </div>
+        <div className='form-group'>
+          <label htmlFor='summary' className='fieldTitle'>
+            Ad Text
+          </label>
+          <textarea
+            className={`form-control ${error.text ? ' has-error ' : ''}`}
+            id='tagLine'
+            rows='6'
+            onChange={(e) => updateAdOnPromotion('text', e.target.value)}
+            value={promotion.ad.text || ''}></textarea>
+          <ErrorMessage errorMessage={error.text} />
+        </div>
+        <div className='mt-4' />
+        <hr stlye={{ width: '90%' }} />
+        <CardSubTitle>Social Networks</CardSubTitle>
+        <div className='mt-4'></div>
+        <FocusGroupSetting
+          img={facebookImg}
+          name='Facebook'
+          otherFocusGroup={{ name: 'Instagram', img: instagramImg }}
+        />
       </div>
-      <div className='form-group'>
-        <label htmlFor='summary'>AD Text</label>
-        <textarea
-          className={`form-control ${error.text ? ' has-error ' : ''}`}
-          id='tagLine'
-          rows='6'
-          onChange={(e) => updateAdOnPromotion('text', e.target.value)}
-          value={promotion.ad.text || ''}></textarea>
-        <ErrorMessage errorMessage={error.text} />
-      </div>
-    </>
+    </div>
   )
 }

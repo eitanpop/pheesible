@@ -178,7 +178,8 @@ export default ({ promotion, setPromotion }) => {
               <div className='col d-flex justify-content-center'>
                 <button
                   type='button'
-                  className='btn btn-primary'
+                  
+                  className='btn btn-outline-dark'
                   disabled={
                     promotion.stepNumber === OrderedWizardSteps.Templates
                   }

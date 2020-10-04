@@ -9,7 +9,7 @@ export default ({
   return (
     <>
       <div className='form-group'>
-        <label htmlFor='title'>{titleLabelText || 'Title'}</label>
+        <label htmlFor='title' className='fieldTitle'>{titleLabelText || 'Title'}</label>
         <input
           className='form-control'
           id='title'
@@ -21,7 +21,7 @@ export default ({
         />
       </div>
       <div className='form-group'>
-        <label htmlFor='description'>{descriptionLabelText || 'Description'}</label>
+        <label htmlFor='description' className='fieldTitle'>{descriptionLabelText || 'Description'}</label>
         <textarea
           className='form-control'
           id='description'

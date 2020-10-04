@@ -2,7 +2,6 @@ import React from 'react'
 
 import useError from '../../hooks/useError'
 import Uploader from '../file/Uploader'
-import FileClear from '../file/FileClear'
 import ErrorMessage from '../ErrorMessage'
 import CardTitle from '../wizard/CardTitle'
 import CardSubTitle from '../wizard/CardSubTitle'
@@ -52,7 +51,9 @@ export default ({
           <HeaderSpacer />
           <CardSubTitle>Basic Information</CardSubTitle>
           <div className='form-group'>
-            <label htmlFor='title'>Title*</label>
+            <label htmlFor='title' className='fieldTitle'>
+              Title*
+            </label>
             <input
               className={`form-control ${error.title ? ' has-error ' : ''}`}
               id='title'
@@ -62,7 +63,9 @@ export default ({
             <ErrorMessage errorMessage={error.title} />
           </div>
           <div className='form-group'>
-            <label htmlFor='title'>Logo</label>
+            <label htmlFor='title' className='fieldTitle'>
+              Logo
+            </label>
 
             <div className='input-group'>
               <Uploader
@@ -75,7 +78,9 @@ export default ({
             </div>
           </div>
           <div className='form-group'>
-            <label htmlFor='title'>Banner</label>
+            <label htmlFor='title' className='fieldTitle'>
+              Banner
+            </label>
 
             <div className='input-group'>
               <Uploader
@@ -88,7 +93,9 @@ export default ({
             </div>
           </div>
           <div className='form-group'>
-            <label htmlFor='tagLine'>Tag line*</label>
+            <label htmlFor='tagLine' className='fieldTitle'>
+              Tag line*
+            </label>
             <textarea
               className={`form-control ${error.tagLine ? ' has-error ' : ''}`}
               id='tagLine'
@@ -100,12 +107,14 @@ export default ({
             <ErrorMessage errorMessage={error.tagLine} />
           </div>
           <div className='form-group'>
-            <label htmlFor='summary'>Elevator Pitch*</label>
+            <label htmlFor='elevatorPitch' className='fieldTitle'>
+              Elevator Pitch*
+            </label>
             <textarea
               className={`form-control ${
                 error.elevatorPitch ? ' has-error ' : ''
               }`}
-              id='tagLine'
+              id='elevatorPitch'
               rows='6'
               onChange={(e) =>
                 updateFieldsOnPromotion('elevatorPitch', e.target.value)

@@ -11,16 +11,15 @@ export default ({ promotion, isLive = false }) => {
 
   return (
     <div
-      className='mt-2 bg-white '
-      style={{  width: '972px' }}>
-      <div className='preview m-3'>
-        <>
-          <div>
-            <AdImage promotion={promotion} image={image} />
-          </div>
-          <div>{promotion.ad.text}</div>
-        </>
+      className='mt-2 bg-white py-3 needs-validation text-center'
+      style={{ maxWidth: '972px', padding: '5px 40px' }}>
+      <div className='d-flex justify-content-center'>
+        <AdImage promotion={promotion} image={image} />
       </div>
+      <br />
+      <hr style={{ width: '90%' }} />
+      <br />
+      <div>{promotion.ad.text}</div>
     </div>
   )
 }
