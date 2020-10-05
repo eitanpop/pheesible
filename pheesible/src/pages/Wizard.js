@@ -11,6 +11,7 @@ import AdPreview from '../components/ads/AdPreview'
 import SellingPoints from '../components/steps/SellingPoints'
 import Features from '../components/steps/Features'
 import Payment from '../components/steps/Payment'
+import Terms from '../components/steps/Terms'
 
 import ImageUpload from '../components/steps/ImageUpload'
 import Ad from '../components/steps/Ad'
@@ -53,6 +54,9 @@ const getComponentByStep = (
       break
     case OrderedWizardSteps.Ad.step:
       component = <Ad />
+      break
+    case OrderedWizardSteps.Terms.step:
+      component = <Terms />
       break
 
     case OrderedWizardSteps.Payment.step:
@@ -160,7 +164,10 @@ export default ({ promotion, setPromotion }) => {
       <div className='container-fluid'>
         <div className='row steps'>
           <div className='col-lg-3 steps-line-container'>
-            <StepLine currentStep={promotion.stepNumber} />
+            <StepLine
+              steps={Object.values(OrderedWizardSteps)}
+              currentStep={promotion.stepNumber}
+            />
           </div>
           <div className='col-lg-9 d-flex justify-content-end align-items-center'>
             <p className='small text-black-50'>
