@@ -13,7 +13,6 @@ import Features from '../components/steps/Features'
 import Payment from '../components/steps/Payment'
 
 import ImageUpload from '../components/steps/ImageUpload'
-import BottomText from '../components/steps/BottomText'
 import Ad from '../components/steps/Ad'
 
 import { getUserCognitoIdentityPoolId } from '../services/auth'
@@ -37,29 +36,26 @@ const getComponentByStep = (
   let component = null
 
   switch (stepNumber) {
-    case OrderedWizardSteps.Templates:
+    case OrderedWizardSteps.Templates.step:
       component = <Templates />
       break
-    case OrderedWizardSteps.BasicInformation:
+    case OrderedWizardSteps.BasicInformation.step:
       component = <BasicInformation />
       break
-    case OrderedWizardSteps.SellingPoints:
+    case OrderedWizardSteps.SellingPoints.step:
       component = <SellingPoints />
       break
-    case OrderedWizardSteps.Features:
+    case OrderedWizardSteps.Features.step:
       component = <Features />
       break
-    case OrderedWizardSteps.ImageUpload:
+    case OrderedWizardSteps.ImageUpload.step:
       component = <ImageUpload />
       break
-    case OrderedWizardSteps.BottomText:
-      component = <BottomText />
-      break
-    case OrderedWizardSteps.Ad:
+    case OrderedWizardSteps.Ad.step:
       component = <Ad />
       break
 
-    case OrderedWizardSteps.Payment:
+    case OrderedWizardSteps.Payment.step:
       component = <Payment />
       break
 
@@ -164,7 +160,7 @@ export default ({ promotion, setPromotion }) => {
       <div className='container-fluid'>
         <div className='row steps'>
           <div className='col-lg-3 steps-line-container'>
-            <StepLine />
+            <StepLine currentStep={promotion.stepNumber} />
           </div>
           <div className='col-lg-9 d-flex justify-content-end align-items-center'>
             <p className='small text-black-50'>
@@ -182,13 +178,13 @@ export default ({ promotion, setPromotion }) => {
                   type='button'
                   className='btn btn-outline-dark'
                   disabled={
-                    promotion.stepNumber === OrderedWizardSteps.Templates
+                    promotion.stepNumber === OrderedWizardSteps.Templates.step
                   }
                   onClick={() => previousStep()}>
                   Back
                 </button>
               </div>
-              {promotion.stepNumber === OrderedWizardSteps.Payment ? (
+              {promotion.stepNumber === OrderedWizardSteps.Payment.step ? (
                 ''
               ) : (
                 <div className='col d-flex justify-content-center'>
@@ -203,7 +199,7 @@ export default ({ promotion, setPromotion }) => {
             </div>
           </div>
           <div className='col-lg-9 preview'>
-            {promotion.stepNumber !== OrderedWizardSteps.Ad ? (
+            {promotion.stepNumber !== OrderedWizardSteps.Ad.step ? (
               <Preview promotion={promotion} isLive={false} />
             ) : (
               <AdPreview promotion={promotion} />

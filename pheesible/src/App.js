@@ -23,7 +23,7 @@ Hub.listen('auth', (data) => {
 })
 
 const emptyPromotion = {
-  stepNumber: OrderedWizardSteps.Templates,
+  stepNumber: OrderedWizardSteps.Templates.step,
   templateId: 1,
   fields: {},
   sellingPoints: [],

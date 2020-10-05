@@ -1,7 +1,7 @@
 import React from 'react'
 import './stepline.css'
 
-export default () => {
+export default ({steps}) => {
   return (
     <section id='stepline'>
       <div className='section-wrapper'>

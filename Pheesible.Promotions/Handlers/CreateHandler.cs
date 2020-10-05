@@ -50,11 +50,13 @@ namespace Pheesible.Promotions.Handlers
             if (promotionDto.facebook?.numberOfDays != null)
             {
                 var facebookDto = promotionDto.facebook;
-                promotions.Facebook = new List<Facebook>{new Facebook
+                promotions.Facebook.Add(new Facebook
                 {
-                    BudgetPerDayInDollars = int.Parse(facebookDto.budgetPerDayInDollars), IncludeInstagram = facebookDto.includeInstagram,
-                    IsEnabled = facebookDto.isEnabled, NumberOfDays = int.Parse(facebookDto.numberOfDays)
-                } };
+                    BudgetPerDayInDollars = int.Parse(facebookDto.budgetPerDayInDollars),
+                    IncludeInstagram = facebookDto.includeInstagram,
+                    IsEnabled = facebookDto.isEnabled,
+                    NumberOfDays = int.Parse(facebookDto.numberOfDays)
+                });
             }
 
             if (isUpdate)
