@@ -9,8 +9,9 @@ namespace Pheesible.Promotions
         Draft = 1,
         WaitingForPaymentConfirmation = 2,
         ReadyForAdPublish = 3,
-        Running = 4,
-        Done = 5,
-        Error = 6
+        ReadyForReview = 4,
+        Running = 5,
+        Done = 6,
+        Error = 7
     }
 }

@@ -25,7 +25,7 @@ export default () => {
           <ul className='navbar-nav mr-auto'>
             <li className='nav-item active'>
               <a className='nav-link' href='/'>
-                Home 
+                Home
               </a>
             </li>
             <li className='nav-item active'>
@@ -35,9 +35,11 @@ export default () => {
             </li>
           </ul>
           <div className='my-2 my-lg-0'>
-            <button className='btn btn btn-success my-2 mr-3 my-sm-0 btn-new'>
+            <a
+              className='btn btn btn-success my-2 mr-3 my-sm-0 btn-new'
+              href='/wizard'>
               New +
-            </button>
+            </a>
             <a className='btn btn-round my-account' href='#'>
               <span>VB</span>
             </a>
