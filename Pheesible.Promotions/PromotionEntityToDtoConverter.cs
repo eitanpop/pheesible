@@ -14,6 +14,7 @@ namespace Pheesible.Promotions
             var promotionDto = new DTO.Promotion
             {
                 id = promotion.Id,
+                name = promotion.Name,
                 title = promotion.Title,
                 templateId = promotion.TemplateId,
                 templateName = promotion.Template.Name,

@@ -7,6 +7,6 @@ namespace Pheesible.Billing.BillingProviders
 {
     public interface IBillingProvider
     {
-        public Task<BillingResponse> Bill(int amount);
+        public Task<BillingResponse> Bill(long amount, string sub, int promotionId);
     }
 }

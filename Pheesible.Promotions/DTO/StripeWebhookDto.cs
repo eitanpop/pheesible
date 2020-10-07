@@ -10,7 +10,7 @@ namespace Pheesible.Promotions.DTO
         public bool livemode { get; set; }
         public string id { get; set; }
         public string type { get; set; }
-        public string _object { get; set; }
+        public string @object { get; set; }
         public object request { get; set; }
         public int pending_webhooks { get; set; }
         public string api_version { get; set; }
@@ -19,7 +19,7 @@ namespace Pheesible.Promotions.DTO
 
     public class Data
     {
-        public Object _object { get; set; }
+        public Object @object { get; set; }
     }
 
     public class Object
@@ -93,6 +93,7 @@ namespace Pheesible.Promotions.DTO
 
     public class Metadata
     {
+        public string promotionId { get; set; }
         public string integration_check { get; set; }
     }
 

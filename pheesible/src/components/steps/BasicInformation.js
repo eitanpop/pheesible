@@ -18,7 +18,7 @@ export default ({
     const fields = { ...promotion.fields, [key]: value }
     updatePromotion('fields', fields)
   }
-
+  const { name } = promotion
   const { title, tagLine, elevatorPitch } = promotion.fields
 
   const error = useError(
@@ -26,6 +26,10 @@ export default ({
     stopRequestingNextStep,
     setIsNextStepConfirmed,
     (addError, setIsValid) => {
+      if (!name) {
+        setIsValid(false)
+        addError('name', 'Please fill out a campaign name')
+      }
       if (!tagLine) {
         setIsValid(false)
         addError('tagLine', 'Please fill out a tag line')
@@ -47,7 +51,23 @@ export default ({
     <>
       <div className='card'>
         <div className='card-body'>
-          <CardTitle toolTip='This is a test tooltip'>Landing Page</CardTitle>{' '}
+          <CardTitle toolTip='This is a test tooltip'>Campaign</CardTitle>
+          <HeaderSpacer />
+          <label htmlFor='name' className='fieldTitle'>
+            Name*
+          </label>
+          <input
+            className={`form-control ${error.name ? ' has-error ' : ''}`}
+            id='name'
+            onChange={(e) => updatePromotion('name', e.target.value)}
+            value={name || ''}
+          />
+          <ErrorMessage errorMessage={error.name} />
+          <br />
+          <hr stlye={{ width: '90%' }} />
+          <CardTitle toolTip='This is a test tooltip'>
+            Landing Page
+          </CardTitle>{' '}
           <HeaderSpacer />
           <CardSubTitle>Basic Information</CardSubTitle>
           <div className='form-group'>

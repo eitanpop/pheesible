@@ -21,8 +21,10 @@ namespace Pheesible.Promotions.Handlers
             string sub = request.RequestContext?.Authorizer?.Claims["sub"];
             bool isUpdate = promotionDto.id != null;
             var promotions = isUpdate ? await db.Promotions.FirstOrDefaultAsync(x => x.Id == promotionDto.id && x.SubId == sub) : new EF.Promotions();
-
+            if(String.IsNullOrEmpty(sub))
+                throw new Exception("Must contain a sub!!");
             promotions.SubId = sub;
+            promotions.Name = promotionDto.name;
             promotions.TemplateId = promotionDto.templateId;
             promotions.TagLine = promotionDto.fields.tagLine;
             promotions.Title = promotionDto.fields.title;

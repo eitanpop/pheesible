@@ -79,7 +79,7 @@ export default ({
             const facebook = { ...promotion.facebook, [key]: value }
             updatePromotion('facebook', facebook)
           }}
-          getValue={(key) => promotion.facebook[key]}
+          getValue={(key) => promotion.facebook && promotion.facebook[key]}
           otherFocusGroup={{
             name: 'Instagram',
             img: instagramImg,
@@ -90,7 +90,7 @@ export default ({
               }
               updatePromotion('facebook', facebook)
             },
-            getValue: (key) => promotion.facebook.includeInstagram,
+            getValue: (key) => promotion.facebook && promotion.facebook.includeInstagram,
           }}
         />
       </div>

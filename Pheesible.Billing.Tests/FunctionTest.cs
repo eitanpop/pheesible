@@ -23,7 +23,7 @@ namespace Pheesible.Billing.Tests
           //  mockConfig.Setup(p => p.Bill(It.IsAny<int>())).Returns(expected);
 
             // Invoke the lambda function and confirm config value is returned
-            var function = new Function(mockConfig.Object);
+          //  var function = new Function(mockConfig.Object);
           //  var result = function.FunctionHandler(123, null);
            // Assert.Equal(expected.Message, result);
         }

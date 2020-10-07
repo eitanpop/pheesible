@@ -1,5 +1,6 @@
 import React from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { Auth } from 'aws-amplify'
 
 import { savePromotion, createPaymentIntent } from '../../services/api'
 import PaymentSummary from '../PaymentSummary'
@@ -44,29 +45,37 @@ export default ({
     const promotionResponse = await savePromotion({ ...promotion, statusId: 2 })
     console.log('promotionResponse', promotionResponse)
 
-    const response = await createPaymentIntent(123)
+    const paymentIntentResponse = await createPaymentIntent({
+      ...promotion,
+      id: promotionResponse.id,
+    })
 
     // const response = await createPaymentIntent(getTotalCharge(promotion))
 
-    console.log(response)
+    console.log(paymentIntentResponse)
 
-    const stripeResponse = await stripe.confirmCardPayment(response, {
+    const user = await Auth.currentUserInfo()
+
+    console.log('user', user)
+
+    const stripeResponse = await stripe.confirmCardPayment(paymentIntentResponse.secret, {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
           name: 'Jenny Rosen',
         },
       },
+      receipt_email:'eitanpop@gmail.com',
     })
 
     console.log('stripe response', stripeResponse)
 
-    const { error, status } = stripeResponse.paymentIntent
+    const { error, paymentIntent } = stripeResponse
 
     if (error) {
       console.log('[error]', error)
     } else {
-      console.log('[status]', status)
+      console.log('[status]', paymentIntent.status)
     }
   }
   return (

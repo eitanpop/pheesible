@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 using Amazon.Lambda.APIGatewayEvents;
 using Microsoft.AspNetCore.Http;
@@ -14,14 +16,21 @@ namespace PheesibleApi.Controllers
     [ApiController]
     public class BillingController : ControllerBase
     {
-        [HttpGet("{amount}")]
-        public async Task<string> Get(int amount)
+        [HttpPost]
+        public async Task<string> Post()
         {
+            string body = await GetRequestContent();
             var function = new Function();
             var result = await function.FunctionHandler(
-                new APIGatewayProxyRequest { PathParameters = new Dictionary<string, string> { { "amount", amount.ToString() } } }, null);
+                new APIGatewayProxyRequest { Body = body }, null);
 
             return result.Body;
+        }
+
+        private async Task<string> GetRequestContent()
+        {
+            using StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8);
+            return await reader.ReadToEndAsync();
         }
     }
 }

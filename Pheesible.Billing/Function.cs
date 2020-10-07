@@ -17,18 +17,21 @@ namespace Pheesible.Billing
 {
     public class Function
     {
-        private IBillingProvider BillingProvider { get; }
+        private readonly IBillingProvider _billingProvider;
+        private readonly IPromotionCharger _promotionCharger;
 
-        public Function(IBillingProvider billingProvider)
+        public Function(IBillingProvider billingProvider, IPromotionCharger promotionCharger)
         {
-            BillingProvider = billingProvider;
+            _billingProvider = billingProvider;
+            _promotionCharger = promotionCharger;
         }
         public Function()
         {
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            BillingProvider = serviceProvider.GetService<IBillingProvider>();
+            _billingProvider = serviceProvider.GetService<IBillingProvider>();
+            _promotionCharger = serviceProvider.GetService<IPromotionCharger>(); ;
         }
 
         private void ConfigureServices(ServiceCollection serviceCollection)
@@ -36,6 +39,7 @@ namespace Pheesible.Billing
             // add dependencies here
             serviceCollection.AddTransient<ILambdaConfiguration, LambdaConfiguration>();
             serviceCollection.AddTransient<IBillingProvider, StripeBillingProvider>();
+            serviceCollection.AddTransient<IPromotionCharger, PromotionCharger>();
 
         }
 
@@ -49,11 +53,14 @@ namespace Pheesible.Billing
         {
             context.Logger.Log($"request: {JsonSerializer.Serialize(request)}");
             context.Logger.Log($"context: {JsonSerializer.Serialize(context)}");
-            int amount = int.Parse(request.PathParameters["amount"]);
+
+            var promotionDto = JsonSerializer.Deserialize<DTO.Promotion>(request.Body);
+            string sub = request.RequestContext?.Authorizer?.Claims["sub"];
+            long amount = await _promotionCharger.Bill(promotionDto);
             return new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = (await BillingProvider.Bill(amount))?.Message,
+                Body = $"{{\"secret\":\"{(await _billingProvider.Bill(amount, sub, int.Parse(promotionDto.id)))?.Message}\"}}",
                 Headers = new Dictionary<string, string>
                 {
                     {"Content-Type", "application/json"}, {"Access-Control-Allow-Headers", "*"},

@@ -13,7 +13,7 @@ namespace Pheesible.Billing.BillingProviders
         {
             _configuration = configuration;
         }
-        public async Task<BillingResponse> Bill(int amount)
+        public async Task<BillingResponse> Bill(long amount, string sub, int promotionId)
         {
             StripeConfiguration.ApiKey = _configuration.StripeSecret;
             var options = new PaymentIntentCreateOptions
@@ -24,6 +24,8 @@ namespace Pheesible.Billing.BillingProviders
                 Metadata = new Dictionary<string, string>
                 {
                     { "integration_check", "accept_a_payment" },
+                    { "sub", sub },
+                    { "promotionId",  promotionId.ToString()}
                 },
             };
 

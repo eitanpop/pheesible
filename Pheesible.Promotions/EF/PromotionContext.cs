@@ -23,7 +23,15 @@ namespace Pheesible.Promotions.EF
         public virtual DbSet<SellingPoints> SellingPoints { get; set; }
         public virtual DbSet<Templates> Templates { get; set; }
 
-     
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseNpgsql("Host=pheesible-db.ck7pkv6e9kzg.us-east-1.rds.amazonaws.com;Port=5432;Database=pheesible;Username=oystagoymp;Password=Rebbe613");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Ads>(entity =>
@@ -98,6 +106,8 @@ namespace Pheesible.Promotions.EF
                 entity.Property(e => e.ImageTwo).HasColumnType("character varying");
 
                 entity.Property(e => e.Logo).HasColumnType("character varying");
+
+                entity.Property(e => e.Name).HasColumnType("character varying");
 
                 entity.Property(e => e.SubId)
                     .IsRequired()

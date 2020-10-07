@@ -23,8 +23,8 @@ export const getTemplates = async () => {
   return await API.get(apiName, '/promotion/templates')
 }
 
-export const createPaymentIntent = async (amount) => {
-  return await API.get(apiName, `/billing/${amount}`)
+export const createPaymentIntent = async (promotion) => {
+  return await API.post(apiName, `/billing`, { body: promotion })
 }
 
 export const saveLead = async (promotionId, lead) => {
