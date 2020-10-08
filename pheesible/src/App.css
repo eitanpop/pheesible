@@ -1,13 +1,19 @@
+html {
+  height: calc(100% - 61px);
+
+  box-sizing: border-box;
+}
+
 body {
-    background-color: #F7F8F8;
-  }
-  html,body {
-    margin:0;
-    padding:0;
-  }
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #f7f8f8;
+}
 
-
-
+#root {
+  height: 100%;
+}
 
 amplify-authenticator {
   display: flex;
@@ -16,7 +22,6 @@ amplify-authenticator {
   flex: 1;
   height: 100vh;
 }
-
 
 .link-button {
   background: none !important;
@@ -30,7 +35,16 @@ amplify-authenticator {
   cursor: pointer;
 }
 
+#sidebar {
+  background-color: lightslategray;
+  height: 100%;
+  display: inline-block;
+  float: none !important;
+}
 
-
-
-
+#sidebar li a {
+  padding: 10px 0;
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}

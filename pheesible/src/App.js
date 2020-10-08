@@ -50,34 +50,30 @@ function App() {
             <Site />
           </Route>
           <Route>
-            <div className='app'>
-              <div>
-                <AuthenticatorContainer>
-                  <Header />
-                  <PromotionContainer>
-                    <Elements stripe={stripePromise}>
-                      <Router>
-                        <Switch>
-                          <Route path='/wizard'>
-                            <Wizard
-                              promotion={promotion}
-                              setPromotion={setPromotion}
-                            />
-                          </Route>                         
-                          <Route path='/campaigns'>
-                            <div>
-                              <Campaigns setPromotion={setPromotion} />
-                            </div>
-                          </Route>
-                          <Route path='/'>
-                            <Home />
-                          </Route>
-                        </Switch>
-                      </Router>
-                    </Elements>
-                  </PromotionContainer>
-                </AuthenticatorContainer>
-              </div>
+            <div className='app h-100'>
+              <AuthenticatorContainer>
+                <Header />
+                <PromotionContainer>
+                  <Elements stripe={stripePromise}>
+                    <Router>
+                      <Switch>
+                        <Route path='/wizard'>
+                          <Wizard
+                            promotion={promotion}
+                            setPromotion={setPromotion}
+                          />
+                        </Route>
+                        <Route path='/campaigns'>
+                          <Campaigns setPromotion={setPromotion} />
+                        </Route>
+                        <Route path='/'>
+                          <Home />
+                        </Route>
+                      </Switch>
+                    </Router>
+                  </Elements>
+                </PromotionContainer>
+              </AuthenticatorContainer>
             </div>
           </Route>
         </Switch>

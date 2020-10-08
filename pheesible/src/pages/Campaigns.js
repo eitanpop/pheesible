@@ -23,13 +23,13 @@ const getStatusElement = (status) => {
     case 3:
       return (
         <div {...props} className={props.className + ' btn-outline-info'}>
-          AWAITING AD PUBLISH
+          PENDING PUBLISH
         </div>
       )
     case 4:
       return (
         <div {...props} className={props.className + ' btn-info'}>
-          AWAITING REVIEW
+          PENDING REVIEW
         </div>
       )
     case 5:
@@ -71,40 +71,48 @@ export default ({ setPromotion }) => {
   }, [chosenPromotion])
   console.log('promotions', promotions)
 
+  const ifAnyPromotionsHaveStatus = (statusId, component) => {
+    return promotions
+      .filter((x) => filter === null || x.statusId === filter)
+      .some((x) => x.statusId === statusId)
+      ? component
+      : ''
+  }
+
   if (isRedirecting) return <Redirect to='/wizard' />
   return (
-    <div className='container-fluid'>
-      <div className='row'>
-        <div className='col-lg-2'>
+    <div className='container-fluid h-100' >
+      <div className='row h-100'>
+        <div className='col-sm-2' id="sidebar">
           <div className='mt-3'>STATUS</div>
-          <div className='mt-2'>
-            <div>
+          <ul className='mt-2 list-unstyled components'>
+            <li>
               <a
                 href='#'
                 onClick={(e) => setFilter(null)}
                 style={{ fontWeight: filter === null ? 'bold' : 'normal' }}>
                 ALL
               </a>
-            </div>
-            <div>
+            </li>
+            <li>
               <a
                 href='#'
                 onClick={(e) => setFilter(1)}
                 style={{ fontWeight: filter === 1 ? 'bold' : 'normal' }}>
                 DRAFTS
               </a>
-            </div>
-            <div>
+            </li>
+            <li>
               <a
                 href='#'
                 onClick={(e) => setFilter(2)}
                 style={{ fontWeight: filter === 2 ? 'bold' : 'normal' }}>
                 RUNNING
               </a>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
-        <div className='col-lg-10'>
+        <div className='col-sm-10'>
           <div className='mt-3 h3'>CAMPAIGNS</div>
           <div class='table-responsive'>
             <table className='table'>
@@ -118,21 +126,35 @@ export default ({ setPromotion }) => {
                         <td>{getStatusElement(x.statusId)}</td>
                         <td>$</td>
                         <td>{x.facebook && x.facebook.days}</td>
-                        <td>
-                          {' '}
-                          <a
-                            href='#'
-                            key={x.id}
-                            onClick={() => {
-                              console.log('clicking')
-                              setChosenPromotion(x.id)
-                            }}>
-                            {x.id}: {x.title}
-                          </a>
-                        </td>
-                        <td>
-                          <a href={'/report?id=' + x.id}>REPORT</a>
-                        </td>
+
+                        {ifAnyPromotionsHaveStatus(
+                          1,
+                          <td>
+                            {x.statusId === 1 ? (
+                              <a
+                                href='#'
+                                onClick={() => {
+                                  console.log('editing')
+                                  setChosenPromotion(x.id)
+                                }}>
+                                EDIT
+                              </a>
+                            ) : (
+                              ''
+                            )}{' '}
+                          </td>
+                        )}
+
+                        {ifAnyPromotionsHaveStatus(
+                          1,
+                          <td>
+                            {x.statusId === 5 ? (
+                              <a href={'/report?id=' + x.id}>REPORT</a>
+                            ) : (
+                              ''
+                            )}{' '}
+                          </td>
+                        )}
                       </tr>
                     )
                   })}

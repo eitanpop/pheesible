@@ -42,7 +42,7 @@ export default ({
       return
     }
 
-    const promotionResponse = await savePromotion({ ...promotion, statusId: 2 })
+    const promotionResponse = await savePromotion({ ...promotion })
     console.log('promotionResponse', promotionResponse)
 
     const paymentIntentResponse = await createPaymentIntent({

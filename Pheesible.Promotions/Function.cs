@@ -9,6 +9,7 @@ using Amazon.Lambda.Core;
 using Amazon.Lambda.APIGatewayEvents;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Pheesible.Promotions.DTO;
 using Pheesible.Promotions.EF;
 using Pheesible.Promotions.Handlers;
 
@@ -42,10 +43,16 @@ namespace Pheesible.Promotions
         {
             // add dependencies here
             serviceCollection.AddTransient<ILambdaConfiguration, LambdaConfiguration>();
-            serviceCollection.AddDbContext<PromotionContext>((serviceProvider, options) =>
+
+            serviceCollection.AddTransient(provider =>
             {
-                var connectionString = serviceProvider.GetService<ILambdaConfiguration>().ConnectionString;
-                options.UseNpgsql(connectionString, opt => opt.EnableRetryOnFailure());
+                var connectionString = provider.GetService<ILambdaConfiguration>().ConnectionString;
+                var options = new DbContextOptionsBuilder<PromotionContext>();
+                options.UseNpgsql(connectionString, opt =>
+                {
+                    opt.EnableRetryOnFailure();
+                });
+                return new PromotionContext(options.Options);
             });
             serviceCollection.AddTransient<IApp, App>();
             serviceCollection.AddTransient<IHandlerFactory, HandlerFactory>();
@@ -64,6 +71,7 @@ namespace Pheesible.Promotions
             context.Logger.Log("SubId: " + request.RequestContext?.Authorizer?.Claims["sub"]);
 
             var response = await _app.Run(request);
+            context.Logger.Log($"response: {JsonSerializer.Serialize(response)}");
             return response;
         }
     }

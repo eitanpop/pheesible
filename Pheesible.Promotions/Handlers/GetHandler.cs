@@ -28,6 +28,7 @@ namespace Pheesible.Promotions.Handlers
                 .Include(x => x.Ads)
                 .Include(x => x.SellingPoints)
                 .Include(x => x.Template)
+                .AsNoTracking()
                 .ToListAsync();
             if (!String.IsNullOrEmpty(id))
                 return ApiGatewayHelper.GetSuccessResponse(JsonSerializer.Serialize(promotions.Select(PromotionEntityToDtoConverter.Convert).FirstOrDefault()));
