@@ -8,5 +8,6 @@ namespace Pheesible.Promotions
     {
         string Get(string property);
         string ConnectionString { get; }
+        string AdminGroup { get; }
     }
 }

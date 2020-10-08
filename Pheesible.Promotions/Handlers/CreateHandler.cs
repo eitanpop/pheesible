@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Amazon.Lambda.APIGatewayEvents;
 using Microsoft.EntityFrameworkCore;
+using Pheesible.Core;
 using Pheesible.Promotions.DTO;
 using Pheesible.Promotions.EF;
 using Facebook = Pheesible.Promotions.EF.Facebook;
@@ -18,10 +19,10 @@ namespace Pheesible.Promotions.Handlers
         public async Task<APIGatewayProxyResponse> Handle(APIGatewayProxyRequest request, PromotionContext db)
         {
             var promotionDto = JsonSerializer.Deserialize<DTO.Promotion>(request.Body);
-            string sub = request.RequestContext?.Authorizer?.Claims["sub"];
+            string sub = request.GetSub();
             bool isUpdate = promotionDto.id != null;
             var promotions = isUpdate ? await db.Promotions.FirstOrDefaultAsync(x => x.Id == promotionDto.id && x.SubId == sub) : new EF.Promotions();
-            if(String.IsNullOrEmpty(sub))
+            if (String.IsNullOrEmpty(sub))
                 throw new Exception("Must contain a sub!!");
             promotions.SubId = sub;
             promotions.Name = promotionDto.name;
@@ -68,12 +69,11 @@ namespace Pheesible.Promotions.Handlers
             if (!isUpdate)
                 db.Promotions.Add(promotions);
 
-            promotions.StatusId = promotionDto.statusId == (int)PromotionStatus.WaitingForPaymentConfirmation
-                ? (int)PromotionStatus.WaitingForPaymentConfirmation
-                : (int)PromotionStatus.Draft;
 
-            if(promotions.CreateDate == null)
-                promotions.CreateDate = DateTime.UtcNow;;
+            promotions.StatusId = (int)PromotionStatus.Draft;
+
+            if (promotions.CreateDate == null)
+                promotions.CreateDate = DateTime.UtcNow; ;
 
             await db.SaveChangesAsync();
             return ApiGatewayHelper.GetSuccessResponse(JsonSerializer.Serialize(new IdResponse { id = promotions.Id.ToString() }));

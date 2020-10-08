@@ -40,7 +40,7 @@ namespace Pheesible.Promotions.Handlers
                 await db.Promotions.SingleAsync(
                     x => x.Id == int.Parse(promotionId));
 
-            promotion.StatusId = (int)PromotionStatus.ReadyForAdPublish;
+            promotion.StatusId = (int)PromotionStatus.ReadyForReview;
 
             await db.SaveChangesAsync();
 

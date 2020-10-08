@@ -31,7 +31,7 @@ namespace Pheesible.Scheduler.Jobs.Promotion
                     .FirstOrDefaultAsync(x => x.StatusId == (int)PromotionStatus.ReadyForAdPublish);
                 if (promotion != null)
                 {
-                    promotion.StatusId = (int)PromotionStatus.ReadyForReview;
+                    promotion.StatusId = (int)PromotionStatus.Publishing;
                     await db.SaveChangesAsync();
                     var facebook = promotion.Facebook.FirstOrDefault();
                     string landingPageLink = _config.LandingPageLink.Replace("{PROMOTION_ID}", promotion.Id.ToString());

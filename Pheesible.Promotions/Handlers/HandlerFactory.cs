@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
+using Pheesible.Promotions.Handlers.Admin;
 
 namespace Pheesible.Promotions.Handlers
 {
@@ -24,6 +25,8 @@ namespace Pheesible.Promotions.Handlers
                     return new CreateLeadHandler();
                 case "post":
                     return new CreateHandler();
+                case "get" when request.Path.Contains("/admin/review"):
+                    return new ReviewHandler(_config);
                 case "get" when request.Path.Contains("/promotion/public/", StringComparison.CurrentCultureIgnoreCase):
                     return new PublicHandler();
                 case "get" when request.Path.Equals("/promotion/templates", StringComparison.CurrentCultureIgnoreCase):

@@ -8,4 +8,9 @@
     <Folder Include="ServiceProviders\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="2.1.0" />
+    <PackageReference Include="AWSSDK.Core" Version="3.5.1.23" />
+  </ItemGroup>
+
 </Project>

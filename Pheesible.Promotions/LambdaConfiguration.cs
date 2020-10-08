@@ -19,5 +19,6 @@ namespace Pheesible.Promotions
             Configuration[property];
 
         public string ConnectionString => Get("DbContextSettings:ConnectionString");
+        public string AdminGroup => Get("AdminGroup");
     }
 }

@@ -16,28 +16,23 @@ const getStatusElement = (status) => {
     case 2:
       return (
         <div {...props} className={props.className + ' btn-warning'}>
-          CHARGING
+          PENDING REVIEW
         </div>
       )
 
-    case 3:
+    case 3 || 4:
       return (
         <div {...props} className={props.className + ' btn-outline-info'}>
-          PENDING PUBLISH
-        </div>
-      )
-    case 4:
-      return (
-        <div {...props} className={props.className + ' btn-info'}>
-          PENDING REVIEW
+          PUBLISHING
         </div>
       )
     case 5:
       return (
-        <div {...props} className={props.className + ' btn-primary'}>
+        <div {...props} className={props.className + ' btn-info'}>
           RUNNING
         </div>
       )
+
     case 6:
       return (
         <div {...props} className={props.className + ' btn-success'}>
@@ -47,7 +42,13 @@ const getStatusElement = (status) => {
     case 7:
       return (
         <div {...props} className={props.className + ' btn-danger'}>
-          ERROR{' '}
+          ERROR
+        </div>
+      )
+    case 8:
+      return (
+        <div {...props} className={props.className + ' btn-danger'}>
+          REJECTED
         </div>
       )
     default:
@@ -81,9 +82,9 @@ export default ({ setPromotion }) => {
 
   if (isRedirecting) return <Redirect to='/wizard' />
   return (
-    <div className='container-fluid h-100' >
+    <div className='container-fluid h-100'>
       <div className='row h-100'>
-        <div className='col-sm-2' id="sidebar">
+        <div className='col-sm-2' id='sidebar'>
           <div className='mt-3'>STATUS</div>
           <ul className='mt-2 list-unstyled components'>
             <li>
@@ -107,6 +108,22 @@ export default ({ setPromotion }) => {
                 href='#'
                 onClick={(e) => setFilter(2)}
                 style={{ fontWeight: filter === 2 ? 'bold' : 'normal' }}>
+                PENDING REVIEW
+              </a>
+            </li>
+            <li>
+              <a
+                href='#'
+                onClick={(e) => setFilter(3)}
+                style={{ fontWeight: filter === 3 ? 'bold' : 'normal' }}>
+                READY FOR AD PUBLISH
+              </a>
+            </li>
+            <li>
+              <a
+                href='#'
+                onClick={(e) => setFilter(5)}
+                style={{ fontWeight: filter === 5 ? 'bold' : 'normal' }}>
                 RUNNING
               </a>
             </li>
@@ -148,7 +165,7 @@ export default ({ setPromotion }) => {
                         {ifAnyPromotionsHaveStatus(
                           1,
                           <td>
-                            {x.statusId === 5 ? (
+                            {x.statusId === 5 || x.statusId === 6 ? (
                               <a href={'/report?id=' + x.id}>REPORT</a>
                             ) : (
                               ''

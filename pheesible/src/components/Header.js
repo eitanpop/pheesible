@@ -1,7 +1,13 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { getUserGroups } from '../services/auth'
 
 export default () => {
+  useEffect(() => {
+    const IsAdmin = async () => {
+      console.log('user groups', await getUserGroups())
+    }
+    IsAdmin()
+  })
   return (
     <header>
       <nav className='navbar navbar-expand-lg navbar-dark bg-dark container-fluid'>

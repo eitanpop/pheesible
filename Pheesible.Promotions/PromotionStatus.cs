@@ -7,11 +7,13 @@ namespace Pheesible.Promotions
     public enum PromotionStatus
     {
         Draft = 1,
-        WaitingForPaymentConfirmation = 2,
+        ReadyForReview = 2,
         ReadyForAdPublish = 3,
-        ReadyForReview = 4,
+        Publishing = 4,
         Running = 5,
         Done = 6,
-        Error = 7
+        Error = 7,
+        Rejected = 8,
+      
     }
 }

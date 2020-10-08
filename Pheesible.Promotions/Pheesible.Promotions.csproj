@@ -21,6 +21,9 @@
     <PackageReference Include="Stripe.net" Version="39.10.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Pheesible.Core\Pheesible.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
