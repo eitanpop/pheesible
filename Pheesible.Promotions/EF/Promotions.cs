@@ -29,6 +29,8 @@ namespace Pheesible.Promotions.EF
         public int TemplateId { get; set; }
         public int? StatusId { get; set; }
         public string Name { get; set; }
+        public DateTime? CreateDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         public virtual Templates Template { get; set; }
         public virtual ICollection<Ads> Ads { get; set; }

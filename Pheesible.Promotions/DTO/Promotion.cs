@@ -12,6 +12,8 @@ namespace Pheesible.Promotions.DTO
         public string identityId { get; set; }
         public Facebook facebook { get; set; }
         public Ad ad { get; set; }
+        public string createDate { get; set; }
+        public string startDate { get; set; }
     }
 
     public class Fields

@@ -72,6 +72,9 @@ namespace Pheesible.Promotions.Handlers
                 ? (int)PromotionStatus.WaitingForPaymentConfirmation
                 : (int)PromotionStatus.Draft;
 
+            if(promotions.CreateDate == null)
+                promotions.CreateDate = DateTime.UtcNow;;
+
             await db.SaveChangesAsync();
             return ApiGatewayHelper.GetSuccessResponse(JsonSerializer.Serialize(new IdResponse { id = promotions.Id.ToString() }));
         }

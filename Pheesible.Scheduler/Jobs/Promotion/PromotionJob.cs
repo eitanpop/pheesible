@@ -42,6 +42,9 @@ namespace Pheesible.Scheduler.Jobs.Promotion
                           await _promotionPublisher.PublishToInstagram(promotion, landingPageLink, insta);
                       if (google != null)
                           await _promotionPublisher.PublishToGoogle(promotion, landingPageLink, google);*/
+                    promotion.StatusId = (int)PromotionStatus.Running;
+                    promotion.StartDate = DateTime.UtcNow;
+                    await db.SaveChangesAsync();
                 }
                 else
                 {
