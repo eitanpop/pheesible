@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Pheesible.Promotions.DTO
 {
-    public class IdRequest
+    public class ApproveOrReject : IdRequest
     {
-        public int id { get; set; }
+        public string action { get; set; }
     }
 }

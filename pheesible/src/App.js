@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Amplify, { Hub } from 'aws-amplify'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 
 import awsConfig from './aws-exports'
+import { getUserGroups } from './services/auth'
 import AuthenticatorContainer from './components/auth/AuthenticatorContainer'
 import Header from './components/Header'
 import { OrderedWizardSteps } from './constants'
@@ -12,6 +13,7 @@ import Wizard from './pages/Wizard'
 import Campaigns from './pages/Campaigns'
 import Site from './pages/Site'
 import Home from './pages/Home'
+import Admin from './pages/Admin'
 import './App.css'
 
 Amplify.configure(awsConfig)
@@ -39,6 +41,7 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK)
 
 function App() {
   const [promotion, setPromotion] = useState(emptyPromotion)
+  const [isAdmin, setIsAdmin] = useState(null)
 
   return (
     <>
@@ -49,7 +52,14 @@ function App() {
           </Route>
           <Route>
             <div className='app h-100'>
-              <AuthenticatorContainer>
+              <AuthenticatorContainer
+                onAuthStateChanged={async (e) => {
+                  console.log('e', e)
+                  if (isAdmin === null) {
+                    const userGroups = await getUserGroups()
+                    setIsAdmin(userGroups && userGroups[0] === 'Admin')
+                  }
+                }}>
                 <Header />
 
                 <Elements stripe={stripePromise}>
@@ -64,6 +74,17 @@ function App() {
                       <Route path='/campaigns'>
                         <Campaigns setPromotion={setPromotion} />
                       </Route>
+
+                      <Route path='/admin'>
+                        {isAdmin === null ? (
+                          <div>Loading...</div>
+                        ) : isAdmin ? (
+                          <Admin />
+                        ) : (
+                          <div>Not Allowed!</div>
+                        )}
+                      </Route>
+
                       <Route path='/'>
                         <Home />
                       </Route>

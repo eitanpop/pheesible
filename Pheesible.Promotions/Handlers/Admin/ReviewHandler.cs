@@ -24,14 +24,13 @@ namespace Pheesible.Promotions.Handlers.Admin
         {
             if (request.GetGroup() != _config.AdminGroup)
                 return ApiGatewayHelper.GetForbiddenResponse("Forbidden!");
-            string sub = request.GetSub();
             var promotions = await db.Promotions
                 .Include(x => x.Facebook)
                 .Include(x => x.Features)
                 .Include(x => x.Ads)
                 .Include(x => x.SellingPoints)
                 .Include(x => x.Template)
-                .Where(x => x.SubId == sub || x.StatusId == (int)PromotionStatus.ReadyForReview)
+                .Where(x => x.StatusId == (int)PromotionStatus.ReadyForReview)
                 .AsNoTracking()
                 .ToListAsync();
             return ApiGatewayHelper.GetSuccessResponse(JsonSerializer.Serialize(promotions.Select(PromotionEntityToDtoConverter.Convert)));

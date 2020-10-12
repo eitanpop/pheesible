@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { getUserGroups } from '../services/auth'
 
 export default () => {
+  const [isAdmin, setIsAdmin] = useState()
   useEffect(() => {
     const IsAdmin = async () => {
-      console.log('user groups', await getUserGroups())
+      const userGroups = await getUserGroups()
+      setIsAdmin(userGroups && userGroups[0] === 'Admin')
     }
     IsAdmin()
   })
@@ -39,6 +41,15 @@ export default () => {
                 Campaigns
               </a>
             </li>
+            {isAdmin ? (
+              <li className='nav-item active'>
+                <a className='nav-link' href='/admin'>
+                  Administration
+                </a>
+              </li>
+            ) : (
+              ''
+            )}
           </ul>
           <div className='my-2 my-lg-0'>
             <a

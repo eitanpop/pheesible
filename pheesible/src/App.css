@@ -36,7 +36,7 @@ amplify-authenticator {
 }
 
 #sidebar {
-  background-color: #82889B;
+  background-color: #82889b;
   height: 100%;
   display: inline-block;
   float: none !important;
@@ -47,4 +47,8 @@ amplify-authenticator {
   display: block;
   color: rgba(255, 255, 255, 0.8);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-image {
+  max-width: 150px;
 }

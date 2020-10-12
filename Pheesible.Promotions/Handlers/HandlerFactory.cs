@@ -24,7 +24,7 @@ namespace Pheesible.Promotions.Handlers
                 case "post" when request.Path.Equals("/promotion/lead", StringComparison.InvariantCultureIgnoreCase):
                     return new CreateLeadHandler();
                 case "post" when request.Path.Equals("/admin/approve", StringComparison.InvariantCultureIgnoreCase):
-                    return new CampaignApproveHandler();
+                    return new CampaignApproveHandler(_config);
                 case "post":
                     return new CreateHandler();
                 case "get" when request.Path.Contains("/admin/review", StringComparison.InvariantCultureIgnoreCase):

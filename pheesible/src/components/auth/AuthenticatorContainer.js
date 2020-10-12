@@ -7,7 +7,7 @@ import {
   AmplifyConfirmSignUp,
 } from '@aws-amplify/ui-react'
 
-export default ({ children }) => {
+export default ({ children, onAuthStateChanged }) => {
   const [authState, setAuthState] = React.useState()
   const [user, setUser] = React.useState()
 
@@ -15,7 +15,7 @@ export default ({ children }) => {
     return onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState)
       setUser(authData)
-      console.log('authData',authData)
+      if (onAuthStateChanged) onAuthStateChanged(authData)
     })
   }, [])
 
@@ -59,7 +59,7 @@ export default ({ children }) => {
         ]}
       />
       <AmplifySignIn slot='sign-in' usernameAlias='email' />
-      <AmplifyConfirmSignUp slot='confirm-sign-up' usernameAlias='email'  />
+      <AmplifyConfirmSignUp slot='confirm-sign-up' usernameAlias='email' />
     </AmplifyAuthenticator>
   )
 }

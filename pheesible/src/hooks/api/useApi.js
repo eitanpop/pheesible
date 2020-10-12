@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-export default (api, ...args) => {
+export default (api, dependency = null, ...args) => {
   const [result, setResult] = useState({
     loading: true,
     error: null,
@@ -17,7 +17,7 @@ export default (api, ...args) => {
       }
     }
     callApi()
-  }, [api.name, argJson])
+  }, [api.name, argJson, dependency])
 
   return result
 }
