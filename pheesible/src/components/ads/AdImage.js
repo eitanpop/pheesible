@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
-
-import PromotionContext from '../../context/promotionContext'
+import React from 'react'
+import useTemplates from '../../hooks/api/useTemplates'
 
 import businessImage from '../templates/business/ad/image.png'
 
 export default ({ promotion, image }) => {
-  const { templates } = useContext(PromotionContext)
-
+  const { error, loading, data: templates } = useTemplates()
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>Unexpected error</div>
   console.log('templates', templates)
   if (!image) {
     const name = templates

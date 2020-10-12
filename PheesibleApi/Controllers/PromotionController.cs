@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Amazon.Lambda.APIGatewayEvents;
+using Amazon.Lambda.TestUtilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Pheesible.Promotions;
@@ -33,7 +34,7 @@ namespace PheesibleApi.Controllers
 
             var body = await GetRequestContent();
             var function = new Function();
-            var result = await function.FunctionHandler(new APIGatewayProxyRequest { HttpMethod = "get", Path = "/promotion" }, null);
+            var result = await function.FunctionHandler(new APIGatewayProxyRequest { HttpMethod = "get", Path = "/promotion" }, new TestLambdaContext());
 
             return result.Body;
         }
@@ -44,7 +45,7 @@ namespace PheesibleApi.Controllers
 
             var body = await GetRequestContent();
             var function = new Function();
-            var result = await function.FunctionHandler(new APIGatewayProxyRequest { HttpMethod = "get", Path = $"/promotion/{id}", PathParameters = new Dictionary<string, string> { { "id", id } } }, null);
+            var result = await function.FunctionHandler(new APIGatewayProxyRequest { HttpMethod = "get", Path = $"/promotion/{id}", PathParameters = new Dictionary<string, string> { { "id", id } } }, new TestLambdaContext());
 
             return result.Body;
         }

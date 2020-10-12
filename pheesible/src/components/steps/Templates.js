@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
-import PromotionContext from '../../context/promotionContext'
+import useTemplates from '../../hooks/api/useTemplates'
 
 export default ({
   promotion,
@@ -9,8 +9,10 @@ export default ({
   stopRequestingNextStep,
   setIsNextStepConfirmed,
 }) => {
-  const { templates } = useContext(PromotionContext)
+  const { error, loading, data: templates } = useTemplates()
 
+  if (error) return <div>Unexpected error</div>
+  if (loading) return <div>Loading...</div>
   if (isRequestingNextStep) {
     console.log('isValidating is true and setting currentStepValid to true')
     setIsNextStepConfirmed(true)

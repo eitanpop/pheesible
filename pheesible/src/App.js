@@ -6,7 +6,6 @@ import { loadStripe } from '@stripe/stripe-js'
 
 import awsConfig from './aws-exports'
 import AuthenticatorContainer from './components/auth/AuthenticatorContainer'
-import PromotionContainer from './components/PromotionContainer'
 import Header from './components/Header'
 import { OrderedWizardSteps } from './constants'
 import Wizard from './pages/Wizard'
@@ -52,26 +51,25 @@ function App() {
             <div className='app h-100'>
               <AuthenticatorContainer>
                 <Header />
-                <PromotionContainer>
-                  <Elements stripe={stripePromise}>
-                    <Router>
-                      <Switch>
-                        <Route path='/wizard'>
-                          <Wizard
-                            promotion={promotion}
-                            setPromotion={setPromotion}
-                          />
-                        </Route>
-                        <Route path='/campaigns'>
-                          <Campaigns setPromotion={setPromotion} />
-                        </Route>
-                        <Route path='/'>
-                          <Home />
-                        </Route>
-                      </Switch>
-                    </Router>
-                  </Elements>
-                </PromotionContainer>
+
+                <Elements stripe={stripePromise}>
+                  <Router>
+                    <Switch>
+                      <Route path='/wizard'>
+                        <Wizard
+                          promotion={promotion}
+                          setPromotion={setPromotion}
+                        />
+                      </Route>
+                      <Route path='/campaigns'>
+                        <Campaigns setPromotion={setPromotion} />
+                      </Route>
+                      <Route path='/'>
+                        <Home />
+                      </Route>
+                    </Switch>
+                  </Router>
+                </Elements>
               </AuthenticatorContainer>
             </div>
           </Route>

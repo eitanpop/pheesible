@@ -19,17 +19,19 @@ namespace Pheesible.Promotions.Handlers
         {
             switch (request.HttpMethod.ToLower())
             {
-                case "post" when request.Path.Equals("/promotion/stripe", StringComparison.CurrentCultureIgnoreCase):
+                case "post" when request.Path.Equals("/promotion/stripe", StringComparison.InvariantCultureIgnoreCase):
                     return new StripeHandler(_config);
-                case "post" when request.Path.Equals("/promotion/lead", StringComparison.CurrentCultureIgnoreCase):
+                case "post" when request.Path.Equals("/promotion/lead", StringComparison.InvariantCultureIgnoreCase):
                     return new CreateLeadHandler();
+                case "post" when request.Path.Equals("/admin/approve", StringComparison.InvariantCultureIgnoreCase):
+                    return new CampaignApproveHandler();
                 case "post":
                     return new CreateHandler();
-                case "get" when request.Path.Contains("/admin/review"):
+                case "get" when request.Path.Contains("/admin/review", StringComparison.InvariantCultureIgnoreCase):
                     return new ReviewHandler(_config);
-                case "get" when request.Path.Contains("/promotion/public/", StringComparison.CurrentCultureIgnoreCase):
+                case "get" when request.Path.Contains("/promotion/public/", StringComparison.InvariantCultureIgnoreCase):
                     return new PublicHandler();
-                case "get" when request.Path.Equals("/promotion/templates", StringComparison.CurrentCultureIgnoreCase):
+                case "get" when request.Path.Equals("/promotion/templates", StringComparison.InvariantCultureIgnoreCase):
                     return new TemplateGetHandler();
                 case "get":
                     return new GetHandler();

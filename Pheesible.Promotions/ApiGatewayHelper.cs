@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using Amazon.Lambda.APIGatewayEvents;
+using Pheesible.Core;
 
 namespace Pheesible.Promotions
 {
     public static class ApiGatewayHelper
     {
+        public static bool IsAdmin(APIGatewayProxyRequest request)
+        {
+            return request.GetGroup().Equals("admin", StringComparison.InvariantCultureIgnoreCase);
+        }
         public static APIGatewayProxyResponse GetSuccessResponse(string responseData)
         {
             return GetResponse(responseData, HttpStatusCode.OK);

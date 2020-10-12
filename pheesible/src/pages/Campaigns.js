@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
-import ApiContext from '../context/promotionContext'
+import usePromotion from '../hooks/api/usePromotions'
 
 const getStatusElement = (status) => {
   const props = { className: 'btn', style: { cursor: 'default' } }
@@ -57,20 +57,20 @@ const getStatusElement = (status) => {
 }
 
 export default ({ setPromotion }) => {
-  const { promotions } = useContext(ApiContext)
+  const { loading, error, data: promotions } = usePromotion()
   const [chosenPromotion, setChosenPromotion] = useState(null)
   const [isRedirecting, setIsRedirecting] = useState(null)
   const [filter, setFilter] = useState(null)
+
   useEffect(() => {
     if (localStorage.getItem('wolp')) localStorage.removeItem('wolp')
   }, [])
 
   useEffect(() => {
-    if (chosenPromotion === null) return
+    if (chosenPromotion === null || promotions === null) return
     setPromotion({ ...promotions.find((x) => x.id === chosenPromotion) })
     setIsRedirecting(true)
   }, [chosenPromotion])
-  console.log('promotions', promotions)
 
   const ifAnyPromotionsHaveStatus = (statusId, component) => {
     return promotions
@@ -80,6 +80,12 @@ export default ({ setPromotion }) => {
       : ''
   }
 
+  if (loading) return <div>Loading...</div>
+  if (error) {
+    console.log('error', error)
+    return <div>There was an unexpected error</div>
+  }
+  console.log('promotions', promotions)
   if (isRedirecting) return <Redirect to='/wizard' />
   return (
     <div className='container-fluid h-100'>
@@ -131,7 +137,7 @@ export default ({ setPromotion }) => {
         </div>
         <div className='col-sm-10'>
           <div className='mt-3 h3'>CAMPAIGNS</div>
-          <div class='table-responsive'>
+          <div className='table-responsive'>
             <table className='table'>
               <tbody>
                 {promotions

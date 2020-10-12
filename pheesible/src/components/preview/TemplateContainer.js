@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
-import PromotionContext from '../../context/promotionContext'
+import useTemplates from '../../hooks/api/useTemplates'
 import Template from './Template'
 
 export default ({
@@ -12,7 +12,9 @@ export default ({
   imageThree,
   isLive,
 }) => {
-  const { templates } = useContext(PromotionContext)
+  const { error, loading, data: templates } = useTemplates()
+  if (error) return <div>Unexpected error</div>
+  if (loading) return <div>Loading...</div>
   const name = templates
     .find((x) => x.Id === promotion.templateId)
     .Name.toLowerCase()
