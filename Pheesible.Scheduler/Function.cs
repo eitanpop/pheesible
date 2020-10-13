@@ -1,3 +1,4 @@
+using System;
 using Amazon.CognitoIdentityProvider;
 using Amazon.Extensions.NETCore.Setup;
 using Amazon.Lambda.Core;
@@ -14,6 +15,8 @@ using Pheesible.Scheduler.Jobs.Promotion;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Pheesible.Core.Logging;
+
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -23,12 +26,14 @@ namespace Pheesible.Scheduler
     public class Function
     {
         private readonly IApp _app;
+        private readonly ILogger _logger;
         /// <summary>
         /// Default constructor that Lambda will invoke.
         /// </summary>
-        public Function(IApp app)
+        public Function(IApp app, ILogger logger)
         {
             _app = app;
+            _logger = logger;
         }
         public Function()
         {
@@ -36,11 +41,11 @@ namespace Pheesible.Scheduler
             ConfigureServices(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
             _app = serviceProvider.GetService<IApp>();
+            _logger = serviceProvider.GetService<ILogger>();
         }
 
         private void ConfigureServices(IServiceCollection serviceCollection)
         {
-            // add dependencies here
             serviceCollection.AddTransient<ILambdaConfiguration, LambdaConfiguration>();
             serviceCollection.AddDbContext<PromotionContext>((serviceProvider, options) =>
             {
@@ -62,14 +67,14 @@ namespace Pheesible.Scheduler
                 Credentials = credentials
             });
 
-            serviceCollection.AddTransient(x => 
+            serviceCollection.AddTransient(x =>
                 new AmazonCognitoIdentityProviderClient(credentials, new AmazonCognitoIdentityProviderConfig { AuthenticationRegion = config.AwsRegion }));
 
 
             serviceCollection.AddTransient((x) =>
                 {
                     var jobQueue = new Queue<IJob>();
-                    // jobQueue.Enqueue(x.GetService<PromotionJob>());
+                    jobQueue.Enqueue(x.GetService<PromotionJob>());
                     jobQueue.Enqueue(x.GetService<FinishedCampaignJob>());
                     return jobQueue;
                 });
@@ -86,9 +91,16 @@ namespace Pheesible.Scheduler
         /// <returns>The API Gateway response.</returns>
         public async Task FunctionHandler(Amazon.Lambda.CloudWatchEvents.ScheduledEvents.ScheduledEvent request, ILambdaContext context)
         {
-            context.Logger.LogLine("request: " + JsonSerializer.Serialize(request));
-            await _app.Run(request, context.Logger);
-            context.Logger.Log("Done running jobs");
+            try
+            {
+                await _logger.Log($"request: {JsonSerializer.Serialize(request)}");
+                await _app.Run(request, context.Logger);
+                await _logger.Log("Done running jobs");
+            }
+            catch (Exception ex)
+            {
+                await _logger.Log(ex, LogLevel.Error);
+            }
         }
     }
 }

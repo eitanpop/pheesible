@@ -8,8 +8,8 @@ namespace Pheesible.Core.Logging
 {
     public interface ILogger
     {
-        Task Log(LogLevel logLevel, string message);
-        Task Log(LogLevel logLevel, Exception ex);
+        Task Log(string message, LogLevel logLevel = LogLevel.Info);
+        Task Log(Exception ex, LogLevel logLevel = LogLevel.Info);
         void SetLambdaLogger(ILambdaLogger logger);
     }
 }

@@ -18,22 +18,39 @@ namespace Pheesible.Scheduler
             _emailer = emailer;
         }
 
-        public async Task Log(LogLevel logLevel, string message)
+        public async Task Log(string message, LogLevel logLevel = LogLevel.Info)
         {
             if (logLevel == LogLevel.Error || logLevel == LogLevel.Critical)
             {
-                await _emailer.Send("", "", "Error", message);
+                try
+                {
+                    await _emailer.Send("", "", "Error", message);
+                    if (logLevel == LogLevel.Critical)
+                    {
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _lambdaLogger.Log($"Original Error: {message}, LoggingError: {ExplodeException(ex)}");
+                }
             }
+            _lambdaLogger.Log(message);
         }
 
-        public async Task Log(LogLevel logLevel, Exception ex)
+        public async Task Log(Exception ex, LogLevel logLevel = LogLevel.Info)
         {
-            await Log(logLevel, ex.Message);
+            await Log(ExplodeException(ex), logLevel);
         }
 
         public void SetLambdaLogger(ILambdaLogger lambdaLogger)
         {
             _lambdaLogger = lambdaLogger;
+        }
+
+        private string ExplodeException(Exception ex)
+        {
+            return ex.Message + " | " + ex.InnerException;
         }
     }
 }
