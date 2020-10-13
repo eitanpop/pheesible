@@ -8,6 +8,7 @@ using Amazon.CognitoIdentityProvider.Model;
 using Microsoft.EntityFrameworkCore;
 using Pheesible.Promotions;
 using Pheesible.Promotions.EF;
+using Pheesible.Scheduler.Email;
 
 namespace Pheesible.Scheduler.Jobs
 {
@@ -15,11 +16,13 @@ namespace Pheesible.Scheduler.Jobs
     {
         private readonly AmazonCognitoIdentityProviderClient _client;
         private readonly ILambdaConfiguration _config;
+        private readonly IEmailer _emailer;
 
-        public FinishedCampaignJob(AmazonCognitoIdentityProviderClient client, ILambdaConfiguration config)
+        public FinishedCampaignJob(AmazonCognitoIdentityProviderClient client, ILambdaConfiguration config, IEmailer emailer)
         {
             _client = client;
             _config = config;
+            _emailer = emailer;
         }
         public async Task<JobResponse> Run(PromotionContext db)
         {
@@ -37,8 +40,8 @@ namespace Pheesible.Scheduler.Jobs
 
             foreach (var promotion in promotions)
             {
-                promotion.StatusId = (int)PromotionStatus.Done;
-                await db.SaveChangesAsync();
+                //    promotion.StatusId = (int)PromotionStatus.Done;
+                //   await db.SaveChangesAsync();
                 var user = await _client.AdminGetUserAsync(new AdminGetUserRequest
                 {
                     UserPoolId = _config.UserPoolId,
@@ -46,6 +49,8 @@ namespace Pheesible.Scheduler.Jobs
                 });
 
                 string email = user.UserAttributes.FirstOrDefault(x => x.Name == "email")?.Value;
+
+                await _emailer.Send("info@pheesible.com", email, "Test Subject", "Test Body");
             }
 
             return jobResponse;

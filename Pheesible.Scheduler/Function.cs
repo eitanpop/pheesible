@@ -1,22 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Amazon;
 using Amazon.CognitoIdentityProvider;
-using Amazon.CognitoIdentityProvider.Model;
+using Amazon.Extensions.NETCore.Setup;
 using Amazon.Lambda.Core;
-using Amazon.Lambda.CloudWatchEvents;
 using Amazon.Runtime;
+using Amazon.SimpleEmail;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Pheesible.Integrations.AWS;
 using Pheesible.Integrations.Facebook;
 using Pheesible.Promotions.EF;
+using Pheesible.Scheduler.Email;
 using Pheesible.Scheduler.Jobs;
 using Pheesible.Scheduler.Jobs.Promotion;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -57,24 +54,28 @@ namespace Pheesible.Scheduler
             serviceCollection.AddTransient<FinishedCampaignJob>();
             serviceCollection.AddTransient<IFacebookConfig, FacebookConfig>();
             serviceCollection.AddTransient<IS3, S3>();
-            serviceCollection.AddTransient(x =>
+
+            var config = serviceCollection.BuildServiceProvider().GetService<ILambdaConfiguration>();
+            var credentials = new BasicAWSCredentials(config.AwsAccessKey, config.AwsSecret);
+            serviceCollection.AddDefaultAWSOptions(new AWSOptions
             {
-                var config = x.GetService<ILambdaConfiguration>();
-                var credentials = new BasicAWSCredentials(config.AwsAccessKey, config.AwsSecret);
-                var client = new AmazonCognitoIdentityProviderClient(credentials, new AmazonCognitoIdentityProviderConfig { AuthenticationRegion = config.AwsRegion });
-                return client;
+                Credentials = credentials
             });
 
-            // client.ListUsersAsync(new ListUsersRequest { AttributesToGet = new List<string> {"","" }, Filter = "sub = \"Reddy\"" });
+            serviceCollection.AddTransient(x => 
+                new AmazonCognitoIdentityProviderClient(credentials, new AmazonCognitoIdentityProviderConfig { AuthenticationRegion = config.AwsRegion }));
 
 
             serviceCollection.AddTransient((x) =>
-            {
-                var jobQueue = new Queue<IJob>();
-         //       jobQueue.Enqueue(x.GetService<PromotionJob>());
-                jobQueue.Enqueue(x.GetService<FinishedCampaignJob>());
-                return jobQueue;
-            });
+                {
+                    var jobQueue = new Queue<IJob>();
+                    // jobQueue.Enqueue(x.GetService<PromotionJob>());
+                    jobQueue.Enqueue(x.GetService<FinishedCampaignJob>());
+                    return jobQueue;
+                });
+
+            serviceCollection.AddAWSService<IAmazonSimpleEmailService>();
+            serviceCollection.AddTransient<IEmailer, SesEmailer>();
         }
 
 
