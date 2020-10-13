@@ -54,12 +54,14 @@ namespace Pheesible.Scheduler
             serviceCollection.AddTransient<IFacebookApi, FacebookApi>();
             serviceCollection.AddTransient<IPromotionPublisher, PromotionPublisher>();
             serviceCollection.AddTransient<PromotionJob>();
+            serviceCollection.AddTransient<FinishedCampaignJob>();
             serviceCollection.AddTransient<IFacebookConfig, FacebookConfig>();
             serviceCollection.AddTransient<IS3, S3>();
             serviceCollection.AddTransient(x =>
             {
-                AnonymousAWSCredentials credentials = new AnonymousAWSCredentials();
-                var client = new AmazonCognitoIdentityProviderClient(credentials, new AmazonCognitoIdentityProviderConfig { AuthenticationRegion = "" });
+                var config = x.GetService<ILambdaConfiguration>();
+                var credentials = new BasicAWSCredentials(config.AwsAccessKey, config.AwsSecret);
+                var client = new AmazonCognitoIdentityProviderClient(credentials, new AmazonCognitoIdentityProviderConfig { AuthenticationRegion = config.AwsRegion });
                 return client;
             });
 
@@ -69,7 +71,7 @@ namespace Pheesible.Scheduler
             serviceCollection.AddTransient((x) =>
             {
                 var jobQueue = new Queue<IJob>();
-                jobQueue.Enqueue(x.GetService<PromotionJob>());
+         //       jobQueue.Enqueue(x.GetService<PromotionJob>());
                 jobQueue.Enqueue(x.GetService<FinishedCampaignJob>());
                 return jobQueue;
             });

@@ -27,5 +27,15 @@ namespace Pheesible.Scheduler.Tests
 
             await function.FunctionHandler(request, context);
         }
+
+        [Fact]
+        public async Task RunCampaignFinish()
+        {
+            Function function = new Function();
+            var request = new ScheduledEvent();
+            var context = new TestLambdaContext();
+
+            await function.FunctionHandler(request, context);
+        }
     }
 }

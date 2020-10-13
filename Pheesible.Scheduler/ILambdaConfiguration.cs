@@ -10,8 +10,10 @@ namespace Pheesible.Scheduler
 
         string LandingPageLink { get; }
         string BucketName { get; }
+        string AwsAccessKey { get; }
+        string AwsSecret { get; }
         string AwsRegion { get; }
-
+        string UserPoolId { get; }
         string Get(string property);
     }
 }

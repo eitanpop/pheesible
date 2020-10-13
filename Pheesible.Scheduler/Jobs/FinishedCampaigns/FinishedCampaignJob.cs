@@ -14,10 +14,12 @@ namespace Pheesible.Scheduler.Jobs
     public class FinishedCampaignJob : IJob
     {
         private readonly AmazonCognitoIdentityProviderClient _client;
+        private readonly ILambdaConfiguration _config;
 
-        public FinishedCampaignJob(AmazonCognitoIdentityProviderClient client)
+        public FinishedCampaignJob(AmazonCognitoIdentityProviderClient client, ILambdaConfiguration config)
         {
             _client = client;
+            _config = config;
         }
         public async Task<JobResponse> Run(PromotionContext db)
         {
@@ -39,8 +41,8 @@ namespace Pheesible.Scheduler.Jobs
                 await db.SaveChangesAsync();
                 var user = await _client.AdminGetUserAsync(new AdminGetUserRequest
                 {
-                    UserPoolId = "",
-                    Username = ""
+                    UserPoolId = _config.UserPoolId,
+                    Username = promotion.SubId
                 });
 
                 string email = user.UserAttributes.FirstOrDefault(x => x.Name == "email")?.Value;

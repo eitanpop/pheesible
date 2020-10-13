@@ -17,8 +17,10 @@ namespace Pheesible.Scheduler
         public string ConnectionString => Get("DbContextSettings:ConnectionString");
         public string LandingPageLink => Get("LandingPageLink");
         public string BucketName => Get("AWS:BucketName");
-        public string AwsRegion => "AWS:Region";
-
+        public string AwsAccessKey => Get("AWS:AccessKey");
+        public string AwsSecret => Get("AWS:Secret");
+        public string AwsRegion => Get("AWS:Region");
+        public string UserPoolId => Get("AWS:UserPoolId");
         public string Get(string property) =>
             Configuration[property];
     }
