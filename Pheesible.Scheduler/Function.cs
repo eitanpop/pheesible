@@ -4,9 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
-
+using Amazon;
+using Amazon.CognitoIdentityProvider;
+using Amazon.CognitoIdentityProvider.Model;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.CloudWatchEvents;
+using Amazon.Runtime;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Pheesible.Integrations.AWS;
@@ -53,10 +56,21 @@ namespace Pheesible.Scheduler
             serviceCollection.AddTransient<PromotionJob>();
             serviceCollection.AddTransient<IFacebookConfig, FacebookConfig>();
             serviceCollection.AddTransient<IS3, S3>();
+            serviceCollection.AddTransient(x =>
+            {
+                AnonymousAWSCredentials credentials = new AnonymousAWSCredentials();
+                var client = new AmazonCognitoIdentityProviderClient(credentials, new AmazonCognitoIdentityProviderConfig { AuthenticationRegion = "" });
+                return client;
+            });
+
+            // client.ListUsersAsync(new ListUsersRequest { AttributesToGet = new List<string> {"","" }, Filter = "sub = \"Reddy\"" });
+
+
             serviceCollection.AddTransient((x) =>
             {
                 var jobQueue = new Queue<IJob>();
                 jobQueue.Enqueue(x.GetService<PromotionJob>());
+                jobQueue.Enqueue(x.GetService<FinishedCampaignJob>());
                 return jobQueue;
             });
         }

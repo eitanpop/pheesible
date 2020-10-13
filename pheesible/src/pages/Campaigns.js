@@ -134,6 +134,12 @@ export default ({ setPromotion }) => {
               </a>
             </li>
           </ul>
+          <br />
+          <a
+            className='btn btn btn-success my-2 mr-3 my-sm-0 btn-new'
+            href='/wizard'>
+            CREATE NEW CAMPAIGN +
+          </a>
         </div>
         <div className='col-sm-10'>
           <div className='mt-3 h3'>CAMPAIGNS</div>

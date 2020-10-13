@@ -22,8 +22,11 @@ export default () => {
       <table className='table'>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Date Created</th>
+            <th>Title</th>
+            <th>Elevator Pitch</th>
             <th>Facebook</th>
             <th>Ad Text</th>
             <th>Template Name</th>
@@ -38,8 +41,25 @@ export default () => {
             console.log('x', x)
             return (
               <tr key={x.id}>
+                <td>{x.id}</td>
                 <td>{x.name}</td>
                 <td>{x.createDate}</td>
+                <td>
+                  <PendingModal
+                    modals={modals}
+                    setModals={setModals}
+                    modalProperty={x.id + 'title'}>
+                    {x.title}
+                  </PendingModal>
+                </td>
+                <td>
+                  <PendingModal
+                    modals={modals}
+                    setModals={setModals}
+                    modalProperty={x.id + 'elevatorPitch'}>
+                    {x.fields.elevatorPitch}
+                  </PendingModal>
+                </td>
                 <td>
                   <PendingModal
                     modals={modals}
@@ -89,12 +109,18 @@ export default () => {
                     modals={modals}
                     setModals={setModals}
                     modalProperty={x.id + 'images'}>
-                    <Images  promotion={x} />
+                    <Images promotion={x} />
                   </PendingModal>
                 </td>
                 <td>
                   <button
                     onClick={async () => {
+                      if (
+                        !window.confirm(
+                          'Are you sure you wish to approve this item?'
+                        )
+                      )
+                        return
                       await approvePendingReview(x.id)
                       setDependency({})
                     }}
@@ -103,6 +129,13 @@ export default () => {
                   </button>
                   <button
                     onClick={async () => {
+                      if (
+                        !window.confirm(
+                          'Are you sure you wish to reject this item?'
+                        )
+                      )
+                        return
+
                       await rejectPendingReview(x.id)
                       setDependency({})
                     }}

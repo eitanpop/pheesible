@@ -3,6 +3,9 @@ import React from 'react'
 import Modal from './Modal'
 
 export default ({ modals, setModals, modalProperty, children }) => {
+  if (!children) {
+    return <div>No Content</div>
+  }
   return (
     <>
       {' '}

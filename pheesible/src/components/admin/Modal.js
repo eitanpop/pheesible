@@ -2,10 +2,7 @@ import React from 'react'
 
 export default ({ children, isShowing = false, onClose }) => {
   return (
-    <div
-      className='modal'
-      tabindex='-1'
-      style={{ display: isShowing ? 'block' : 'none' }}>
+    <div className='modal' style={{ display: isShowing ? 'block' : 'none' }}>
       <div className='modal-dialog'>
         <div className='modal-content'>
           <div className='modal-header'>
@@ -18,9 +15,7 @@ export default ({ children, isShowing = false, onClose }) => {
               X
             </button>
           </div>
-          <div className='modal-body'>
-            <p>{children}</p>
-          </div>
+          <div className='modal-body'>{children}</div>
           <div className='modal-footer'>
             <button
               type='button'

@@ -19,6 +19,7 @@
     <PackageReference Include="Amazon.Lambda.Core" Version="1.1.0" />
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.0.2" />
     <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="2.1.0" />
+    <PackageReference Include="AWSSDK.CognitoIdentityProvider" Version="3.5.0.26" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pheesible.Integrations\Pheesible.Integrations.csproj" />
