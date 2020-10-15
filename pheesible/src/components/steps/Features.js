@@ -90,7 +90,11 @@ export default ({
           }}
         />
 
-        <ErrorMessage errorMessage={error.global} />
+        {error.global && (
+          <div class='alert alert-danger' role='alert'>
+            {error.global}
+          </div>
+        )}
       </div>
     </div>
   )

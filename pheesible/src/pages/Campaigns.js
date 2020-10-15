@@ -148,6 +148,7 @@ export default ({ setPromotion }) => {
                     <th>Name</th>
                     <th>Status</th>
                     <th>Cost</th>
+                    <th>Create Date</th>
                     <th>Start Date</th>
                     <th>Total Days</th>
                   </tr>
@@ -161,6 +162,7 @@ export default ({ setPromotion }) => {
                             <td>{x.name}</td>
                             <td>{getStatusElement(x.statusId)}</td>
                             <td>$50</td>
+                            <td>{x.createDate}</td>
                             <td>{x.startDate || 'N/A'}</td>
                             <td>
                               {x.facebook ? (

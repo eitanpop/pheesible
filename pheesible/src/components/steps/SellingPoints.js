@@ -35,7 +35,7 @@ export default ({
         </CardSubTitle>{' '}
         <HeaderSpacer />
         <NameDescribe
-         titleLabelText="Selling Point 1"
+          titleLabelText='Selling Point 1'
           sellingPoint={promotion.sellingPoints[0] || {}}
           onSellingPointChange={(e) => {
             console.log('e', e)
@@ -48,7 +48,7 @@ export default ({
         <div className='mt-5' />
         <hr stlye={{ width: '90%' }} />
         <NameDescribe
-        titleLabelText="Selling Point 2"
+          titleLabelText='Selling Point 2'
           sellingPoint={promotion.sellingPoints[1] || {}}
           onSellingPointChange={(e) => {
             console.log('e', e)
@@ -61,7 +61,7 @@ export default ({
         <div className='mt-5' />
         <hr stlye={{ width: '90%' }} />
         <NameDescribe
-         titleLabelText="Selling Point 3"
+          titleLabelText='Selling Point 3'
           sellingPoint={promotion.sellingPoints[2] || {}}
           onSellingPointChange={(e) => {
             console.log('e', e)
@@ -71,7 +71,11 @@ export default ({
             )
           }}
         />
-        <ErrorMessage errorMessage={error.global} />
+        {error.global && (
+          <div class='alert alert-danger' role='alert'>
+            {error.global}
+          </div>
+        )}
       </div>
     </div>
   )

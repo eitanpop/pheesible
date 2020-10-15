@@ -12,6 +12,7 @@ import SellingPoints from '../components/steps/SellingPoints'
 import Features from '../components/steps/Features'
 import Payment from '../components/steps/Payment'
 import Terms from '../components/steps/Terms'
+import LoadingButton from '../components/LoadingButton'
 
 import ImageUpload from '../components/steps/ImageUpload'
 import Ad from '../components/steps/Ad'
@@ -86,6 +87,7 @@ export default ({ promotion, setPromotion }) => {
   const [isRedirecting, setIsRedirecting] = useState(
     !!localStorage.getItem('wolp')
   )
+  const [isLoading, setIsLoading] = useState(false)
 
   console.log('promotion', promotion)
 
@@ -114,6 +116,7 @@ export default ({ promotion, setPromotion }) => {
 
   // gets the component according to what step we are on
   useEffect(() => {
+    setIsLoading(false)
     setComponent(
       getComponentByStep(
         promotion,
@@ -147,6 +150,7 @@ export default ({ promotion, setPromotion }) => {
   }, [isNextStepConfirmed])
 
   const nextStep = () => {
+    setIsLoading(true)
     // Asks the child component if we're cool to go to next step
     setIsRequestingNextStep(true)
   }
@@ -195,12 +199,13 @@ export default ({ promotion, setPromotion }) => {
                 ''
               ) : (
                 <div className='col d-flex justify-content-center'>
-                  <button
+                  <LoadingButton
                     type='button'
                     className='btn btn-primary'
+                    isLoading={isLoading}
                     onClick={() => nextStep()}>
                     Next
-                  </button>
+                  </LoadingButton>
                 </div>
               )}
             </div>
