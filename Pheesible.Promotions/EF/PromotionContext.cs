@@ -59,7 +59,6 @@ namespace Pheesible.Promotions.EF
                 entity.HasOne(d => d.Promotion)
                     .WithMany(p => p.Facebook)
                     .HasForeignKey(d => d.PromotionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_promotions");
             });
 
@@ -97,8 +96,6 @@ namespace Pheesible.Promotions.EF
 
                 entity.Property(e => e.Banner).HasColumnType("character varying");
 
-                entity.Property(e => e.CreateDate).HasColumnType("date");
-
                 entity.Property(e => e.IdentityId).HasColumnType("character varying");
 
                 entity.Property(e => e.ImageOne).HasColumnType("character varying");
@@ -110,8 +107,6 @@ namespace Pheesible.Promotions.EF
                 entity.Property(e => e.Logo).HasColumnType("character varying");
 
                 entity.Property(e => e.Name).HasColumnType("character varying");
-
-                entity.Property(e => e.StartDate).HasColumnType("date");
 
                 entity.Property(e => e.SubId)
                     .IsRequired()
