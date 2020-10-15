@@ -2,7 +2,7 @@ import React from 'react'
 
 export default (props) => {
   return (
-    <button {...props} enabled={!props.isLoading}>
+    <button {...props} disabled={props.isLoading}>
       {!props.isLoading ? (
         props.children
       ) : (

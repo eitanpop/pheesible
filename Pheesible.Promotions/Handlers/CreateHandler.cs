@@ -24,6 +24,8 @@ namespace Pheesible.Promotions.Handlers
             var promotions = isUpdate ? await db.Promotions.FirstOrDefaultAsync(x => x.Id == promotionDto.id && x.SubId == sub) : new EF.Promotions();
             if (String.IsNullOrEmpty(sub))
                 throw new Exception("Must contain a sub!!");
+            if (isUpdate && promotions.StatusId != (int)PromotionStatus.Draft)
+                throw new Exception("Cannot edit a non drafted promotion!");
             promotions.SubId = sub;
             promotions.Name = promotionDto.name;
             promotions.TemplateId = promotionDto.templateId;

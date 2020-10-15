@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 import { useUnload } from '../hooks/useUnload'
 import { OrderedWizardSteps } from '../constants.js'
@@ -116,7 +116,6 @@ export default ({ promotion, setPromotion }) => {
 
   // gets the component according to what step we are on
   useEffect(() => {
-    setIsLoading(false)
     setComponent(
       getComponentByStep(
         promotion,
@@ -133,6 +132,7 @@ export default ({ promotion, setPromotion }) => {
     if (isNextStepConfirmed) {
       if (promotion.stepNumber < 2) {
         updatePromotion('stepNumber', promotion.stepNumber + 1)
+        setIsLoading(false)
       } else {
         savePromotion(promotion).then((x) => {
           localStorage.setItem('wolp', '1')
@@ -141,6 +141,7 @@ export default ({ promotion, setPromotion }) => {
             id: parseInt(x.id),
             stepNumber: promotion.stepNumber + 1,
           })
+          setIsLoading(false)
         })
       }
     }

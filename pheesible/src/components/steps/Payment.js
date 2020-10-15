@@ -40,6 +40,8 @@ export default ({
   const history = useHistory()
 
   const handleSubmit = async (event) => {
+    const signedInUser = await Auth.currentUserInfo()
+    console.log('signedInUser', signedInUser)
     setIsLoading(true)
     setError(null)
     // Block native form submission.
