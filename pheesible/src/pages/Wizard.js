@@ -31,7 +31,9 @@ const getComponentByStep = (
 ) => {
   const { stepNumber } = promotion
 
-  const stopRequestingNextStep = () => setIsRequestingNextStep(false)
+  const stopRequestingNextStep = () => {
+    setIsRequestingNextStep(false)
+  }
 
   //console.log('stepNumber', stepNumber)
 
@@ -99,7 +101,10 @@ export default ({ promotion, setPromotion }) => {
       promotion,
       updatePromotion,
       isRequestingNextStep,
-      setIsRequestingNextStep,
+      (e) => {
+        setIsRequestingNextStep(e)
+        if (!e) setIsLoading(false)
+      },
       setIsNextStepConfirmed
     )
   )
@@ -121,7 +126,10 @@ export default ({ promotion, setPromotion }) => {
         promotion,
         updatePromotion,
         isRequestingNextStep,
-        setIsRequestingNextStep,
+        (e) => {
+          setIsRequestingNextStep(e)
+          if (!e) setIsLoading(false)
+        },
         setIsNextStepConfirmed
       )
     )
@@ -170,7 +178,14 @@ export default ({ promotion, setPromotion }) => {
         <div className='row steps'>
           <div className='col-lg-3 steps-line-container'>
             <StepLine
-              steps={Object.values(OrderedWizardSteps)}
+              steps={Object.keys(OrderedWizardSteps).reduce((a, b, idx) => {
+                if (idx === 1)
+                  return [
+                    { name: a, ...OrderedWizardSteps[a] },
+                    { name: b, ...OrderedWizardSteps[b] },
+                  ]
+                return [...a, { name: b, ...OrderedWizardSteps[b] }]
+              })}
               currentStep={promotion.stepNumber}
             />
           </div>

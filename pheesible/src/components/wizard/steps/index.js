@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import './stepline.css'
 
 export default ({ steps, currentStep }) => {
+  console.log('steps', steps)
   const [lineLength, setLineLength] = useState(0)
   const largeSteps = steps.filter((x) => x.size === 2)
   const smallSteps = steps.filter((x) => x.size === 1)
   const segmentSize = 100 / (largeSteps.length - 1)
-  console.log('segmentSize', segmentSize)
 
   const currentStepObject = steps.find((x) => x.step === currentStep)
 
@@ -20,18 +20,17 @@ export default ({ steps, currentStep }) => {
       (x) => x.step < currentStepObject.step
     )
     const lastBig = previousBigs[previousBigs.length - 1]
-    console.log('lastBig', lastBig)
+
     const smallIdx =
       steps.find((x) => x.step === currentStepObject.step).step - lastBig.step
-    console.log('smallIdx', smallIdx)
+
     const nextBig =
       largeSteps[largeSteps.findIndex((x) => x.step === lastBig.step) + 1]
-    console.log('nextBig', nextBig)
+
     const localLineLength =
       largeSteps.findIndex((z) => z.step === lastBig.step) * segmentSize +
       (segmentSize / (nextBig.step - lastBig.step)) * smallIdx
 
-    console.log('localLineLength', localLineLength)
     if (lineLength !== Math.round(localLineLength))
       setLineLength(Math.round(localLineLength))
   }
@@ -49,7 +48,7 @@ export default ({ steps, currentStep }) => {
             return (
               <>
                 <div
-                  data-mobiletext='Landing Page Creation'
+                  data-mobiletext={x.name}
                   data-index={1}
                   className={`step dot  ${
                     currentStep === x.step
@@ -68,7 +67,7 @@ export default ({ steps, currentStep }) => {
                       .map((z, smallIdx, elements) => {
                         return (
                           <div
-                            data-mobiletext='Landing Page Creation'
+                            data-mobiletext={x.name}
                             data-index={1}
                             className={`quarter dot ${
                               currentStep === z.step
