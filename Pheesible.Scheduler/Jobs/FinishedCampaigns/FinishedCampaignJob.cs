@@ -44,7 +44,7 @@ namespace Pheesible.Scheduler.Jobs
                 .ReadResource("Pheesible.Scheduler.Email.Emails.CampaignFinishNotification.html", Assembly.GetExecutingAssembly());
 
             foreach (var promotion in promotions)
-            { 
+            {
                 promotion.StatusId = (int)PromotionStatus.Done;
                 await db.SaveChangesAsync();
                 var user = await _client.AdminGetUserAsync(new AdminGetUserRequest
@@ -55,7 +55,8 @@ namespace Pheesible.Scheduler.Jobs
 
                 string email = user.UserAttributes.FirstOrDefault(x => x.Name == "email")?.Value;
 
-                await _emailer.Send(_config.AdminEmail, email, "Campaign Finished", campaignFinishEmailBody);
+                await _emailer.Send(_config.AdminEmail, email, $"Campaign \"{promotion.Name}\" finished.", 
+                    campaignFinishEmailBody.Replace("{name}", promotion.Name));
             }
 
             return jobResponse;
