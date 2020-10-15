@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Amazon.SimpleEmail.Model;
+using Pheesible.Core.Email;
 
 namespace Pheesible.Scheduler.Email
 {

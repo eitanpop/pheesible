@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Reflection;
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
-using Pheesible.Core.Logging;
-using Pheesible.Scheduler.Email;
+using Pheesible.Core.Email;
 
-namespace Pheesible.Scheduler
+namespace Pheesible.Core.Logging
 {
     public class Logger : ILogger
     {
@@ -24,10 +22,13 @@ namespace Pheesible.Scheduler
             {
                 try
                 {
-                    await _emailer.Send("", "", "Error", message);
+
+                    string body = await ResourceHelper.ReadResource("Pheesible.Scheduler.Email.Emails.ErrorLog.html", Assembly.GetExecutingAssembly());
+                    body = body.Replace("{error}", message);
+                    await _emailer.Send("", "", "Error or Critical Log Message", body);
                     if (logLevel == LogLevel.Critical)
                     {
-
+                        //Todo: Add SMS sender
                     }
                 }
                 catch (Exception ex)

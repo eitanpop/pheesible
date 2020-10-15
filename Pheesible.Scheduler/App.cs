@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Amazon.Lambda.CloudWatchEvents.ScheduledEvents;
 using Amazon.Lambda.Core;
+using Pheesible.Core.Logging;
 using Pheesible.Promotions.EF;
 using Pheesible.Scheduler.Jobs;
 
@@ -20,12 +21,12 @@ namespace Pheesible.Scheduler
             _db = db;
         }
 
-        public async Task Run(ScheduledEvent request, ILambdaLogger logger)
+        public async Task Run(ScheduledEvent request, ILogger logger)
         {
             foreach (var job in _jobQueue)
             {
                 var response = await job.Run(_db);
-                logger.Log(JsonSerializer.Serialize(response));
+                await logger.Log(JsonSerializer.Serialize(response));
             }
         }
     }

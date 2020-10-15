@@ -15,6 +15,7 @@ using Pheesible.Scheduler.Jobs.Promotion;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Pheesible.Core.Email;
 using Pheesible.Core.Logging;
 
 
@@ -74,13 +75,14 @@ namespace Pheesible.Scheduler
             serviceCollection.AddTransient((x) =>
                 {
                     var jobQueue = new Queue<IJob>();
-                    jobQueue.Enqueue(x.GetService<PromotionJob>());
+                //    jobQueue.Enqueue(x.GetService<PromotionJob>());
                     jobQueue.Enqueue(x.GetService<FinishedCampaignJob>());
                     return jobQueue;
                 });
 
             serviceCollection.AddAWSService<IAmazonSimpleEmailService>();
             serviceCollection.AddTransient<IEmailer, SesEmailer>();
+            serviceCollection.AddTransient<ILogger, Logger>();
         }
 
 
@@ -93,8 +95,9 @@ namespace Pheesible.Scheduler
         {
             try
             {
+                _logger.SetLambdaLogger(context.Logger);
                 await _logger.Log($"request: {JsonSerializer.Serialize(request)}");
-                await _app.Run(request, context.Logger);
+                await _app.Run(request, _logger);
                 await _logger.Log("Done running jobs");
             }
             catch (Exception ex)

@@ -21,6 +21,7 @@ namespace Pheesible.Scheduler
         public string AwsSecret => Get("AWS:Secret");
         public string AwsRegion => Get("AWS:Region");
         public string UserPoolId => Get("AWS:UserPoolId");
+        public string AdminEmail => Get("AdminEmail");
         public string Get(string property) =>
             Configuration[property];
     }

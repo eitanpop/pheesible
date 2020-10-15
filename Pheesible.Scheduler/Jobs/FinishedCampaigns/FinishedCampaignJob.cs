@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Amazon.CognitoIdentityProvider;
 using Amazon.CognitoIdentityProvider.Model;
 using Microsoft.EntityFrameworkCore;
+using Pheesible.Core;
+using Pheesible.Core.Email;
 using Pheesible.Promotions;
 using Pheesible.Promotions.EF;
 using Pheesible.Scheduler.Email;
@@ -37,11 +40,13 @@ namespace Pheesible.Scheduler.Jobs
                 return jobResponse;
             }
 
+            string campaignFinishEmailBody = await ResourceHelper
+                .ReadResource("Pheesible.Scheduler.Email.Emails.CampaignFinishNotification.html", Assembly.GetExecutingAssembly());
 
             foreach (var promotion in promotions)
-            {
-                //    promotion.StatusId = (int)PromotionStatus.Done;
-                //   await db.SaveChangesAsync();
+            { 
+                promotion.StatusId = (int)PromotionStatus.Done;
+                await db.SaveChangesAsync();
                 var user = await _client.AdminGetUserAsync(new AdminGetUserRequest
                 {
                     UserPoolId = _config.UserPoolId,
@@ -50,7 +55,7 @@ namespace Pheesible.Scheduler.Jobs
 
                 string email = user.UserAttributes.FirstOrDefault(x => x.Name == "email")?.Value;
 
-                await _emailer.Send("info@pheesible.com", email, "Test Subject", "Test Body");
+                await _emailer.Send(_config.AdminEmail, email, "Campaign Finished", campaignFinishEmailBody);
             }
 
             return jobResponse;

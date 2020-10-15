@@ -14,6 +14,7 @@ namespace Pheesible.Scheduler
         string AwsSecret { get; }
         string AwsRegion { get; }
         string UserPoolId { get; }
+        string AdminEmail { get; }
         string Get(string property);
     }
 }

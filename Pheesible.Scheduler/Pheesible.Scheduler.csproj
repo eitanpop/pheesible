@@ -6,6 +6,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Email\Emails\CampaignFinishNotification.html" />
+    <None Remove="Email\Emails\ErrorLog.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="appsettings.json">
@@ -13,6 +15,10 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Email\Emails\CampaignFinishNotification.html" />
+    <EmbeddedResource Include="Email\Emails\ErrorLog.html" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.CloudWatchEvents" Version="2.0.0" />
