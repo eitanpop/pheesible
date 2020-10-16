@@ -24,6 +24,7 @@ namespace Pheesible.Promotions
                 statusId = promotion.StatusId,
                 createDate = promotion.CreateDate?.ToString(),
                 startDate = promotion.StartDate?.ToString(),
+                charge = promotion.Charge,
                 ad = promotion.Ads?.Select(x => new Ad { image = x.Image, text = x.Text }).FirstOrDefault(),
 
                 fields = new Fields

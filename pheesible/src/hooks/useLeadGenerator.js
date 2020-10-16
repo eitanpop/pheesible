@@ -9,24 +9,36 @@ export default (isLive) => {
       required: true,
       displayName: 'First Name',
       type: 'text',
+      element: 'input',
     },
     {
       name: 'lastName',
       required: true,
       displayName: 'Last Name',
       type: 'text',
+      element: 'input',
     },
     {
       name: 'email',
       required: true,
       displayName: 'Email',
       type: 'text',
+      element: 'input',
     },
     {
       name: 'phone',
       required: true,
       displayName: 'Phone',
       type: 'text',
+      element: 'input',
+    },
+    {
+      name: 'comments',
+      required: false,
+      displayName: 'Comments',
+      type: 'textarea',
+      props: { rows: 4 },
+      element: 'textarea',
     },
   ])
   const setProperty = (name, value) => {
@@ -59,9 +71,11 @@ export default (isLive) => {
     if (isLive)
       await saveLead(
         promotionId,
-        Object.assign(...properties.map((x) => {
-          return { [x.name]: x.value }
-        }))
+        Object.assign(
+          ...properties.map((x) => {
+            return { [x.name]: x.value }
+          })
+        )
       )
   }
   return { properties, setProperty, save }

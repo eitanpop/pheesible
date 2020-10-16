@@ -22,6 +22,7 @@ namespace Pheesible.Promotions.Handlers
                 .Include(x => x.Ads)
                 .Include(x => x.SellingPoints)
                 .Include(x => x.Template)
+                .Where(x => x.StatusId != (int)PromotionStatus.Draft && x.StatusId != (int)PromotionStatus.ReadyForReview && x.StatusId != (int)PromotionStatus.Rejected)
                 .FirstOrDefaultAsync();
             PublicPromotion publicPromotion = PromotionEntityToDtoConverter.Convert(promotion);
             return ApiGatewayHelper.GetSuccessResponse(JsonSerializer.Serialize(publicPromotion));

@@ -161,7 +161,13 @@ export default ({ setPromotion }) => {
                           <tr key={x.id}>
                             <td>{x.name}</td>
                             <td>{getStatusElement(x.statusId)}</td>
-                            <td>$50</td>
+                            <td>
+                              {x.charge
+                                ? '$' + parseFloat(parseInt(x.charge) / 100).toFixed(
+                                    2
+                                  )
+                                : 'N/A'}
+                            </td>
                             <td>{x.createDate}</td>
                             <td>{x.startDate || 'N/A'}</td>
                             <td>

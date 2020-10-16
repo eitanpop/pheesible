@@ -14,6 +14,7 @@ namespace Pheesible.Promotions.DTO
         public Ad ad { get; set; }
         public string createDate { get; set; }
         public string startDate { get; set; }
+        public string charge { get; set; }
     }
 
     public class Fields

@@ -11,6 +11,7 @@ namespace Pheesible.Promotions.EF
         public string Email { get; set; }
         public string Phone { get; set; }
         public int? PromotionId { get; set; }
+        public string Comments { get; set; }
 
         public virtual Promotions Promotion { get; set; }
     }

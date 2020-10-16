@@ -114,16 +114,21 @@ export default ({
                 <div>
                   <label>{x.displayName}</label>
                   <br />
-                  <input
-                    type={x.type}
-                    value={x[x.value || '']}
-                    onChange={(e) => setProperty(x.name, e.target.value)}
-                  />
+                  {React.createElement(x.element, {
+                    ...x.props,
+                    type: x.type,
+                    onChange: (e) => setProperty(x.name, e.target.value),
+                    value: x[x.value || ''],
+                  })}
                 </div>
               )
             })}
             <br />
-            <input type='button' onClick={() => save(promotion.id)} value='Save' />
+            <input
+              type='button'
+              onClick={() => save(promotion.id)}
+              value='Save'
+            />
           </div>
         </div>
       </div>

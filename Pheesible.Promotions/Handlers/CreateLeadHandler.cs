@@ -15,8 +15,12 @@ namespace Pheesible.Promotions.Handlers
             var leadDto = JsonSerializer.Deserialize<DTO.Lead>(request.Body);
             db.Leads.Add(new Leads
             {
-                Email = leadDto.email, FirstName = leadDto.firstName, LastName = leadDto.lastName,
-                Phone = leadDto.phone, PromotionId = leadDto.promotionId
+                Email = leadDto.email,
+                FirstName = leadDto.firstName,
+                LastName = leadDto.lastName,
+                Phone = leadDto.phone,
+                PromotionId = leadDto.promotionId,
+                Comments = leadDto.comments
             });
             await db.SaveChangesAsync();
             return ApiGatewayHelper.GetSuccessResponse("success");

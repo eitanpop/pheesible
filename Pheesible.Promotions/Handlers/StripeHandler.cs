@@ -30,7 +30,8 @@ namespace Pheesible.Promotions.Handlers
             string json = Regex.Unescape(request.Body);
 
             var billingDetails = System.Text.Json.JsonSerializer.Deserialize<DTO.StripeWebhookDto>(json);
-
+            
+            string amount = billingDetails.data.@object.amount.ToString();
             string promotionId = billingDetails.data.@object.metadata.promotionId;
 
             if (String.IsNullOrEmpty(promotionId))
@@ -41,6 +42,7 @@ namespace Pheesible.Promotions.Handlers
                     x => x.Id == int.Parse(promotionId));
 
             promotion.StatusId = (int)PromotionStatus.ReadyForReview;
+            promotion.Charge = amount;
 
             await db.SaveChangesAsync();
 
