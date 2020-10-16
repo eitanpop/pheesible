@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
+
 import { getUserGroups } from '../services/auth'
+import logo from '../images/Logo.png'
 
 export default () => {
   const [isAdmin, setIsAdmin] = useState()
@@ -12,10 +14,10 @@ export default () => {
   })
   return (
     <header>
-      <nav className='navbar navbar-expand-lg navbar-dark bg-dark container-fluid'>
+      <nav className='navbar navbar-expand-lg navbar-dark container-fluid header'>
         {/* Logo image */}
-        <a className='navbar-brand' href='#'>
-          <img src='./dist/img/logo.png' width={111} height={46} alt='logo' />
+        <a className='navbar-brand' href='/'>
+          <img src={logo} width={187} height={46} alt='logo' />
         </a>
         {/* Mobile menu */}
         <button
@@ -29,24 +31,29 @@ export default () => {
           <span className='navbar-toggler-icon' />
         </button>
         {/* Desktop menu */}
-        <div className='collapse navbar-collapse' id='navbarSupportedContent'>
+        <div
+          className='collapse navbar-collapse'
+          style={{ marginLeft: '3em' }}
+          id='navbarSupportedContent'>
           <ul className='navbar-nav mr-auto'>
             <li className='nav-item active'>
               <a className='nav-link' href='/'>
-                Home
+                HOME
               </a>
-            </li>
-            <li className='nav-item active'>
+            </li>{' '}
+            <li className='nav-item active ml-5'>
               <a className='nav-link' href='/campaigns'>
-                Campaigns
+                CAMPAIGNS
               </a>
             </li>
             {isAdmin ? (
-              <li className='nav-item active'>
-                <a className='nav-link' href='/admin'>
-                  Administration
-                </a>
-              </li>
+              <>
+                <li className='nav-item active ml-5'>
+                  <a className='nav-link' href='/admin'>
+                    ADMINISTRATION
+                  </a>
+                </li>
+              </>
             ) : (
               ''
             )}
