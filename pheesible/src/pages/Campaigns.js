@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
+import BootstrapTable from 'react-bootstrap-table-next'
 
+import CampaignTable from '../components/CampaignTable'
 import usePromotion from '../hooks/api/usePromotions'
 import facebook from '../images/facebook.png'
 import edit from '../images/edit.png'
@@ -80,8 +82,9 @@ export default ({ setPromotion }) => {
     console.log('error', error)
     return <div>There was an unexpected error</div>
   }
-  console.log('promotions', promotions)
+
   if (isRedirecting) return <Redirect to='/wizard' />
+
   return (
     <div className='container-fluid h-100'>
       <div className='row h-100'>
@@ -142,86 +145,13 @@ export default ({ setPromotion }) => {
           ) : (
             <>
               <div className='mt-3 h3'>CAMPAIGNS</div>
-              <div className='table-responsive'>
-                <table className='table text-center'>
-                  <tr>
-                    <th>Name</th>
-                    <th>Status</th>
-                    <th>Cost</th>
-                    <th>Create Date</th>
-                    <th>Start Date</th>
-                    <th>Total Days</th>
-                  </tr>
 
-                  <tbody>
-                    {promotions
-                      .filter((x) => filter === null || x.statusId === filter)
-                      .map((x) => {
-                        return (
-                          <tr key={x.id}>
-                            <td>{x.name}</td>
-                            <td>{getStatusElement(x.statusId)}</td>
-                            <td>
-                              {x.charge
-                                ? '$' + parseFloat(parseInt(x.charge) / 100).toFixed(
-                                    2
-                                  )
-                                : 'N/A'}
-                            </td>
-                            <td>{x.createDate}</td>
-                            <td>{x.startDate || 'N/A'}</td>
-                            <td>
-                              {x.facebook ? (
-                                <>
-                                  <img
-                                    src={facebook}
-                                    alt='facebook'
-                                    className='icon'
-                                  />
-                                  <span className='ml-3'>
-                                    {x.facebook.numberOfDays} days
-                                  </span>
-                                </>
-                              ) : (
-                                ''
-                              )}
-                            </td>
-                            <td>
-                              {x.statusId === 1 ? (
-                                <a
-                                  href='#'
-                                  enabled={x.statusId === 1}
-                                  onClick={() => {
-                                    console.log('editing')
-                                    setChosenPromotion(x.id)
-                                  }}>
-                                  <img className='icon' src={edit} alt='edit' />
-                                </a>
-                              ) : (
-                                <img className='icon' src={edit} alt='edit' />
-                              )}{' '}
-                              {x.statusId === 5 || x.statusId === 6 ? (
-                                <a href={'/report?id=' + x.id}>
-                                  <img
-                                    className='icon'
-                                    src={report}
-                                    alt='report'
-                                  />
-                                </a>
-                              ) : (
-                                <img
-                                  className='icon'
-                                  src={report}
-                                  alt='report'
-                                />
-                              )}
-                            </td>
-                          </tr>
-                        )
-                      })}
-                  </tbody>
-                </table>
-              </div>
+              <CampaignTable
+                promotions={promotions.filter(
+                  (x) => filter === null || x.statusId === filter
+                )}
+                setChosenPromotion={setChosenPromotion}
+              />
             </>
           )}
         </div>
