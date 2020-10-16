@@ -32,6 +32,21 @@ export default ({
         setIsValid(false)
         addError('text', 'Please add some text for the ad')
       }
+
+      if(promotion.facebook && promotion.facebook.isEnabled && !promotion.facebook.numberOfDays){
+        setIsValid(false)
+        addError('numberOfDays', 'Please add number of days to run the campaign')
+      }
+
+      if(promotion.facebook && promotion.facebook.isEnabled && !promotion.facebook.budgetPerDayInDollars){
+        setIsValid(false)
+        addError('budgetPerDayInDollars', 'Please add a budget per day in USD')
+      }
+
+      if (promotion.facebook && promotion.facebook.numberOfDays && promotion.facebook.numberOfDays < 2) {
+        setIsValid(false)
+        addError('days', 'Campaign length must be longer than a day')
+      }
     },
     [JSON.stringify(promotion)]
   )
@@ -75,6 +90,7 @@ export default ({
         <FocusGroupSetting
           img={facebookImg}
           name='Facebook'
+          error={error}
           updateValue={(key, value) => {
             const facebook = { ...promotion.facebook, [key]: value }
             updatePromotion('facebook', facebook)
@@ -90,7 +106,8 @@ export default ({
               }
               updatePromotion('facebook', facebook)
             },
-            getValue: (key) => promotion.facebook && promotion.facebook.includeInstagram,
+            getValue: (key) =>
+              promotion.facebook && promotion.facebook.includeInstagram,
           }}
         />
       </div>

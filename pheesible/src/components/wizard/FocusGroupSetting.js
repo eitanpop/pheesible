@@ -1,6 +1,15 @@
 import React from 'react'
 
-export default ({ name, img, getValue, updateValue, otherFocusGroup }) => {
+import ErrorMessage from '../ErrorMessage'
+
+export default ({
+  name,
+  img,
+  getValue,
+  updateValue,
+  otherFocusGroup,
+  error,
+}) => {
   const {
     name: otherFocusGroupName,
     img: otherFocusGroupImg,
@@ -57,18 +66,24 @@ export default ({ name, img, getValue, updateValue, otherFocusGroup }) => {
           <label for='inputSpecificDuration small'>Duration</label>
           <input
             type='text'
-            className='form-control'
+            className={`form-control ${
+              error.days || error.numberOfDays ? ' has-error ' : ''
+            }`}
             id='inputSpecificDuration'
             placeholder='Days'
             value={getValue('numberOfDays')}
             onChange={(e) => updateValue('numberOfDays', e.target.value)}
           />
+          <ErrorMessage errorMessage={error.numberOfDays} />
+          <ErrorMessage errorMessage={error.days} />
         </div>
         <div className='form-group col-md-5'>
           <label for='inputBudget small'>Budget</label>
           <input
             type='number'
-            className='form-control'
+            className={`form-control ${
+              error.budgetPerDayInDollars ? ' has-error ' : ''
+            }`}
             id='inputBudget'
             placeholder='$'
             value={getValue('budgetPerDayInDollars')}
@@ -76,6 +91,7 @@ export default ({ name, img, getValue, updateValue, otherFocusGroup }) => {
               updateValue('budgetPerDayInDollars', e.target.value)
             }
           />
+          <ErrorMessage errorMessage={error.budgetPerDayInDollars} />
         </div>
       </div>
     </>

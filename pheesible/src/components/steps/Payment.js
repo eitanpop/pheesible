@@ -40,12 +40,12 @@ export default ({
   const history = useHistory()
 
   const handleSubmit = async (event) => {
+    event.preventDefault()
     const signedInUser = await Auth.currentUserInfo()
     console.log('signedInUser', signedInUser)
     setIsLoading(true)
     setError(null)
     // Block native form submission.
-    event.preventDefault()
 
     if (!stripe || !elements) {
       // Stripe.js has not loaded yet. Make sure to disable
