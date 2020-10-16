@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 using Pheesible.Integrations.AWS;
 using Pheesible.Integrations.Facebook;
 using Pheesible.Promotions.EF;
+using Pheesible.Promotions.Extensions;
 
 namespace Pheesible.Scheduler.Jobs.Promotion
 {
@@ -27,7 +28,7 @@ namespace Pheesible.Scheduler.Jobs.Promotion
             string name = promotion.Id.ToString();
             var ad = promotion.Ads.First();
             facebook.AdSetId = (await _facebookApi.CreateAdSet(name, facebook.NumberOfDays, facebook.BudgetPerDayInDollars * 100))?.id;
-            string s3key = $"protected/{promotion.IdentityId}/{ad.Image}";
+            string s3key = promotion.GetAdImageS3Key();
             byte[] adImage = await _s3.GetObject(_config.BucketName, s3key);
             var image = await _facebookApi.CreateAdImageObject(adImage, ad.Image);
             facebook.CreativeId = (await _facebookApi.CreateAdCreative(name, image, landingPageLink, ad.Text))?.id;
