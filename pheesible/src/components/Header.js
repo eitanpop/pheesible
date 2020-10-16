@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
+import UserMenu from './UserMenu'
 import { getUserGroups } from '../services/auth'
 import logo from '../images/Logo.png'
 
@@ -64,9 +65,7 @@ export default () => {
               href='/wizard'>
               New +
             </a>
-            <a className='btn btn-round my-account' href='#'>
-              <span>VB</span>
-            </a>
+            <UserMenu />
           </div>
         </div>
       </nav>
