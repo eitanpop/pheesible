@@ -131,6 +131,30 @@ export default ({ setPromotion }) => {
                 RUNNING
               </a>
             </li>
+            <li>
+              <a
+                href='#'
+                onClick={(e) => setFilter(6)}
+                style={{ fontWeight: filter === 6 ? 'bold' : 'normal' }}>
+                DONE
+              </a>
+            </li>
+            <li>
+              <a
+                href='#'
+                onClick={(e) => setFilter(7)}
+                style={{ fontWeight: filter === 7 ? 'bold' : 'normal' }}>
+                ERROR
+              </a>
+            </li>
+            <li>
+              <a
+                href='#'
+                onClick={(e) => setFilter(8)}
+                style={{ fontWeight: filter === 8 ? 'bold' : 'normal' }}>
+                REJECTED
+              </a>
+            </li>
           </ul>
           <br />
           <a
@@ -141,11 +165,13 @@ export default ({ setPromotion }) => {
         </div>
         <div className='col-sm-10'>
           {!promotions.some((x) => filter === null || x.statusId === filter) ? (
-            <span>Nothing to show here</span>
+            <div class='jumbotron text-center'>
+              <h1>Nothing to show here</h1>
+            </div>
           ) : (
             <>
               <div className='mt-3 h3'>CAMPAIGNS</div>
-
+              <br />
               <CampaignTable
                 promotions={promotions.filter(
                   (x) => filter === null || x.statusId === filter

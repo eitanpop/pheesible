@@ -154,7 +154,7 @@ export default ({ promotions, setChosenPromotion }) => {
       search>
       {(props) => (
         <div>
-          <SearchBar {...props.searchProps} />
+          <SearchBar  {...props.searchProps} />
           <hr />
           <div className='table-responsive'></div>
           <BootstrapTable

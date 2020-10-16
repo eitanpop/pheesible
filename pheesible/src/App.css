@@ -61,3 +61,7 @@ amplify-authenticator {
   width: 25px;
   height: 25px;
 }
+
+.search-label {
+  display: block;
+}
