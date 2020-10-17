@@ -9,7 +9,10 @@ import edit from '../images/edit.png'
 import report from '../images/report.png'
 
 const getStatusElement = (status) => {
-  const props = { className: 'btn', style: { cursor: 'default' } }
+  const props = {
+    className: 'btn',
+    style: { cursor: 'default', width: '170px' },
+  }
   switch (status) {
     case 1:
       return (
@@ -155,7 +158,7 @@ export default ({ promotions, setChosenPromotion }) => {
       search>
       {(props) => (
         <div>
-          <SearchBar  {...props.searchProps} />
+          <SearchBar {...props.searchProps} />
           <hr />
           <div className='table-responsive'></div>
           <BootstrapTable
