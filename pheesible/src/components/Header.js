@@ -28,9 +28,9 @@ export default ({ isAuthenticated }) => {
     <header>
       <nav className='navbar navbar-expand-lg navbar-dark container-fluid header'>
         {/* Logo image */}
-        <a className='navbar-brand' href='/'>
+        <Link className='navbar-brand' to='/'>
           <img src={logo} width={187} height={46} alt='logo' />
-        </a>
+        </Link>
         {/* Mobile menu */}
         <button
           className='navbar-toggler'
