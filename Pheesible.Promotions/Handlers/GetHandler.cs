@@ -18,7 +18,7 @@ namespace Pheesible.Promotions.Handlers
         public async Task<APIGatewayProxyResponse> Handle(APIGatewayProxyRequest request, PromotionContext db)
         {
             string sub = request.GetSub();
-            var promotionQuery = db.Promotions.Where(x => x.SubId == sub);
+            var promotionQuery = db.Promotions.Where(x => x.SubId == sub && x.IsActive);
             string id = request.PathParameters?["id"];
             if (!String.IsNullOrEmpty(id))
                 promotionQuery = promotionQuery.Where(x => x.Id == int.Parse(id));

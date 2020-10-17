@@ -32,6 +32,7 @@ export default ({ children, onAuthStateChanged }) => {
   ) : (
     <AmplifyAuthenticator
       userNameAlias='email'
+      className="mt-1"
       style={{ position: 'relative' }}>
       <AmplifySignUp
         slot='sign-up'

@@ -15,10 +15,16 @@ export default ({ isAuthenticated }) => {
       if (isAuthenticated) {
         const user = await Auth.currentUserInfo()
         console.log('user', user)
-        setInitials(
-          user.attributes.given_name.charAt(0) +
-            user.attributes.family_name.charAt(0)
+        if (
+          user &&
+          user.attributes &&
+          user.attributes.given_name &&
+          user.attributes.family_name
         )
+          setInitials(
+            user.attributes.given_name.charAt(0) +
+              user.attributes.family_name.charAt(0)
+          )
       }
     }
     PageLoad()

@@ -19,6 +19,10 @@ export const savePromotion = async (promotion) => {
   return await API.post(apiName, '/promotion', { body: promotion })
 }
 
+export const deletePromotion = async (id) => {
+    return await API.del(apiName,`/promotion/${id}`)
+}
+
 export const getTemplates = async () => {
   return await API.get(apiName, '/promotion/templates')
 }

@@ -32,6 +32,7 @@ namespace Pheesible.Promotions.EF
         public DateTime? CreateDate { get; set; }
         public DateTime? StartDate { get; set; }
         public string Charge { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual Templates Template { get; set; }
         public virtual ICollection<Ads> Ads { get; set; }

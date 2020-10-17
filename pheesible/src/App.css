@@ -19,7 +19,6 @@ body {
   background-color: #2e394d;
 }
 
-
 .link-button {
   background: none !important;
   border: none;
@@ -59,7 +58,7 @@ body {
   display: block;
 }
 
-.caret {
+#table-campaigns .caret {
   display: inline-block;
   width: 0;
   height: 0;
@@ -71,7 +70,7 @@ body {
   border-left: 4px solid transparent;
 }
 
-.dropup .caret,
+#table-campaigns .dropup .caret,
 .navbar-fixed-bottom .dropdown .caret {
   border-top: 0;
   border-bottom: 4px dashed;

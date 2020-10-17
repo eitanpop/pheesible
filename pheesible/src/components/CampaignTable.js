@@ -4,9 +4,11 @@ import paginationFactory from 'react-bootstrap-table2-paginator'
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit'
 import { Link } from 'react-router-dom'
 
+import { deletePromotion } from '../services/api'
 import facebook from '../images/facebook.png'
 import edit from '../images/edit.png'
 import report from '../images/report.png'
+import del from '../images/delete.png'
 
 const getStatusElement = (status) => {
   const props = {
@@ -64,7 +66,7 @@ const getStatusElement = (status) => {
   }
 }
 
-export default ({ promotions, setChosenPromotion }) => {
+export default ({ promotions, setChosenPromotion, onCampaignDeleted }) => {
   const { SearchBar } = Search
   const columns = [
     {
@@ -143,6 +145,28 @@ export default ({ promotions, setChosenPromotion }) => {
             ) : (
               <img className='icon' src={report} alt='report' />
             )}
+            {row.statusId === 1 ||
+            row.statusId === 6 ||
+            row.statusId === 7 ||
+            row.statusId === 8 ? (
+              <a
+                href='#'
+                onClick={async (e) => {
+                  if (
+                    !window.confirm(
+                      'Are you sure you wish to archive this campaign?'
+                    )
+                  )
+                    return
+                  const response = await deletePromotion(row.id)
+                  console.log('response', response)
+                  onCampaignDeleted(row.id)
+                }}>
+                <img className='icon' src={del} alt='delete' />
+              </a>
+            ) : (
+              <img className='icon' src={del} alt='delete' />
+            )}
           </>
         )
       },
@@ -162,6 +186,7 @@ export default ({ promotions, setChosenPromotion }) => {
           <hr />
           <div className='table-responsive'></div>
           <BootstrapTable
+            id='table-campaigns'
             classes='text-center'
             pagination={paginationFactory()}
             bordered={false}

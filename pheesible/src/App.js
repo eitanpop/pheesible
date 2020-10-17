@@ -68,16 +68,16 @@ function App() {
             <Home />
           </Route>
           <Route>
-            <div className='app h-100'>
-              <AuthenticatorContainer
-                onAuthStateChanged={async (e) => {
-                  console.log('e', e)
-                  updateAuthenticatedStatus()
-                  if (isAdmin === null) {
-                    const userGroups = await getUserGroups()
-                    setIsAdmin(userGroups && userGroups[0] === 'Admin')
-                  }
-                }}>
+            <AuthenticatorContainer
+              onAuthStateChanged={async (e) => {
+                console.log('e', e)
+                updateAuthenticatedStatus()
+                if (isAdmin === null) {
+                  const userGroups = await getUserGroups()
+                  setIsAdmin(userGroups && userGroups[0] === 'Admin')
+                }
+              }}>
+              <div className='app h-100'>
                 <Elements stripe={stripePromise}>
                   <Switch>
                     <Route path='/wizard' exact>
@@ -104,8 +104,8 @@ function App() {
                     </Route>
                   </Switch>
                 </Elements>
-              </AuthenticatorContainer>
-            </div>
+              </div>
+            </AuthenticatorContainer>
           </Route>
         </Switch>
       </Router>

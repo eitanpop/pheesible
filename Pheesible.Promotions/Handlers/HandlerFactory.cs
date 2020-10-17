@@ -35,6 +35,8 @@ namespace Pheesible.Promotions.Handlers
                     return new TemplateGetHandler();
                 case "get":
                     return new GetHandler();
+                case "delete" when request.Path.Contains("/promotion", StringComparison.InvariantCultureIgnoreCase):
+                    return new DeleteHandler();
                 default:
                     throw new Exception("Unsupported verb passed!");
             }

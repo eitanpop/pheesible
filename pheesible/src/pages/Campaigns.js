@@ -1,67 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
-import BootstrapTable from 'react-bootstrap-table-next'
 
 import CampaignTable from '../components/CampaignTable'
 import usePromotion from '../hooks/api/usePromotions'
-import facebook from '../images/facebook.png'
-import edit from '../images/edit.png'
-import report from '../images/report.png'
-
-const getStatusElement = (status) => {
-  const props = { className: 'btn', style: { cursor: 'default' } }
-  switch (status) {
-    case 1:
-      return (
-        <div {...props} className={props.className + ' btn-outline-primary'}>
-          DRAFT
-        </div>
-      )
-
-    case 2:
-      return (
-        <div {...props} className={props.className + ' btn-warning'}>
-          PENDING REVIEW
-        </div>
-      )
-
-    case 3 || 4:
-      return (
-        <div {...props} className={props.className + ' btn-outline-info'}>
-          PUBLISHING
-        </div>
-      )
-    case 5:
-      return (
-        <div {...props} className={props.className + ' btn-info'}>
-          RUNNING
-        </div>
-      )
-
-    case 6:
-      return (
-        <div {...props} className={props.className + ' btn-success'}>
-          DONE
-        </div>
-      )
-    case 7:
-      return (
-        <div {...props} className={props.className + ' btn-danger'}>
-          ERROR
-        </div>
-      )
-    case 8:
-      return (
-        <div {...props} className={props.className + ' btn-danger'}>
-          REJECTED
-        </div>
-      )
-    default:
-      return <div></div>
-  }
-}
 
 export default ({ setPromotion }) => {
+  const [deletedIds, setDeletedIds] = useState([])
   const { loading, error, data: promotions } = usePromotion()
   const [chosenPromotion, setChosenPromotion] = useState(null)
   const [isRedirecting, setIsRedirecting] = useState(null)
@@ -163,7 +107,11 @@ export default ({ setPromotion }) => {
           </a>
         </div>
         <div className='col-sm-10'>
-          {!promotions.some((x) => filter === null || x.statusId === filter) ? (
+          {!promotions.some(
+            (x) =>
+              filter === null ||
+              (x.statusId === filter && !deletedIds.includes(x.id))
+          ) ? (
             <div class='jumbotron text-center mt-5'>
               <h1>Nothing to show here</h1>
             </div>
@@ -173,9 +121,12 @@ export default ({ setPromotion }) => {
               <br />
               <CampaignTable
                 promotions={promotions.filter(
-                  (x) => filter === null || x.statusId === filter
+                  (x) =>
+                    (filter === null || x.statusId === filter) &&
+                    !deletedIds.includes(x.id)
                 )}
                 setChosenPromotion={setChosenPromotion}
+                onCampaignDeleted={(id) => setDeletedIds([...deletedIds, id])}
               />
             </>
           )}

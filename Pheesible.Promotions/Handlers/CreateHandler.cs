@@ -39,6 +39,7 @@ namespace Pheesible.Promotions.Handlers
             promotions.ImageTwo = promotionDto.images.imageTwo;
             promotions.ImageThree = promotionDto.images.imageThree;
             promotions.FreeText = promotionDto.freeText;
+            promotions.IsActive = true;
 
             if (isUpdate)
                 db.SellingPoints.RemoveRange(promotions.SellingPoints);
