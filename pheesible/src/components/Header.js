@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from 'react'
-
+import { Link } from 'react-router-dom'
+import { Auth } from 'aws-amplify'
 import UserMenu from './UserMenu'
 import { getUserGroups } from '../services/auth'
 import logo from '../images/Logo.png'
 
-export default () => {
+export default ({ isAuthenticated }) => {
   const [isAdmin, setIsAdmin] = useState()
+  const [initials, setInitials] = useState()
   useEffect(() => {
-    const IsAdmin = async () => {
+    const PageLoad = async () => {
       const userGroups = await getUserGroups()
       setIsAdmin(userGroups && userGroups[0] === 'Admin')
+      if (isAuthenticated) {
+        const user = await Auth.currentUserInfo()
+        console.log('user', user)
+        setInitials(
+          user.attributes.given_name.charAt(0) +
+            user.attributes.family_name.charAt(0)
+        )
+      }
     }
-    IsAdmin()
+    PageLoad()
   })
+  if (isAuthenticated === null) return <></>
   return (
     <header>
       <nav className='navbar navbar-expand-lg navbar-dark container-fluid header'>
@@ -38,35 +49,47 @@ export default () => {
           id='navbarSupportedContent'>
           <ul className='navbar-nav mr-auto'>
             <li className='nav-item active'>
-              <a className='nav-link' href='/'>
+              <Link className='nav-link' to='/'>
                 HOME
-              </a>
+              </Link>
             </li>{' '}
-            <li className='nav-item active ml-5'>
-              <a className='nav-link' href='/campaigns'>
-                CAMPAIGNS
-              </a>
-            </li>
-            {isAdmin ? (
+            {isAuthenticated ? (
               <>
                 <li className='nav-item active ml-5'>
-                  <a className='nav-link' href='/admin'>
-                    ADMINISTRATION
-                  </a>
+                  <Link className='nav-link' to='/campaigns'>
+                    CAMPAIGNS
+                  </Link>
                 </li>
+                {isAdmin ? (
+                  <li className='nav-item active ml-5'>
+                    <Link className='nav-link' to='/admin'>
+                      ADMINISTRATION
+                    </Link>
+                  </li>
+                ) : (
+                  ''
+                )}
               </>
             ) : (
-              ''
+              <li className='nav-item active ml-5'>
+                <Link to='/login' className='nav-link'>
+                  LOGIN
+                </Link>
+              </li>
             )}
           </ul>
-          <div className='my-2 my-lg-0'>
-            <a
-              className='btn btn btn-success my-2 mr-3 my-sm-0 btn-new'
-              href='/wizard'>
-              New +
-            </a>
-            <UserMenu />
-          </div>
+          {isAuthenticated ? (
+            <div className='my-2 my-lg-0'>
+              <Link
+                className='btn btn btn-success my-2 mr-3 my-sm-0 btn-new'
+                to='/wizard'>
+                New +
+              </Link>
+              <UserMenu initials={initials} />
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       </nav>
     </header>

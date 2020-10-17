@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import Amplify, { Hub } from 'aws-amplify'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Amplify, { Hub, Auth } from 'aws-amplify'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 
@@ -42,54 +47,62 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK)
 function App() {
   const [promotion, setPromotion] = useState(emptyPromotion)
   const [isAdmin, setIsAdmin] = useState(null)
+  const [isAuthenticated, setIsAuthenticated] = useState(null)
 
+  const updateAuthenticatedStatus = async () =>
+    setIsAuthenticated(!!(await Auth.currentUserInfo()))
+  useEffect(() => {
+    updateAuthenticatedStatus()
+  }, [])
+
+  if (isAuthenticated === null) return <></>
   return (
     <>
       <Router>
+        <Header isAuthenticated={isAuthenticated} />
         <Switch>
-          <Route path='/site/:id'>
+          <Route path='/site/:id' exact>
             <Site />
+          </Route>
+          <Route path='/' exact>
+            <Home />
           </Route>
           <Route>
             <div className='app h-100'>
               <AuthenticatorContainer
                 onAuthStateChanged={async (e) => {
                   console.log('e', e)
+                  updateAuthenticatedStatus()
                   if (isAdmin === null) {
                     const userGroups = await getUserGroups()
                     setIsAdmin(userGroups && userGroups[0] === 'Admin')
                   }
                 }}>
-                <Header />
-
                 <Elements stripe={stripePromise}>
-                  <Router>
-                    <Switch>
-                      <Route path='/wizard'>
-                        <Wizard
-                          promotion={promotion}
-                          setPromotion={setPromotion}
-                        />
-                      </Route>
-                      <Route path='/campaigns'>
-                        <Campaigns setPromotion={setPromotion} />
-                      </Route>
+                  <Switch>
+                    <Route path='/wizard' exact>
+                      <Wizard
+                        promotion={promotion}
+                        setPromotion={setPromotion}
+                      />
+                    </Route>
+                    <Route path='/campaigns' exact>
+                      <Campaigns setPromotion={setPromotion} />
+                    </Route>
 
-                      <Route path='/admin'>
-                        {isAdmin === null ? (
-                          <div>Loading...</div>
-                        ) : isAdmin ? (
-                          <Admin />
-                        ) : (
-                          <div>Not Allowed!</div>
-                        )}
-                      </Route>
-
-                      <Route path='/'>
-                        <Home />
-                      </Route>
-                    </Switch>
-                  </Router>
+                    <Route path='/admin' exact>
+                      {isAdmin === null ? (
+                        <div>Loading...</div>
+                      ) : isAdmin ? (
+                        <Admin />
+                      ) : (
+                        <div>Not Allowed!</div>
+                      )}
+                    </Route>
+                    <Route path='/login' exact>
+                      <Redirect to='/campaigns' />
+                    </Route>
+                  </Switch>
                 </Elements>
               </AuthenticatorContainer>
             </div>

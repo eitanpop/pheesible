@@ -2,6 +2,7 @@ import React from 'react'
 import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit'
+import { Link } from 'react-router-dom'
 
 import facebook from '../images/facebook.png'
 import edit from '../images/edit.png'
@@ -133,9 +134,9 @@ export default ({ promotions, setChosenPromotion }) => {
               <img className='icon' src={edit} alt='edit' />
             )}
             {row.statusId === 5 || row.statusId === 6 ? (
-              <a href={'/report?id=' + row.id}>
+              <Link to={'/report?id=' + row.id}>
                 <img className='icon' src={report} alt='report' />
-              </a>
+              </Link>
             ) : (
               <img className='icon' src={report} alt='report' />
             )}

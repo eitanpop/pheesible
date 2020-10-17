@@ -13,7 +13,6 @@ namespace Pheesible.Promotions
         Running = 5,
         Done = 6,
         Error = 7,
-        Rejected = 8,
-      
+        Rejected = 8,     
     }
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Auth } from 'aws-amplify'
 import { Dropdown } from 'react-bootstrap'
+import { useHistory } from 'react-router-dom'
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -11,18 +12,25 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
       e.preventDefault()
       onClick(e)
     }}>
-    <span>VB</span>
+    <span>{children}</span>
   </a>
 ))
 
-export default () => {
+export default ({ initials }) => {
+  const history = useHistory()
   return (
     <>
       <Dropdown className='d-inline'>
-        <Dropdown.Toggle as={CustomToggle} id='dropdown-custom-components' />
+        <Dropdown.Toggle as={CustomToggle} id='dropdown-custom-components'>
+          {initials}
+        </Dropdown.Toggle>
 
         <Dropdown.Menu className='show'>
-          <Dropdown.Item onClick={async (e) => await Auth.signOut()}>
+          <Dropdown.Item
+            onClick={async (e) => {
+              await Auth.signOut()
+              history.push('/login')
+            }}>
             Logout
           </Dropdown.Item>
         </Dropdown.Menu>

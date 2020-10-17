@@ -89,7 +89,6 @@ export default ({ setPromotion }) => {
     <div className='container-fluid h-100'>
       <div className='row h-100'>
         <div className='col-sm-2' id='sidebar'>
-          <div className='mt-3'>STATUS</div>
           <ul className='mt-2 list-unstyled components'>
             <li>
               <a
@@ -165,7 +164,7 @@ export default ({ setPromotion }) => {
         </div>
         <div className='col-sm-10'>
           {!promotions.some((x) => filter === null || x.statusId === filter) ? (
-            <div class='jumbotron text-center'>
+            <div class='jumbotron text-center mt-5'>
               <h1>Nothing to show here</h1>
             </div>
           ) : (
