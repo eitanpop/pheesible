@@ -39,6 +39,25 @@ export default ({
   const [error, setError] = useState(null)
   const history = useHistory()
 
+  const createOptions = () => {
+    return {
+      style: {
+        base: {
+          fontSize: '16px',
+          color: '#424770',
+          fontFamily: 'Open Sans, sans-serif',
+          letterSpacing: '0.025em',
+          '::placeholder': {
+            color: '#aab7c4',
+          },
+        },
+        invalid: {
+          color: '#c23d4b',
+        },
+      },
+    }
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     const signedInUser = await Auth.currentUserInfo()
@@ -128,7 +147,7 @@ export default ({
           <PaymentSummary promotion={promotion} />
           <form onSubmit={handleSubmit}>
             <div className='pr-1 mt-4'>
-              <CardElement options={CARD_OPTIONS} />
+              <CardElement options={CARD_OPTIONS} {...createOptions()} />
               <LoadingButton
                 className='btn btn-primary mt-4 btn-block'
                 type='submit'

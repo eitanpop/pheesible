@@ -126,7 +126,9 @@ export default ({
             <br />
             <input
               type='button'
-              onClick={() => save(promotion.id)}
+              onClick={() => {
+                if (isLive) save(promotion.id)
+              }}
               value='Save'
             />
           </div>

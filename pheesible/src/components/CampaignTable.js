@@ -13,7 +13,10 @@ import del from '../images/delete.png'
 const getStatusElement = (status) => {
   const props = {
     className: 'btn',
-    style: { cursor: 'default', width: '170px' },
+    style: {
+      cursor: 'default',
+      width: '170px',
+    },
   }
   switch (status) {
     case 1:

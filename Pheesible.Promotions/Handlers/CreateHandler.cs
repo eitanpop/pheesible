@@ -41,12 +41,12 @@ namespace Pheesible.Promotions.Handlers
             promotions.FreeText = promotionDto.freeText;
             promotions.IsActive = true;
 
-            if (isUpdate)
+            if (promotions.SellingPoints?.Count > 0)
                 db.SellingPoints.RemoveRange(promotions.SellingPoints);
             foreach (var sellingPoint in promotionDto.sellingPoints)
                 promotions.SellingPoints.Add(new SellingPoints { Description = sellingPoint?.description, Title = sellingPoint?.title });
 
-            if (isUpdate)
+            if (promotions.Features?.Count > 0)
                 db.Features.RemoveRange(promotions.Features);
             foreach (var feature in promotionDto.features)
                 promotions.Features.Add(new Features { Description = feature.description, Title = feature.title });
