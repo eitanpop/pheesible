@@ -1,0 +1,23 @@
+amplify-authenticator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 80vh;
+}
+
+:root {
+  --amplify-primary-color: #ff6347;
+  --amplify-primary-tint: #ff7359;
+  --amplify-primary-shade: #e0573e;
+  --amplify-secondary-tint: darkred;
+}
+
+amplify-toast {
+  background-color: darkred !important;
+  padding: 25px !important;
+}
+
+.toast {
+  padding: 25px !important;
+}

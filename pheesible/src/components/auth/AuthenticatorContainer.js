@@ -6,6 +6,14 @@ import {
   AmplifySignIn,
   AmplifyConfirmSignUp,
 } from '@aws-amplify/ui-react'
+import { I18n } from 'aws-amplify'
+
+I18n.putVocabularies({
+  en: {
+    'Custom auth lambda trigger is not configured for the user pool.':
+      'Password cannot be empty',
+  },
+})
 
 export default ({ children, onAuthStateChanged }) => {
   const [authState, setAuthState] = React.useState()
@@ -22,7 +30,9 @@ export default ({ children, onAuthStateChanged }) => {
   return authState === AuthState.SignedIn && user ? (
     <>{children}</>
   ) : (
-    <AmplifyAuthenticator userNameAlias='email'>
+    <AmplifyAuthenticator
+      userNameAlias='email'
+      style={{ position: 'relative' }}>
       <AmplifySignUp
         slot='sign-up'
         usernameAlias='email'
@@ -34,8 +44,8 @@ export default ({ children, onAuthStateChanged }) => {
           },
           {
             type: 'password',
-            label: 'Custom Password Label',
-            placeholder: 'custom password placeholder',
+            label: 'Password',
+            placeholder: 'Password',
             required: true,
           },
           {
@@ -58,7 +68,16 @@ export default ({ children, onAuthStateChanged }) => {
           },
         ]}
       />
-      <AmplifySignIn slot='sign-in' usernameAlias='email' />
+      <AmplifySignIn
+        theme={{
+          signInButton: {
+            color: 'red',
+            backgroundColor: 'green',
+          },
+        }}
+        slot='sign-in'
+        usernameAlias='email'
+      />
       <AmplifyConfirmSignUp slot='confirm-sign-up' usernameAlias='email' />
     </AmplifyAuthenticator>
   )
