@@ -21,7 +21,6 @@ export default ({ setPromotion }) => {
     setIsRedirecting(true)
   }, [chosenPromotion])
 
-  if (loading) return <div>Loading...</div>
   if (error) {
     console.log('error', error)
     return <div>There was an unexpected error</div>
@@ -107,11 +106,13 @@ export default ({ setPromotion }) => {
           </a>
         </div>
         <div className='col-sm-10'>
-          {!promotions.some(
-            (x) =>
-              filter === null ||
-              (x.statusId === filter && !deletedIds.includes(x.id))
-          ) ? (
+          {loading ? (
+            <div>Loading...</div>
+          ) : !promotions.some(
+              (x) =>
+                filter === null ||
+                (x.statusId === filter && !deletedIds.includes(x.id))
+            ) ? (
             <div class='jumbotron text-center mt-5'>
               <h1>Nothing to show here</h1>
             </div>

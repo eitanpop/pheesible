@@ -25,7 +25,7 @@ namespace Pheesible.Promotions.Handlers
             if (String.IsNullOrEmpty(sub))
                 throw new Exception("Must contain a sub!!");
             if (isUpdate && promotions.StatusId != (int)PromotionStatus.Draft)
-                throw new Exception("Cannot edit a non drafted promotion!");
+                throw new Exception($"Cannot edit a non drafted promotion! {promotions.StatusId}");
             promotions.SubId = sub;
             promotions.Name = promotionDto.name;
             promotions.TemplateId = promotionDto.templateId;

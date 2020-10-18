@@ -24,10 +24,19 @@ namespace Pheesible.Integrations.Facebook.Models
     public class Data
     {
         public string clicks { get; set; }
-        public string actions { get; set; }
-        public string impressions { get; set; }
         public string date_start { get; set; }
         public string date_stop { get; set; }
+        public string impressions { get; set; }
+        public string spend { get; set; }
+        public string age { get; set; }
+        public string gender { get; set; }
+        public Action[] actions { get; set; }
+    }
+
+    public class Action
+    {
+        public string action_type { get; set; }
+        public string value { get; set; }
     }
 
 }

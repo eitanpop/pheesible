@@ -173,8 +173,8 @@ export default ({ promotion, setPromotion }) => {
   }
 
   return (
-    <main>
-      <div className='container-fluid'>
+    <main className='h-100'>
+      <div className='container-fluid h-100'>
         <div className='row steps'>
           <div className='col-lg-3 steps-line-container'>
             <StepLine

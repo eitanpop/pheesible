@@ -75,11 +75,10 @@ namespace Pheesible.Integrations.Tests
         {
             var config = new FacebookConfigTestObject();
             var api = new FacebookApi(config);
-            string adSetId = "23845686498240146";
-            var response = await api.GetReportForAdSet(adSetId, new string[] { "actions", "clicks", "date_start", "date_stop", "impressions" });
+            string adSetId = "23845881378600146";
+            var response = await api.GetReportForAdSet(adSetId, new string[] { "actions", "clicks", "date_start", "date_stop", "impressions", "spend" });
             var content = response?.data?.FirstOrDefault();
             Console.WriteLine(content);
-
         }
     }
 }

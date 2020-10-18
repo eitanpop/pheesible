@@ -92,8 +92,8 @@ namespace Pheesible.Integrations.Facebook
                         type = _config.CallToAction
                     },
                     image_hash = image.hash,
-                    link=landingPageLink,
-                    message=adText
+                    link = landingPageLink,
+                    message = adText
                 },
                 page_id = _config.PageId
             })), "object_story_spec");
@@ -124,8 +124,8 @@ namespace Pheesible.Integrations.Facebook
             using (var httpClient = new HttpClient())
             {
                 using var request = new HttpRequestMessage(new HttpMethod("GET"),
-                    $"https://graph.facebook.com/v{_config.ApiVersion}/{adSetId}/insights?fields=" +
-                    $"{HttpUtility.UrlEncode(String.Join(",", fields))}&access_token={_config.AccessToken}");
+                    $"https://graph.facebook.com/v{_config.ApiVersion}/{adSetId}/insights?date_preset=lifetime&breakdowns=age,gender&fields=" +
+                    $"{HttpUtility.UrlEncode(String.Join(",", fields))}&access_token={_config.AccessToken}&level=ad");
                 var response = await httpClient.SendAsync(request);
                 return await ReturnModelOrThrowError<Report>(response);
             }
@@ -135,7 +135,8 @@ namespace Pheesible.Integrations.Facebook
         {
             if (response.IsSuccessStatusCode != true)
                 throw new Exception(await response.Content.ReadAsStringAsync());
-            return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync());
+            string content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<T>(content);
         }
     }
 }
