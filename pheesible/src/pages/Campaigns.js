@@ -2,6 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Redirect } from 'react-router-dom'
 
 import usePromotion from '../hooks/api/usePromotions'
+import facebook from '../images/facebook.png'
+import edit from '../images/edit.png'
+import report from '../images/report.png'
 
 const getStatusElement = (status) => {
   const props = { className: 'btn', style: { cursor: 'default' } }
@@ -72,14 +75,6 @@ export default ({ setPromotion }) => {
     setIsRedirecting(true)
   }, [chosenPromotion])
 
-  const ifAnyPromotionsHaveStatus = (statusId, component) => {
-    return promotions
-      .filter((x) => filter === null || x.statusId === filter)
-      .some((x) => x.statusId === statusId)
-      ? component
-      : ''
-  }
-
   if (loading) return <div>Loading...</div>
   if (error) {
     console.log('error', error)
@@ -142,54 +137,85 @@ export default ({ setPromotion }) => {
           </a>
         </div>
         <div className='col-sm-10'>
-          <div className='mt-3 h3'>CAMPAIGNS</div>
-          <div className='table-responsive'>
-            <table className='table'>
-              <tbody>
-                {promotions
-                  .filter((x) => filter === null || x.statusId === filter)
-                  .map((x) => {
-                    return (
-                      <tr key={x.id}>
-                        <td>{x.name}</td>
-                        <td>{getStatusElement(x.statusId)}</td>
-                        <td>$</td>
-                        <td>{x.facebook && x.facebook.days}</td>
+          {!promotions.some((x) => filter === null || x.statusId === filter) ? (
+            <span>Nothing to show here</span>
+          ) : (
+            <>
+              <div className='mt-3 h3'>CAMPAIGNS</div>
+              <div className='table-responsive'>
+                <table className='table text-center'>
+                  <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Cost</th>
+                    <th>Start Date</th>
+                    <th>Total Days</th>
+                  </tr>
 
-                        {ifAnyPromotionsHaveStatus(
-                          1,
-                          <td>
-                            {x.statusId === 1 ? (
-                              <a
-                                href='#'
-                                onClick={() => {
-                                  console.log('editing')
-                                  setChosenPromotion(x.id)
-                                }}>
-                                EDIT
-                              </a>
-                            ) : (
-                              ''
-                            )}{' '}
-                          </td>
-                        )}
-
-                        {ifAnyPromotionsHaveStatus(
-                          1,
-                          <td>
-                            {x.statusId === 5 || x.statusId === 6 ? (
-                              <a href={'/report?id=' + x.id}>REPORT</a>
-                            ) : (
-                              ''
-                            )}{' '}
-                          </td>
-                        )}
-                      </tr>
-                    )
-                  })}
-              </tbody>
-            </table>
-          </div>
+                  <tbody>
+                    {promotions
+                      .filter((x) => filter === null || x.statusId === filter)
+                      .map((x) => {
+                        return (
+                          <tr key={x.id}>
+                            <td>{x.name}</td>
+                            <td>{getStatusElement(x.statusId)}</td>
+                            <td>$50</td>
+                            <td>{x.startDate || 'N/A'}</td>
+                            <td>
+                              {x.facebook ? (
+                                <>
+                                  <img
+                                    src={facebook}
+                                    alt='facebook'
+                                    className='icon'
+                                  />
+                                  <span className='ml-3'>
+                                    {x.facebook.numberOfDays} days
+                                  </span>
+                                </>
+                              ) : (
+                                ''
+                              )}
+                            </td>
+                            <td>
+                              {x.statusId === 1 ? (
+                                <a
+                                  href='#'
+                                  enabled={x.statusId === 1}
+                                  onClick={() => {
+                                    console.log('editing')
+                                    setChosenPromotion(x.id)
+                                  }}>
+                                  <img className='icon' src={edit} alt='edit' />
+                                </a>
+                              ) : (
+                                <img className='icon' src={edit} alt='edit' />
+                              )}{' '}
+                              {x.statusId === 5 || x.statusId === 6 ? (
+                                <a href={'/report?id=' + x.id}>
+                                  <img
+                                    className='icon'
+                                    src={report}
+                                    alt='report'
+                                  />
+                                </a>
+                              ) : (
+                                <img
+                                  className='icon'
+                                  src={report}
+                                  alt='report'
+                                />
+                              )}
+                            </td>
+                          </tr>
+                        )
+                      })}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

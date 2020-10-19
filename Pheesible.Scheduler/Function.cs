@@ -75,7 +75,7 @@ namespace Pheesible.Scheduler
             serviceCollection.AddTransient((x) =>
                 {
                     var jobQueue = new Queue<IJob>();
-                //    jobQueue.Enqueue(x.GetService<PromotionJob>());
+                    jobQueue.Enqueue(x.GetService<PromotionJob>());
                     jobQueue.Enqueue(x.GetService<FinishedCampaignJob>());
                     return jobQueue;
                 });

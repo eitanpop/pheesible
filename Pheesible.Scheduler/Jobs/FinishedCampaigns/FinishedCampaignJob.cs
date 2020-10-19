@@ -30,8 +30,11 @@ namespace Pheesible.Scheduler.Jobs
         public async Task<JobResponse> Run(PromotionContext db)
         {
             var jobResponse = new JobResponse { StartTime = DateTime.UtcNow, JobName = "FinishedCampaignJob" };
-            var promotions = await db.Promotions.Where(x => x.StatusId == (int)PromotionStatus.Running &&
-                                                            x.Facebook.Any(y => x.CreateDate.Value.AddDays(y.NumberOfDays) >= DateTime.UtcNow)).ToListAsync();
+            var promotions = await db.Promotions.Include(x=>x.Facebook).Where(x => x.StatusId == (int)PromotionStatus.Running).ToListAsync();
+            promotions = promotions.Where(x =>
+                x.CreateDate != null && 
+                x.Facebook.FirstOrDefault() != null && 
+                x.CreateDate.Value.AddDays(x.Facebook.FirstOrDefault().NumberOfDays) <= DateTime.UtcNow).ToList();
 
             if (!promotions.Any())
             {

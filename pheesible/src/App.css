@@ -52,3 +52,8 @@ amplify-authenticator {
 .admin-image {
   max-width: 150px;
 }
+
+.icon {
+    width: 25px;
+    height:25px
+}
