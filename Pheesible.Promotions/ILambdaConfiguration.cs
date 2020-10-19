@@ -9,5 +9,6 @@ namespace Pheesible.Promotions
         string Get(string property);
         string ConnectionString { get; }
         string AdminGroup { get; }
+        T GetSection<T>(string name) where T :new ();
     }
 }

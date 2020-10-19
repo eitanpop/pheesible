@@ -2,16 +2,16 @@
 {
     public interface IFacebookConfig
     {
-        string AppId { get; }
-        string AppSecret { get; }
-        string ApiVersion { get; }
-        string AdAccountId { get; }
-        string AccessToken { get; }
-        string Objective { get; }
-        string OptimizationGoal { get; }
-        string BillingEvent { get; }
-        string PageId { get; }
-        string CampaignId { get; }
-        string CallToAction { get; }
+        string AppId { get; set; }
+        string AppSecret { get; set; }
+        string ApiVersion { get; set; }
+        string AdAccountId { get; set; }
+        string AccessToken { get; set; }
+        string Objective { get; set; }
+        string OptimizationGoal { get; set; }
+        string BillingEvent { get; set; }
+        string PageId { get; set; }
+        string CampaignId { get; set; }
+        string CallToAction { get; set; }
     }
 }

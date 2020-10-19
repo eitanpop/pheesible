@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using Amazon.Lambda.APIGatewayEvents;
 using Pheesible.Core;
 
@@ -32,6 +33,20 @@ namespace Pheesible.Promotions
                     {"Access-Control-Allow-Origin", "*"}
                 }
             };
+        }
+
+        public static APIGatewayProxyResponse GetErrorResponse(string responseData)
+        {
+            return GetResponse(responseData, HttpStatusCode.InternalServerError);
+        }
+        public static APIGatewayProxyResponse GetBadRequestResponse(string responseData)
+        {
+            return GetResponse(responseData, HttpStatusCode.BadRequest);
+        }
+
+        public static APIGatewayProxyResponse Get404Response(string responseData)
+        {
+            return GetResponse(responseData, HttpStatusCode.NotFound);
         }
     }
 }

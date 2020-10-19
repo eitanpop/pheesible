@@ -79,6 +79,7 @@ namespace Pheesible.Integrations.Tests
             var response = await api.GetReportForAdSet(adSetId, new string[] { "actions", "clicks", "date_start", "date_stop", "impressions", "spend" });
             var content = response?.data?.FirstOrDefault();
             Console.WriteLine(content);
+
         }
     }
 }

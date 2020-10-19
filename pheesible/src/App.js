@@ -19,6 +19,7 @@ import Campaigns from './pages/Campaigns'
 import Site from './pages/Site'
 import Home from './pages/Home'
 import Admin from './pages/Admin'
+import Report from './pages/Report'
 import './App.css'
 
 Amplify.configure(awsConfig)
@@ -60,7 +61,7 @@ function App() {
     <>
       <Router>
         <Switch>
-          <Route path='/site/:id'>
+          <Route path='/site/:id' exact>
             <Site />
           </Route>
           <Route>
@@ -90,7 +91,9 @@ function App() {
                       <Route path='/campaigns' exact>
                         <Campaigns setPromotion={setPromotion} />
                       </Route>
-
+                      <Route path='/report/:id'>
+                        <Report />
+                      </Route>
                       <Route path='/admin' exact>
                         {isAdmin === null ? (
                           <div>Loading...</div>

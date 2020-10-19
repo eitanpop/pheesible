@@ -22,6 +22,14 @@ namespace Pheesible.Scheduler
         public string AwsRegion => Get("AWS:Region");
         public string UserPoolId => Get("AWS:UserPoolId");
         public string AdminEmail => Get("AdminEmail");
+
+        public T GetSection<T>(string name) where T : new()
+        {
+            T section = new T();
+            Configuration.GetSection(name).Bind(section);
+            return section;
+        }
+
         public string Get(string property) =>
             Configuration[property];
     }

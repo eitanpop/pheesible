@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Pheesible.Promotions.DTO;
 using Pheesible.Promotions.EF;
 using Pheesible.Promotions.Handlers;
+using Pheesible.Integrations.Facebook;
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -55,6 +56,11 @@ namespace Pheesible.Promotions
                 return new PromotionContext(options.Options);
             });
             serviceCollection.AddTransient<IApp, App>();
+            serviceCollection.AddTransient<IFacebookConfig>(x =>
+            {
+                return x.GetService<ILambdaConfiguration>().GetSection<FacebookConfig>("Facebook");
+            });
+            serviceCollection.AddTransient<IFacebookApi, FacebookApi>();
             serviceCollection.AddTransient<IHandlerFactory, HandlerFactory>();
         }
 

@@ -20,5 +20,12 @@ namespace Pheesible.Promotions
 
         public string ConnectionString => Get("DbContextSettings:ConnectionString");
         public string AdminGroup => Get("AdminGroup");
+
+        public T GetSection<T>(string name) where T : new()
+        {
+            T section = new T();
+            Configuration.GetSection(name).Bind(section);
+            return section;
+        }
     }
 }

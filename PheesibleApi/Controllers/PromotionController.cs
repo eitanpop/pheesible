@@ -70,6 +70,18 @@ namespace PheesibleApi.Controllers
 
         }
 
+
+        [HttpGet("report/{id}")]
+        public async Task<string> GetReport(string id)
+        {
+            var body = await GetRequestContent();
+            var function = new Function();
+            var result = await function.FunctionHandler(new APIGatewayProxyRequest { Body = body, HttpMethod = "Get", Path = $"/promotion/report/{id}", PathParameters = new Dictionary<string, string> { { "id", id } } }, new TestLambdaContext());
+
+            return result.Body;
+        }
+
+
         [HttpGet("public/{id}")]
         public async Task<string> GetPublic(string id)
         {

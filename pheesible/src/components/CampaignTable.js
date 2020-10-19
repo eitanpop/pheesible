@@ -142,7 +142,7 @@ export default ({ promotions, setChosenPromotion, onCampaignDeleted }) => {
               <img className='icon' src={edit} alt='edit' />
             )}
             {row.statusId === 5 || row.statusId === 6 ? (
-              <Link to={'/report?id=' + row.id}>
+              <Link to={'/report/' + row.id}>
                 <img className='icon' src={report} alt='report' />
               </Link>
             ) : (

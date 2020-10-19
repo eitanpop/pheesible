@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
+using Pheesible.Integrations.Facebook;
 using Pheesible.Promotions.Handlers.Admin;
 
 namespace Pheesible.Promotions.Handlers
@@ -10,10 +11,12 @@ namespace Pheesible.Promotions.Handlers
     public class HandlerFactory : IHandlerFactory
     {
         private readonly ILambdaConfiguration _config;
+        private readonly IFacebookApi _facebookApi;
 
-        public HandlerFactory(ILambdaConfiguration configuration)
+        public HandlerFactory(ILambdaConfiguration configuration, IFacebookApi facebookApi)
         {
             _config = configuration;
+            _facebookApi = facebookApi;
         }
         public IHandler Get(APIGatewayProxyRequest request)
         {
@@ -27,6 +30,8 @@ namespace Pheesible.Promotions.Handlers
                     return new CampaignApproveHandler(_config);
                 case "post":
                     return new CreateHandler();
+                case "get" when request.Path.Contains("/report", StringComparison.InvariantCultureIgnoreCase):
+                    return new ReportHandler(_facebookApi);
                 case "get" when request.Path.Contains("/admin/review", StringComparison.InvariantCultureIgnoreCase):
                     return new ReviewHandler(_config);
                 case "get" when request.Path.Contains("/promotion/public/", StringComparison.InvariantCultureIgnoreCase):

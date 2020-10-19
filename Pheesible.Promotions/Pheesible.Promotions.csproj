@@ -22,6 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pheesible.Core\Pheesible.Core.csproj" />
+    <ProjectReference Include="..\Pheesible.Integrations\Pheesible.Integrations.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

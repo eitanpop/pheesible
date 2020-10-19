@@ -4,11 +4,11 @@ import axios from 'axios'
 const apiName = 'pheesible-rest'
 
 export const getPromotion = async (id) => {
-  return await axios.get(`${process.env.REACT_APP_API_URL}/promotion/${id}`)
+  return await API.get(apiName, `/promotion/${id}`)
 }
 
 export const getPublicPromotion = async (id) => {
-    return await API.get(apiName, `/promotion/public/${id}`)
+  return await API.get(apiName, `/promotion/public/${id}`)
 }
 
 export const getPromotions = async () => {
@@ -20,7 +20,11 @@ export const savePromotion = async (promotion) => {
 }
 
 export const deletePromotion = async (id) => {
-    return await API.del(apiName,`/promotion/${id}`)
+  return await API.del(apiName, `/promotion/${id}`)
+}
+
+export const getReport = async (id) => {
+  return await API.get(apiName, `/promotion/report/${id}`)
 }
 
 export const getTemplates = async () => {

@@ -16,5 +16,6 @@ namespace Pheesible.Scheduler
         string UserPoolId { get; }
         string AdminEmail { get; }
         string Get(string property);
+        T GetSection<T>(string name) where T : new();
     }
 }
