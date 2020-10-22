@@ -64,53 +64,53 @@ function App() {
           <Route path='/site/:id' exact>
             <Site />
           </Route>
+
+          <Route path='/' exact>
+            <Header isAuthenticated={isAuthenticated} />
+            <Home />
+          </Route>
           <Route>
             <Header isAuthenticated={isAuthenticated} />
-            <Route path='/' exact>
-              <Home />
-            </Route>
-            <Route>
-              <AuthenticatorContainer
-                onAuthStateChanged={async (e) => {
-                  console.log('e', e)
-                  updateAuthenticatedStatus()
-                  if (isAdmin === null) {
-                    const userGroups = await getUserGroups()
-                    setIsAdmin(userGroups && userGroups[0] === 'Admin')
-                  }
-                }}>
-                <div className='app h-100'>
-                  <Elements stripe={stripePromise}>
-                    <Switch>
-                      <Route path='/wizard' exact>
-                        <Wizard
-                          promotion={promotion}
-                          setPromotion={setPromotion}
-                        />
-                      </Route>
-                      <Route path='/campaigns' exact>
-                        <Campaigns setPromotion={setPromotion} />
-                      </Route>
-                      <Route path='/report/:id'>
-                        <Report />
-                      </Route>
-                      <Route path='/admin' exact>
-                        {isAdmin === null ? (
-                          <div>Loading...</div>
-                        ) : isAdmin ? (
-                          <Admin />
-                        ) : (
-                          <div>Not Allowed!</div>
-                        )}
-                      </Route>
-                      <Route path='/login' exact>
-                        <Redirect to='/campaigns' />
-                      </Route>
-                    </Switch>
-                  </Elements>
-                </div>
-              </AuthenticatorContainer>
-            </Route>
+            <AuthenticatorContainer
+              onAuthStateChanged={async (e) => {
+                console.log('e', e)
+                updateAuthenticatedStatus()
+                if (isAdmin === null) {
+                  const userGroups = await getUserGroups()
+                  setIsAdmin(userGroups && userGroups[0] === 'Admin')
+                }
+              }}>
+              <div className='app h-100'>
+                <Elements stripe={stripePromise}>
+                  <Switch>
+                    <Route path='/wizard' exact>
+                      <Wizard
+                        promotion={promotion}
+                        setPromotion={setPromotion}
+                      />
+                    </Route>
+                    <Route path='/campaigns' exact>
+                      <Campaigns setPromotion={setPromotion} />
+                    </Route>
+                    <Route path='/report/:id'>
+                      <Report />
+                    </Route>
+                    <Route path='/admin' exact>
+                      {isAdmin === null ? (
+                        <div>Loading...</div>
+                      ) : isAdmin ? (
+                        <Admin />
+                      ) : (
+                        <div>Not Allowed!</div>
+                      )}
+                    </Route>
+                    <Route path='/login' exact>
+                      <Redirect to='/campaigns' />
+                    </Route>
+                  </Switch>
+                </Elements>
+              </div>
+            </AuthenticatorContainer>
           </Route>
         </Switch>
       </Router>

@@ -6,6 +6,7 @@ import ErrorMessage from '../ErrorMessage'
 import CardTitle from '../wizard/CardTitle'
 import CardSubTitle from '../wizard/CardSubTitle'
 import HeaderSpacer from '../wizard/HeaderSpacer'
+import Info from '../Info'
 
 export default ({
   promotion,
@@ -51,10 +52,10 @@ export default ({
     <>
       <div className='card'>
         <div className='card-body'>
-          <CardTitle toolTip='This is a test tooltip'>Campaign</CardTitle>
+          <CardTitle tooltip='This is a test tooltip'>Campaign</CardTitle>
           <HeaderSpacer />
           <label htmlFor='name' className='fieldTitle'>
-            Name*
+            Name* <Info placement='top' tooltip='this is a tooltip' />
           </label>
           <input
             className={`form-control ${error.name ? ' has-error ' : ''}`}
