@@ -113,7 +113,7 @@ export default ({ setPromotion }) => {
                 filter === null ||
                 (x.statusId === filter && !deletedIds.includes(x.id))
             ) ? (
-            <div class='jumbotron text-center mt-5'>
+            <div className='jumbotron text-center mt-5'>
               <h1>Nothing to show here</h1>
             </div>
           ) : (

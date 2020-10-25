@@ -52,21 +52,8 @@ export default ({
     <>
       <div className='card'>
         <div className='card-body'>
-          <CardTitle tooltip='This is a test tooltip'>Campaign</CardTitle>
-          <HeaderSpacer />
-          <label htmlFor='name' className='fieldTitle'>
-            Name* <Info placement='top' tooltip='this is a tooltip' />
-          </label>
-          <input
-            className={`form-control ${error.name ? ' has-error ' : ''}`}
-            id='name'
-            onChange={(e) => updatePromotion('name', e.target.value)}
-            value={name || ''}
-          />
-          <ErrorMessage errorMessage={error.name} />
-          <br />
-          <hr stlye={{ width: '90%' }} />
-          <CardTitle toolTip='This is a test tooltip'>
+          
+          <CardTitle toolTip='The landing page is an engagine and beautiful '>
             Landing Page
           </CardTitle>{' '}
           <HeaderSpacer />

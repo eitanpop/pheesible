@@ -1,10 +1,29 @@
 import React from 'react'
 
+import '../styles/home.css'
+import pheeseible_ico from '../images/home/pheeseible_ico.png'
+import ciccle_ico from '../images/home/ciccle_ico.png'
+import copyright_logo from '../images/home/copyright_logo.png'
+import currency_ico_bl from '../images/home/currency_ico_bl.png'
+import ico_close from '../images/home/ico_close.png'
+import ico_curr1 from '../images/home/ico_curr1.png'
+import ico_curr2 from '../images/home/ico_curr2.png'
+import ico_curr3_wh from '../images/home/ico_curr3_wh.png'
+import ico_curr4_wh from '../images/home/ico_curr4_wh.png'
+import ico_curr5_wh from '../images/home/ico_curr5_wh.png'
+import ico_set from '../images/home/ico_set.png'
+import ico_time1 from '../images/home/ico_time1.png'
+import ico_time2 from '../images/home/ico_time2.png'
+import process_ico from '../images/home/process_ico.png'
+import rocket from '../images/home/rocket.png'
+
 export default () => {
   return (
     <div>
-      <main>
-        <section className='intro'>
+      <div style={{ backgroundColor: 'white' }}>
+        <section
+          className='intro'
+          style={{ backgroundImage: `url(${rocket})` }}>
           <div className='container h-100'>
             <div className='row h-100'>
               <div className='col-lg-12 d-flex flex-column justify-content-end align-items-center'>
@@ -81,13 +100,13 @@ export default () => {
                       </th>
                       <th scope='col'>
                         <div className='bg-table-2 text-white'>
-                          <img src='./dist/img/pheeseible_ico.png' alt='' />
+                          <img src={pheeseible_ico} alt='' />
                           <span>With Pheesible</span>
                         </div>
                       </th>
                       <th scope='col'>
                         <div className='bg-table-2 text-white'>
-                          <img src='./dist/img/process_ico.png' alt='' />
+                          <img src={process_ico} alt='' />
                           <span>Typical Process</span>
                         </div>
                       </th>
@@ -100,12 +119,11 @@ export default () => {
                           <h5>LANDING PAGE</h5>
                           <ul>
                             <li>
-                              <img src='./dist/img/ico_time1.png' alt='' /> Time
-                              of Creation
+                              <img src={ico_time1} alt='' /> Time of Creation
                             </li>
                             <li>
-                              <img src='./dist/img/ico_curr1.png' alt='' />{' '}
-                              Domain &amp; Hosting Cost
+                              <img src={ico_curr1} alt='' /> Domain &amp;
+                              Hosting Cost
                             </li>
                           </ul>
                         </div>
@@ -115,7 +133,7 @@ export default () => {
                           <ul>
                             <li className='txt-orange '>10 minutes</li>
                             <li>
-                              <img src='./dist/img/ico_curr3_wh.png' alt='' />
+                              <img src={ico_curr3_wh} alt='' />
                             </li>
                           </ul>
                         </div>
@@ -125,18 +143,9 @@ export default () => {
                           <ul>
                             <li className='txt-gray'>3+ hours to days</li>
                             <li>
-                              <img
-                                src='./dist/img/currency_ico_bl.png'
-                                alt=''
-                              />
-                              <img
-                                src='./dist/img/currency_ico_bl.png'
-                                alt=''
-                              />
-                              <img
-                                src='./dist/img/currency_ico_bl.png'
-                                alt=''
-                              />
+                              <img src={currency_ico_bl} alt='' />
+                              <img src={currency_ico_bl} alt='' />
+                              <img src={currency_ico_bl} alt='' />
                             </li>
                           </ul>
                         </div>
@@ -148,12 +157,11 @@ export default () => {
                           <h5>ADVERTISING</h5>
                           <ul>
                             <li>
-                              <img src='./dist/img/ico_time2.png' alt='' /> Set
-                              up and Creation
+                              <img src={ico_time2} alt='' /> Set up and Creation
                             </li>
                             <li>
-                              <img src='./dist/img/ico_curr2.png' alt='' />{' '}
-                              Choose your own Budget
+                              <img src={ico_curr2} alt='' /> Choose your own
+                              Budget
                             </li>
                           </ul>
                         </div>
@@ -163,7 +171,7 @@ export default () => {
                           <ul>
                             <li className='txt-orange '>3 minutes</li>
                             <li>
-                              <img src='./dist/img/ico_curr4_wh.png' alt='' />
+                              <img src={ico_curr4_wh} alt='' />
                             </li>
                           </ul>
                         </div>
@@ -173,7 +181,7 @@ export default () => {
                           <ul>
                             <li className='txt-gray'>30 + minutes</li>
                             <li>
-                              <img src='./dist/img/ico_curr5_wh.png' alt='' />
+                              <img src={ico_curr5_wh} alt='' />
                             </li>
                           </ul>
                         </div>
@@ -185,11 +193,11 @@ export default () => {
                           <h5>ADDITIONAL FEATURES</h5>
                           <ul>
                             <li>
-                              <img src='./dist/img/ico_set.png' alt='' />
+                              <img src={ico_set} alt='' />
                               Material created by Marketing professionals
                             </li>
                             <li>
-                              <img src='./dist/img/ico_set.png' alt='' />
+                              <img src={ico_set} alt='' />
                               Results from Campaign all in one place
                             </li>
                           </ul>
@@ -199,10 +207,10 @@ export default () => {
                         <div className='border-b'>
                           <ul>
                             <li>
-                              <img src='./dist/img/ciccle_ico.png' alt='' />
+                              <img src={ciccle_ico} alt='' />
                             </li>
                             <li>
-                              <img src='./dist/img/ciccle_ico.png' alt='' />
+                              <img src={ciccle_ico} alt='' />
                             </li>
                           </ul>
                         </div>
@@ -211,10 +219,10 @@ export default () => {
                         <div className='border-b'>
                           <ul>
                             <li>
-                              <img src='./dist/img/ico_close.png' alt='' />
+                              <img src={ico_close} alt='' />
                             </li>
                             <li>
-                              <img src='./dist/img/ico_close.png' alt='' />
+                              <img src={ico_close} alt='' />
                             </li>
                           </ul>
                         </div>
@@ -373,14 +381,14 @@ export default () => {
             </div>
           </div>
         </section>
-      </main>
+      </div>
       <footer>
         <div className='container'>
           <div className='row text-center'>
             <div className='col-12'>
               <p className='copyright mt-5 mb-4 '>
-                <img src='./dist/img/copyright_logo.png' alt='copyright' /> ©
-                Created by Auvul Tech Team 2020
+                <img src={copyright_logo} alt='copyright' /> © Created by Auvul
+                Tech Team 2020
               </p>
             </div>
           </div>

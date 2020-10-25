@@ -10,8 +10,8 @@
 header {
   background: #212735 !important;
   box-shadow: 0px 1px 4px #27272780;
--webkit-box-shadow: 0px 1px 4px #27272780;
--moz-box-shadow: 0px 1px 4px #27272780;
+  -webkit-box-shadow: 0px 1px 4px #27272780;
+  -moz-box-shadow: 0px 1px 4px #27272780;
 }
 .navbar {
   padding: 0 1rem;
@@ -24,7 +24,7 @@ header {
 }
 .my-account {
   color: #fff;
-  background: #ED5331;
+  background: #ed5331;
   padding: 0;
 }
 .my-account:hover {
@@ -35,19 +35,18 @@ header {
   line-height: 2.7;
 }
 .btn-new {
-  background: #41C0CD;
-  border-color: #41C0CD;
+  background: #41c0cd;
+  border-color: #41c0cd;
 }
 .btn-new:hover,
 .btn-new:focus,
 .btn-success.btn-new:not(:disabled):not(.disabled):active {
-  background: #41C0CD;
-  border-color: #41C0CD;
+  background: #41c0cd;
+  border-color: #41c0cd;
 }
 /* Header End*/
 /* Intro section start*/
 .intro {
-  background: url(../img/rocket.png);
   background-size: cover;
   height: calc(100vh - 65px);
 }
@@ -55,11 +54,11 @@ header {
   font-size: 3.5rem;
   line-height: 1.5;
 }
-.intro .col-lg-12  {
+.intro .col-lg-12 {
   padding-bottom: 7rem;
 }
 .btn-orange {
-  background: #ED5331;
+  background: #ed5331;
   color: #fff;
 }
 /* Intro section end*/
@@ -86,17 +85,18 @@ header {
   list-style: none;
   padding-left: 0;
 }
-.table.table-features td, .table.table-features th {
+.table.table-features td,
+.table.table-features th {
   border-top-width: 0;
 }
-.table.table-features thead th:first-child div{
+.table.table-features thead th:first-child div {
   font-weight: bold;
   font-size: 1.6rem;
 }
 .table.table-features tbody th,
-.table.table-features tbody td  { 
+.table.table-features tbody td {
   height: 210px;
- padding: 0 8px;
+  padding: 0 8px;
 }
 .table.table-features thead th {
   height: 120px;
@@ -117,11 +117,11 @@ header {
 .table.table-features thead div span {
   margin-right: 5px;
 }
-.table.table-features thead th >div {
+.table.table-features thead th > div {
   height: 100%;
 }
 .table.table-features tbody th > div,
-.table.table-features tbody td > div { 
+.table.table-features tbody td > div {
   height: 100%;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
   border-right: 1px solid rgba(0, 0, 0, 0.2);
@@ -170,20 +170,26 @@ header {
   background: #182743;
 }
 .bg-table-5 {
-  background: #F5F5F5;
+  background: #f5f5f5;
 }
 .txt-orange {
-  color: #ED5331;
+  color: #ed5331;
 }
 .txt-gray {
   color: #555;
 }
 /* Table styles End */
 .real-time {
-  background: linear-gradient(#050A12, #1D2F51, #2C394F);
+  background: linear-gradient(#050a12, #1d2f51, #2c394f);
 }
 .examples {
-  background: linear-gradient(0deg, #070B17, #142139 35%, #283650 65%, #fff 65%);
+  background: linear-gradient(
+    0deg,
+    #070b17,
+    #142139 35%,
+    #283650 65%,
+    #fff 65%
+  );
 }
 .examples .col-md-4 {
   padding-left: 4px;
@@ -191,7 +197,7 @@ header {
 }
 /* Footer Start */
 .subscription .submit {
-  background: #3AA0FB;
+  background: #3aa0fb;
   padding: 10px 50px;
   font-size: 0.8rem;
 }
