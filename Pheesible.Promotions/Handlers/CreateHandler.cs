@@ -67,7 +67,7 @@ namespace Pheesible.Promotions.Handlers
 
             if (isUpdate)
                 db.Ads.RemoveRange(promotions.Ads);
-            promotions.Ads.Add(new Ads { Image = promotionDto.ad.image, Text = promotionDto.ad.text });
+            promotions.Ads.Add(new Ads { Image = promotionDto?.ad?.image, Text = promotionDto?.ad?.text });
 
             if (!isUpdate)
                 db.Promotions.Add(promotions);

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Uploader from '../file/Uploader'
-import CardSubTitle from '../wizard/CardSubTitle'
+import CardTitle from '../wizard/CardTitle'
 import HeaderSpacer from '../wizard/HeaderSpacer'
 
 export default ({
@@ -23,7 +23,7 @@ export default ({
   return (
     <div className='card'>
       <div className='card-body'>
-        <CardSubTitle tooltip=''>Images</CardSubTitle>
+        <CardTitle tooltip='Optional images (the template has default images) to add to the landing page. Adding images will update the adjacent preview in real time'>Images</CardTitle>
         <HeaderSpacer />
         <div className='form-group'>
           <label htmlFor='title' className='fieldTitle'>
@@ -72,7 +72,7 @@ export default ({
         </div>
         <br />
         <hr stlye={{ width: '90%' }} />
-        <CardSubTitle tooltip=''>Additional Information</CardSubTitle>
+        <CardTitle tooltip='Free text to add any other pertinent information such as a quote or an extra selling point. Adding additional information will update the adjacent preview in real time.'>Additional Information</CardTitle>
         <div class='form-group'>
           <label for='exampleFormControlTextarea1' className='fieldTitle'>
             Description

@@ -52,8 +52,7 @@ export default ({
     <>
       <div className='card'>
         <div className='card-body'>
-          
-          <CardTitle toolTip='The landing page is an engagine and beautiful '>
+          <CardTitle tooltip='The landing page is an optimized and attractive page to present your idea to visitors. The details you provide can be seen in the adjacent template preview page in real time.'>
             Landing Page
           </CardTitle>{' '}
           <HeaderSpacer />
@@ -67,12 +66,14 @@ export default ({
               id='title'
               onChange={(e) => updateFieldsOnPromotion('title', e.target.value)}
               value={title || ''}
+              maxLength='1000'
             />
             <ErrorMessage errorMessage={error.title} />
           </div>
           <div className='form-group'>
             <label htmlFor='title' className='fieldTitle'>
-              Logo
+              Logo{' '}
+              <Info tooltip='The smaller the logo, the faster the page will load.' />
             </label>
 
             <div className='input-group'>
@@ -87,7 +88,8 @@ export default ({
           </div>
           <div className='form-group'>
             <label htmlFor='title' className='fieldTitle'>
-              Banner
+              Banner{' '}
+              <Info tooltip='The banner should have a ratio of around 3:5. The smaller the banner, the faster the page will load.' />
             </label>
 
             <div className='input-group'>
@@ -102,7 +104,7 @@ export default ({
           </div>
           <div className='form-group'>
             <label htmlFor='tagLine' className='fieldTitle'>
-              Tag line*
+              Tag Line*
             </label>
             <textarea
               className={`form-control ${error.tagLine ? ' has-error ' : ''}`}
@@ -111,12 +113,14 @@ export default ({
               onChange={(e) =>
                 updateFieldsOnPromotion('tagLine', e.target.value)
               }
-              value={tagLine || ''}></textarea>
+              value={tagLine || ''}
+              maxLength='1000'></textarea>
             <ErrorMessage errorMessage={error.tagLine} />
           </div>
           <div className='form-group'>
             <label htmlFor='elevatorPitch' className='fieldTitle'>
-              Elevator Pitch*
+              Sales / Elevator Pitch*{' '}
+              <Info tooltip='What is your idea / product? What service does it provide?' />
             </label>
             <textarea
               className={`form-control ${
@@ -127,7 +131,8 @@ export default ({
               onChange={(e) =>
                 updateFieldsOnPromotion('elevatorPitch', e.target.value)
               }
-              value={elevatorPitch || ''}></textarea>
+              value={elevatorPitch || ''}
+              maxLength='2000'></textarea>
             <ErrorMessage errorMessage={error.elevatorPitch} />
           </div>
         </div>

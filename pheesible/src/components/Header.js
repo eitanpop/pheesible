@@ -86,11 +86,11 @@ export default ({ isAuthenticated }) => {
           </ul>
           {isAuthenticated ? (
             <div className='my-2 my-lg-0'>
-              <Link
+              <a
                 className='btn btn btn-success my-2 mr-3 my-sm-0 btn-new'
-                to='/wizard'>
+                href='/wizard'>
                 New +
-              </Link>
+              </a>
               <UserMenu initials={initials} />
             </div>
           ) : (

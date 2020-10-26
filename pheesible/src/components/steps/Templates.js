@@ -40,7 +40,7 @@ export default ({
         <div className='card-body'>
           <CardTitle
             tooltip='A campaign is the way Pheesible publishes your idea and/or product in order to gather relevant data. 
-          The next few steps involves answering a few questions regarding your idea in order to create an attractive and engaging landing page and banner.'>
+          The next few steps involve answering a few questions regarding your idea in order to create an attractive and engaging landing page and banner.'>
             Campaign
           </CardTitle>
           <HeaderSpacer />
@@ -56,6 +56,7 @@ export default ({
             id='name'
             onChange={(e) => updatePromotion('name', e.target.value)}
             value={name || ''}
+            maxLength="200"
           />
           <ErrorMessage errorMessage={error.name} />
           <br />

@@ -27,7 +27,7 @@ namespace Pheesible.Scheduler.Jobs.Promotion
         {
             string name = promotion.Id.ToString();
             var ad = promotion.Ads.First();
-            facebook.AdSetId = (await _facebookApi.CreateAdSet(name, facebook.NumberOfDays, facebook.BudgetPerDayInDollars * 100))?.id;
+            facebook.AdSetId = (await _facebookApi.CreateAdSet(name, facebook.NumberOfDays, facebook.BudgetPerDayInDollars * 100, facebook.IncludeInstagram == true))?.id;
             string s3key = promotion.GetAdImageS3Key();
             byte[] adImage = await _s3.GetObject(_config.BucketName, s3key);
             var image = await _facebookApi.CreateAdImageObject(adImage, ad.Image);

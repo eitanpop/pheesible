@@ -2,8 +2,8 @@ import React from 'react'
 
 import useError from '../../hooks/useError'
 import NameDescribe from '../TitleDescribe'
-import ErrorMessage from '../ErrorMessage'
-import CardSubTitle from '../wizard/CardSubTitle'
+
+import CardTitle from '../wizard/CardTitle'
 import HeaderSpacer from '../wizard/HeaderSpacer'
 
 export default ({
@@ -29,7 +29,7 @@ export default ({
   return (
     <div className='card'>
       <div className='card-body'>
-        <CardSubTitle>Features</CardSubTitle>
+        <CardTitle tooltip="What functionality does your product or idea possess? Adding features will update the adjacent preview in real time.">Features</CardTitle>
         <HeaderSpacer />
         <NameDescribe
           titleLabelText='Feature 1'

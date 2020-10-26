@@ -18,7 +18,7 @@ export default ({
       {/* Page Content */}
       <div className='container'>
         {/* Jumbotron Header */}
-        <header
+        <div
           className='jumbotron my-4'
           style={
             banner
@@ -36,7 +36,7 @@ export default ({
           <a href='#' className='btn btn-primary btn-lg'>
             Call to action!
           </a>
-        </header>
+        </div>
         {/* Page Features */}
         <div className='row text-center'>
           <div className='col-lg-4 col-md-6 mb-4'>

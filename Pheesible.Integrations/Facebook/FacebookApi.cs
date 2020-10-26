@@ -35,7 +35,7 @@ namespace Pheesible.Integrations.Facebook
         }
 
 
-        public async Task<Id> CreateAdSet(string name, int days, int budget, string status = "PAUSED")
+        public async Task<Id> CreateAdSet(string name, int days, int budget, bool includeInstagram, string status = "PAUSED")
         {
             using var httpClient = new HttpClient();
             using var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://graph.facebook.com/v{_config.ApiVersion}/act_{_config.AdAccountId}/adsets");
@@ -46,7 +46,8 @@ namespace Pheesible.Integrations.Facebook
             multipartContent.Add(new StringContent("LOWEST_COST_WITHOUT_CAP"), "bid_strategy");
             multipartContent.Add(new StringContent(budget.ToString()), "daily_budget");
             multipartContent.Add(new StringContent(_config.CampaignId), "campaign_id");
-            multipartContent.Add(new StringContent("{\"geo_locations\": {\"countries\":[\"US\"]}}"), "targeting");
+            multipartContent.Add(new StringContent("{\"geo_locations\": {\"countries\":[\"US\"]}, \"publisher_platforms\":[\"messenger\", \"facebook\",\"audience_network\"" +
+               (includeInstagram ? ",\"instagram\"" : "") + "]}"), "targeting");
             multipartContent.Add(new StringContent(DateTime.UtcNow.ToString("o")), "start_time");
             multipartContent.Add(new StringContent(DateTime.UtcNow.AddDays(days).ToString("o")), "end_time");
             multipartContent.Add(new StringContent(status), "status");

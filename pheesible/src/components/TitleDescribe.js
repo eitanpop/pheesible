@@ -9,7 +9,9 @@ export default ({
   return (
     <>
       <div className='form-group'>
-        <label htmlFor='title' className='fieldTitle'>{titleLabelText || 'Title'}</label>
+        <label htmlFor='title' className='fieldTitle'>
+          {titleLabelText || 'Title'}
+        </label>
         <input
           className='form-control'
           id='title'
@@ -18,10 +20,13 @@ export default ({
             onSellingPointChange({ ...sellingPoint, title: e.target.value })
           }
           value={sellingPoint.title || ''}
+          maxLength='1000'
         />
       </div>
       <div className='form-group'>
-        <label htmlFor='description' className='fieldTitle'>{descriptionLabelText || 'Description'}</label>
+        <label htmlFor='description' className='fieldTitle'>
+          {descriptionLabelText || 'Description'}
+        </label>
         <textarea
           className='form-control'
           id='description'
@@ -32,7 +37,8 @@ export default ({
               description: e.target.value,
             })
           }
-          value={sellingPoint.description}></textarea>
+          value={sellingPoint.description}
+          maxLength='2000'></textarea>
       </div>
     </>
   )

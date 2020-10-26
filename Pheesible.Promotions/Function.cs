@@ -45,7 +45,7 @@ namespace Pheesible.Promotions
             // add dependencies here
             serviceCollection.AddTransient<ILambdaConfiguration, LambdaConfiguration>();
 
-            serviceCollection.AddTransient(provider =>
+            serviceCollection.AddScoped(provider =>
             {
                 var connectionString = provider.GetService<ILambdaConfiguration>().ConnectionString;
                 var options = new DbContextOptionsBuilder<PromotionContext>();

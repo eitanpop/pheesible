@@ -33,19 +33,51 @@ export default ({
         addError('text', 'Please add some text for the ad')
       }
 
-      if(promotion.facebook && promotion.facebook.isEnabled && !promotion.facebook.numberOfDays){
+      if (
+        promotion.facebook &&
+        promotion.facebook.isEnabled &&
+        !promotion.facebook.numberOfDays
+      ) {
         setIsValid(false)
-        addError('numberOfDays', 'Please add number of days to run the campaign')
+        addError(
+          'numberOfDays',
+          'Please add number of days to run the campaign'
+        )
       }
 
-      if(promotion.facebook && promotion.facebook.isEnabled && !promotion.facebook.budgetPerDayInDollars){
+      if (
+        promotion.facebook &&
+        promotion.facebook.isEnabled &&
+        !promotion.facebook.budgetPerDayInDollars
+      ) {
         setIsValid(false)
         addError('budgetPerDayInDollars', 'Please add a budget per day in USD')
       }
 
-      if (promotion.facebook && promotion.facebook.numberOfDays && promotion.facebook.numberOfDays < 2) {
+      if (
+        promotion.facebook &&
+        promotion.facebook.isEnabled &&
+        promotion.facebook.budgetPerDayInDollars > 200
+      ) {
+        setIsValid(false)
+        addError('budgetPerDayInDollars', 'Budget per day in USD must be less than $200')
+      }
+
+      if (
+        promotion.facebook &&
+        promotion.facebook.numberOfDays &&
+        promotion.facebook.numberOfDays < 2
+      ) {
         setIsValid(false)
         addError('days', 'Campaign length must be longer than a day')
+      }
+      if (
+        promotion.facebook &&
+        promotion.facebook.isEnabled &&
+        promotion.facebook.numberOfDays >= 25
+      ) {
+        setIsValid(false)
+        addError('numberOfDays', 'Number of days should be less than 25')
       }
     },
     [JSON.stringify(promotion)]
@@ -54,7 +86,11 @@ export default ({
   return (
     <div className='card'>
       <div className='card-body'>
-        <CardTitle toolTip='This is a test tooltip'>Ad Set Up</CardTitle>{' '}
+        <CardTitle
+          tooltip='The banner image and text that will redirect to the landing page. The template comes with an optimized and engaging image but you have the liberty to add your own.
+        The image and text will update the adjacent preview in real time.'>
+          Ad Set Up
+        </CardTitle>{' '}
         <HeaderSpacer />
         <CardSubTitle>Basic Information</CardSubTitle>
         <div className='form-group'>
@@ -80,12 +116,17 @@ export default ({
             id='tagLine'
             rows='6'
             onChange={(e) => updateAdOnPromotion('text', e.target.value)}
-            value={promotion.ad.text || ''}></textarea>
+            value={promotion.ad.text || ''}
+            maxLength='90'></textarea>
           <ErrorMessage errorMessage={error.text} />
         </div>
         <div className='mt-4' />
         <hr stlye={{ width: '90%' }} />
-        <CardSubTitle>Social Networks</CardSubTitle>
+        <CardTitle
+          tooltip='The focus groups are the platforms that Pheesible will publish the ad to in order to attract visitors to your landing page. 
+        You have the option to bypass publishing to external focus groups altogether and create the landing page for personal use.'>
+          Focus Groups
+        </CardTitle>
         <div className='mt-4'></div>
         <FocusGroupSetting
           img={facebookImg}

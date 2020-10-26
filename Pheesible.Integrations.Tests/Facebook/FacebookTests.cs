@@ -25,7 +25,7 @@ namespace Pheesible.Integrations.Tests
             var config = new FacebookConfigTestObject();
             var api = new FacebookApi(config);
             string campaignId = "23845688148570146";
-            var response = await api.CreateAdSet("Vivi Adset", 3, 5000);
+            var response = await api.CreateAdSet("Vivi Adset", 3, 5000, true);
             Console.WriteLine(response.id);
         }
 

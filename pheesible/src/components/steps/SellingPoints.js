@@ -2,9 +2,9 @@ import React from 'react'
 
 import useError from '../../hooks/useError'
 import NameDescribe from '../TitleDescribe'
-import ErrorMessage from '../ErrorMessage'
 
-import CardSubTitle from '../wizard/CardSubTitle'
+
+import CardTitle from '../wizard/CardTitle'
 import HeaderSpacer from '../wizard/HeaderSpacer'
 
 export default ({
@@ -30,9 +30,9 @@ export default ({
   return (
     <div className='card'>
       <div className='card-body'>
-        <CardSubTitle toolTip='This is a test tooltip'>
+        <CardTitle tooltip='What makes your product or service better than competitors? Adding selling points will update the adjacent preview in real time.'>
           Selling Points
-        </CardSubTitle>{' '}
+        </CardTitle>{' '}
         <HeaderSpacer />
         <NameDescribe
           titleLabelText='Selling Point 1'

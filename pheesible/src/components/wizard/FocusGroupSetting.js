@@ -16,6 +16,7 @@ export default ({
     getValue: otherFocusGroupGetValue,
     updateValue: otherFocusGroupUpdateValue,
   } = otherFocusGroup
+
   return (
     <>
       <div className='d-flex align-items-center justify-content-between'>
@@ -73,6 +74,7 @@ export default ({
             placeholder='Days'
             value={getValue('numberOfDays')}
             onChange={(e) => updateValue('numberOfDays', e.target.value)}
+            disabled={!getValue('isEnabled')}
           />
           <ErrorMessage errorMessage={error.numberOfDays} />
           <ErrorMessage errorMessage={error.days} />
@@ -90,6 +92,7 @@ export default ({
             onChange={(e) =>
               updateValue('budgetPerDayInDollars', e.target.value)
             }
+            disabled={!getValue('isEnabled')}
           />
           <ErrorMessage errorMessage={error.budgetPerDayInDollars} />
         </div>
