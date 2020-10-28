@@ -27,18 +27,18 @@ namespace Pheesible.Promotions.Handlers
             string id = request.PathParameters?["id"];
             if (String.IsNullOrEmpty(id))
                 return ApiGatewayHelper.GetBadRequestResponse("Must pass an id in the query string");
-            var promotion = await db.Promotions.Include(x => x.Facebook).Where(x => x.IsActive && x.SubId == sub).AsNoTracking().SingleOrDefaultAsync();
+            var promotion = await db.Promotions.Include(x => x.Facebook).Where(x => x.Id == int.Parse(id) && x.IsActive && x.SubId == sub).AsNoTracking().SingleOrDefaultAsync();
 
-            if(promotion == null)
+            if (promotion == null)
             {
                 return ApiGatewayHelper.GetErrorResponse($"Cannot find promotion: {id}");
             }
 
             string adSetId = promotion.Facebook.FirstOrDefault().AdSetId;
 
-            var report = await _facebookApi.GetReportForAdSet(adSetId, new string[] { "actions", "clicks", "date_start", "date_stop", "impressions", "spend" });
+            var report = await _facebookApi.GetReportForAdSet(adSetId, new string[] { "actions", "clicks", "date_start", "date_stop", "impressions", "spend", "reach" });
 
-            var reportDto = report.data.Select(x => new Entry { age = x.age, clicks = x.clicks, gender = x.gender, impressions = x.impressions, spend = x.spend });
+            var reportDto = report.data.Select(x => new Entry { age = x.age, clicks = x.clicks, gender = x.gender, impressions = x.impressions, spend = x.spend, reach=x.reach });
 
             return ApiGatewayHelper.GetSuccessResponse(JsonSerializer.Serialize(reportDto));
         }

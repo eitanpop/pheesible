@@ -30,6 +30,7 @@ namespace Pheesible.Integrations.Facebook.Models
         public string spend { get; set; }
         public string age { get; set; }
         public string gender { get; set; }
+        public string reach { get; set; }
         public Action[] actions { get; set; }
     }
 

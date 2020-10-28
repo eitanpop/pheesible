@@ -16,6 +16,7 @@ namespace Pheesible.Core.Logging
             _emailer = emailer;
         }
 
+        //TODO: inject settings variable to send to distribution list. It's bad to hardcode but Im lazy right now
         public async Task Log(string message, LogLevel logLevel = LogLevel.Info)
         {
             if (logLevel == LogLevel.Error || logLevel == LogLevel.Critical)
@@ -25,7 +26,7 @@ namespace Pheesible.Core.Logging
 
                     string body = await ResourceHelper.ReadResource("Pheesible.Scheduler.Email.Emails.ErrorLog.html", Assembly.GetExecutingAssembly());
                     body = body.Replace("{error}", message);
-                    await _emailer.Send("", "", "Error or Critical Log Message", body);
+                    await _emailer.Send("eitanpop@gmail.com", "Error on Pheesible!", "Error or Critical Log Message", body);
                     if (logLevel == LogLevel.Critical)
                     {
                         //Todo: Add SMS sender

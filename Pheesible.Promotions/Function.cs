@@ -13,6 +13,9 @@ using Pheesible.Promotions.DTO;
 using Pheesible.Promotions.EF;
 using Pheesible.Promotions.Handlers;
 using Pheesible.Integrations.Facebook;
+using Pheesible.Core.Email;
+using Pheesible.Promotions.Email;
+using Pheesible.Core.Logging;
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -24,11 +27,13 @@ namespace Pheesible.Promotions
     {
         private readonly IApp _app;
         private readonly ILambdaConfiguration _config;
+        private readonly ILogger _logger;
 
-        public Function(IApp app, ILambdaConfiguration config)
+        public Function(IApp app, ILambdaConfiguration config, ILogger logger)
         {
             _app = app;
             _config = config;
+            _logger = logger;
         }
 
         public Function()
@@ -38,6 +43,7 @@ namespace Pheesible.Promotions
             var serviceProvider = serviceCollection.BuildServiceProvider();
             _app = serviceProvider.GetService<IApp>();
             _config = serviceProvider.GetService<ILambdaConfiguration>();
+            _logger = serviceProvider.GetService<ILogger>();
         }
 
         private void ConfigureServices(IServiceCollection serviceCollection)
@@ -62,6 +68,8 @@ namespace Pheesible.Promotions
             });
             serviceCollection.AddTransient<IFacebookApi, FacebookApi>();
             serviceCollection.AddTransient<IHandlerFactory, HandlerFactory>();
+            serviceCollection.AddTransient<IEmailer, SesEmailer>();
+            serviceCollection.AddTransient<ILogger, Logger>();
         }
 
 
@@ -72,13 +80,21 @@ namespace Pheesible.Promotions
         /// <returns>The API Gateway response.</returns>
         public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
         {
-            context.Logger.Log($"request: {JsonSerializer.Serialize(request)}");
-            context.Logger.Log($"context: {JsonSerializer.Serialize(context)}");
-            context.Logger.Log("SubId: " + request.RequestContext?.Authorizer?.Claims["sub"]);
+            try
+            {
+                context.Logger.Log($"request: {JsonSerializer.Serialize(request)}");
+                context.Logger.Log($"context: {JsonSerializer.Serialize(context)}");
+                context.Logger.Log("SubId: " + request.RequestContext?.Authorizer?.Claims["sub"]);
 
-            var response = await _app.Run(request);
-            context.Logger.Log($"response: {JsonSerializer.Serialize(response)}");
-            return response;
+                var response = await _app.Run(request);
+                context.Logger.Log($"response: {JsonSerializer.Serialize(response)}");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                await _logger.Log(ex, LogLevel.Error);
+                return ApiGatewayHelper.GetErrorResponse("Error facilitating request");
+            }
         }
     }
 }

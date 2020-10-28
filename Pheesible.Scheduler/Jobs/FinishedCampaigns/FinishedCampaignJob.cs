@@ -11,7 +11,7 @@ using Pheesible.Core;
 using Pheesible.Core.Email;
 using Pheesible.Promotions;
 using Pheesible.Promotions.EF;
-using Pheesible.Scheduler.Email;
+
 
 namespace Pheesible.Scheduler.Jobs
 {

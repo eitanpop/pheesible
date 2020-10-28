@@ -11,6 +11,7 @@ namespace Pheesible.Promotions.DTO
 
     public class Entry
     {
+        public string reach { get; set; }
         public string clicks { get; set; }
         public string date_start { get; set; }
         public string date_stop { get; set; }

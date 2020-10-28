@@ -9,14 +9,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Pheesible.Integrations.AWS;
 using Pheesible.Integrations.Facebook;
 using Pheesible.Promotions.EF;
-using Pheesible.Scheduler.Email;
+using Pheesible.Core.Email;
 using Pheesible.Scheduler.Jobs;
 using Pheesible.Scheduler.Jobs.Promotion;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Pheesible.Core.Email;
 using Pheesible.Core.Logging;
+using Pheesible.Scheduler.Email;
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
