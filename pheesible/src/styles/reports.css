@@ -1,0 +1,115 @@
+.company-info,
+.company-stat,
+.leads {
+  font-family: 'Montserrat', sans-serif;
+  color: #212529
+}
+/* company-info start*/
+.company-info h1 {
+  font-size: 2.1rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.company-stat h4,
+.leads h4 {
+  font-weight: 700;
+}
+.company-info {
+  font-size: 1.4rem;
+}
+.company-info .text-blue {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #0379F7;
+}
+.btn-orange {
+  background: #ED5331;
+  color: #fff;
+}
+.rating-bold {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  line-height: 0.9;
+}
+.company-info-container,
+.graph-container {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+}
+.campaing-info img {
+  margin-right: 1rem;
+  max-width: 26px;
+  padding-bottom: 5px;
+}
+.campaing-info .btn {
+
+  font-size: 18px;
+  width: 161px;
+  padding: .5rem .75rem;
+}
+.campaing-info .btn:hover {
+  color: #fff;
+  background: #ed5331e7;
+}
+/* company-info end*/
+/* company-stat start*/
+.company-stat .quantity > div {
+  border-radius: 15px;
+  margin-bottom: 1rem;
+  min-height: 275px;
+  text-align: center;
+  padding: 1.2rem;
+  box-shadow: 0px 35px 30px rgba(241, 90, 36, 0.07);
+}
+.company-stat .quantity > div img{
+  margin: 0 auto;
+}
+.company-stat .quantity > div .text-white {
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+.company-stat .quantity > div .text-black {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.company-stat .quantity > div .img-fluid {
+  height: 60px;
+}
+.orange-bg {
+  background: linear-gradient(43.36deg, #F15A24 47.67%, #FBB03B 115.75%);
+  box-shadow: 0px 35px 30px rgba(241, 90, 36, 0.07);
+}
+.turquoise-bg {
+  background: linear-gradient(42.26deg, #087881 0%, #1BC4B9 125.78%);
+  box-shadow: 0px 35px 30px rgba(18, 158, 158, 0.06);
+}
+.blue-bg {
+  background: linear-gradient(42.25deg, #0093D8 -3.89%, rgba(62, 193, 207, 0) 169.47%);
+}
+/* company-stat end*/
+/* leads start*/
+.table-leads-container{
+  background: #fff;
+  border-radius: 15px;
+  padding: 15px 2rem 20px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+}
+.table-leads td{
+  vertical-align: middle;
+  border-top-color: transparent;
+  border-bottom: 1px solid #A9A8A8;
+}
+.table-leads .account-img {
+  max-width: 75px;
+}
+/* leads end*/
+/* Media > 768*/
+@media all and (min-width: 768px) {
+  .company-stat .quantity > div {
+    min-height: 375px;
+    width: 30%;
+    margin-bottom: 0;
+  }
+}

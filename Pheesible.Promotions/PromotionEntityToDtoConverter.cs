@@ -11,47 +11,47 @@ namespace Pheesible.Promotions
     {
         public static DTO.Promotion Convert(EF.Promotions promotion)
         {
-            var promotionDto = new DTO.Promotion
+            var promotionDto = new DTO.Promotion();
+
+            promotionDto.id = promotion.Id;
+            promotionDto.name = promotion.Name;
+            promotionDto.title = promotion.Title;
+            promotionDto.templateId = promotion.TemplateId;
+            promotionDto.templateName = promotion.Template.Name;
+            promotionDto.freeText = promotion.FreeText;
+            promotionDto.identityId = promotion.IdentityId;
+            promotionDto.stepNumber = 1;
+            promotionDto.statusId = promotion.StatusId;
+            promotionDto.createDate = promotion.CreateDate?.ToString();
+            promotionDto.startDate = promotion.StartDate?.ToString();
+            promotionDto.charge = promotion.Charge;
+            promotionDto.ad = promotion.Ads?.Select(x => new Ad { image = x.Image, text = x.Text }).FirstOrDefault();
+
+            promotionDto.fields = new Fields
             {
-                id = promotion.Id,
-                name = promotion.Name,
+                banner = promotion.Banner,
+                elevatorPitch = promotion.ElevatorPitch,
+                logo = promotion.Logo,
+                tagLine = promotion.TagLine,
                 title = promotion.Title,
-                templateId = promotion.TemplateId,
-                templateName = promotion.Template.Name,
-                freeText = promotion.FreeText,
-                identityId = promotion.IdentityId,
-                stepNumber = 1,
-                statusId = promotion.StatusId,
-                createDate = promotion.CreateDate?.ToString(),
-                startDate = promotion.StartDate?.ToString(),
-                charge = promotion.Charge,
-                ad = promotion.Ads?.Select(x => new Ad { image = x.Image, text = x.Text }).FirstOrDefault(),
-
-                fields = new Fields
-                {
-                    banner = promotion.Banner,
-                    elevatorPitch = promotion.ElevatorPitch,
-                    logo = promotion.Logo,
-                    tagLine = promotion.TagLine,
-                    title = promotion.Title,
-                },
-
-                features = promotion.Features
-                    ?.Select(x => new Feature { description = x.Description, title = x.Title }).ToArray(),
-
-                facebook = promotion.Facebook?.Select(x => new DTO.Facebook
-                {
-                    budgetPerDayInDollars = x.BudgetPerDayInDollars.ToString(),
-                    includeInstagram = x.IncludeInstagram == true,
-                    isEnabled = x.IsEnabled == true,
-                    numberOfDays = x.NumberOfDays.ToString()
-                }).FirstOrDefault(),
-
-                images = new Images
-                { imageOne = promotion.ImageOne, imageTwo = promotion.ImageTwo, imageThree = promotion.ImageThree },
-
-                sellingPoints = promotion.SellingPoints.Select(x => new Sellingpoint { description = x.Description, title = x.Title }).ToArray(),
             };
+
+            promotionDto.features = promotion.Features
+                ?.Select(x => new Feature { description = x.Description, title = x.Title }).ToArray();
+
+            promotionDto.facebook = promotion.Facebook?.Select(x => new DTO.Facebook
+            {
+                budgetPerDayInDollars = x.BudgetPerDayInDollars.ToString(),
+                includeInstagram = x.IncludeInstagram == true,
+                isEnabled = x.IsEnabled == true,
+                numberOfDays = x.NumberOfDays.ToString()
+            }).FirstOrDefault();
+
+            promotionDto.images = new Images
+            { imageOne = promotion.ImageOne, imageTwo = promotion.ImageTwo, imageThree = promotion.ImageThree };
+
+            promotionDto.sellingPoints = promotion.SellingPoints.Select(x => new Sellingpoint { description = x.Description, title = x.Title }).ToArray();
+
 
             return promotionDto;
         }

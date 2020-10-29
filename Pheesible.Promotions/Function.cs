@@ -16,6 +16,9 @@ using Pheesible.Integrations.Facebook;
 using Pheesible.Core.Email;
 using Pheesible.Promotions.Email;
 using Pheesible.Core.Logging;
+using Amazon.Runtime;
+using Amazon.Extensions.NETCore.Setup;
+using Amazon.SimpleEmail;
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -66,6 +69,15 @@ namespace Pheesible.Promotions
             {
                 return x.GetService<ILambdaConfiguration>().GetSection<FacebookConfig>("Facebook");
             });
+
+            var config = serviceCollection.BuildServiceProvider().GetService<ILambdaConfiguration>();
+
+            var credentials = new BasicAWSCredentials(config.AwsAccessKey, config.AwsSecret);
+            serviceCollection.AddDefaultAWSOptions(new AWSOptions
+            {
+                Credentials = credentials
+            });
+            serviceCollection.AddAWSService<IAmazonSimpleEmailService>();
             serviceCollection.AddTransient<IFacebookApi, FacebookApi>();
             serviceCollection.AddTransient<IHandlerFactory, HandlerFactory>();
             serviceCollection.AddTransient<IEmailer, SesEmailer>();
@@ -82,12 +94,13 @@ namespace Pheesible.Promotions
         {
             try
             {
-                context.Logger.Log($"request: {JsonSerializer.Serialize(request)}");
-                context.Logger.Log($"context: {JsonSerializer.Serialize(context)}");
-                context.Logger.Log("SubId: " + request.RequestContext?.Authorizer?.Claims["sub"]);
+                _logger.SetLambdaLogger(context.Logger);
+                await _logger.Log($"request: {JsonSerializer.Serialize(request)}");
+                await _logger.Log($"context: {JsonSerializer.Serialize(context)}");
+                await _logger.Log("SubId: " + request.RequestContext?.Authorizer?.Claims["sub"]);
 
                 var response = await _app.Run(request);
-                context.Logger.Log($"response: {JsonSerializer.Serialize(response)}");
+                context.Logger.Log($"response: {JsonSerializer.Serialize(response)}");           
                 return response;
             }
             catch (Exception ex)

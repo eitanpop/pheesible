@@ -1,8 +1,11 @@
-﻿using System;
-using System.Reflection;
-using System.Threading.Tasks;
-using Amazon.Lambda.Core;
+﻿using Amazon.Lambda.Core;
 using Pheesible.Core.Email;
+using Pheesible.Core.Logging;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Pheesible.Core.Logging
 {
@@ -24,9 +27,9 @@ namespace Pheesible.Core.Logging
                 try
                 {
 
-                    string body = await ResourceHelper.ReadResource("Pheesible.Scheduler.Email.Emails.ErrorLog.html", Assembly.GetExecutingAssembly());
+                    string body = await ResourceHelper.ReadResource("Pheesible.Core.Email.ErrorLog.html", Assembly.GetExecutingAssembly());
                     body = body.Replace("{error}", message);
-                    await _emailer.Send("eitanpop@gmail.com", "Error on Pheesible!", "Error or Critical Log Message", body);
+                    await _emailer.Send("info@pheesible.com", "eitanpop@gmail.com", "Error or Critical Log Message", body);
                     if (logLevel == LogLevel.Critical)
                     {
                         //Todo: Add SMS sender
@@ -52,7 +55,8 @@ namespace Pheesible.Core.Logging
 
         private string ExplodeException(Exception ex)
         {
-            return ex.Message + " | " + ex.InnerException;
+            return ex.Message + " | " + ex.InnerException + "|" + ex.Source + "|" + ex.StackTrace;
         }
     }
 }
+

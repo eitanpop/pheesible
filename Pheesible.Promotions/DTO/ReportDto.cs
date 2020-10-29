@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,9 @@ namespace Pheesible.Promotions.DTO
 {
     public class ReportDto
     {
+        public List<Lead> leads { get; set; }
         public IList<Entry> Entries { get; set; }
+        public Promotion promotion { get; set; }
     }
 
     public class Entry
@@ -19,5 +22,6 @@ namespace Pheesible.Promotions.DTO
         public string spend { get; set; }
         public string age { get; set; }
         public string gender { get; set; }
+
     }
 }

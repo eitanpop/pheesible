@@ -21,6 +21,10 @@ namespace Pheesible.Promotions
         public string ConnectionString => Get("DbContextSettings:ConnectionString");
         public string AdminGroup => Get("AdminGroup");
 
+        public string AwsAccessKey => Get("AWS:AccessKey");
+
+        public string AwsSecret => Get("AWS:Secret");
+
         public T GetSection<T>(string name) where T : new()
         {
             T section = new T();
