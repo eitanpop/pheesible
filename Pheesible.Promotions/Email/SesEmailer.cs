@@ -17,14 +17,14 @@ namespace Pheesible.Promotions.Email
             _service = service;
         }
 
-        public async Task Send(string @from, string to, string subject, string body)
+        public async Task Send(string @from, List<string> to, string subject, string body)
         {
             await _service.SendEmailAsync(new SendEmailRequest
             {
                 Source = @from,
                 Destination = new Destination
                 {
-                    ToAddresses = new List<string> { to }
+                    ToAddresses = to
                 },
                 Message = new Message
                 {

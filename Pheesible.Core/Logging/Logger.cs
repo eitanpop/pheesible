@@ -29,7 +29,7 @@ namespace Pheesible.Core.Logging
 
                     string body = await ResourceHelper.ReadResource("Pheesible.Core.Email.ErrorLog.html", Assembly.GetExecutingAssembly());
                     body = body.Replace("{error}", message);
-                    await _emailer.Send("info@pheesible.com", "eitanpop@gmail.com", "Error or Critical Log Message", body);
+                    await _emailer.Send("info@pheesible.com", new List<string> { "eitanpop@gmail.com" }, "Error or Critical Log Message", body);
                     if (logLevel == LogLevel.Critical)
                     {
                         //Todo: Add SMS sender

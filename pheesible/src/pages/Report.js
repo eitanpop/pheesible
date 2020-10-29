@@ -56,7 +56,7 @@ export default () => {
                   <strong>End Date</strong> <br />
                   <span>10-20-2020</span>
                 </p>
-                <a href='#' className='btn btn-orange'>
+                <a href='javascript:void(Tawk_API.toggle())' className='btn btn-orange'>
                   Ask us
                 </a>
               </div>
