@@ -9,9 +9,13 @@ export default ({ children, tooltip }) => {
       <h5 class='mb-3 text-dark' style={{ textTransform: 'uppercase' }}>
         {children}
       </h5>
-      <span className='text-dark'>
-        <Info placement='bottom' tooltip={tooltip} />
-      </span>
+      {tooltip ? (
+        <span className='text-dark'>
+          <Info placement='bottom' tooltip={tooltip} />
+        </span>
+      ) : (
+        ''
+      )}
     </div>
   )
 }

@@ -1,21 +1,10 @@
 import React from 'react'
 
 import '../styles/home.css'
-import pheeseible_ico from '../images/home/pheeseible_ico.png'
-import ciccle_ico from '../images/home/ciccle_ico.png'
 import copyright_logo from '../images/home/copyright_logo.png'
-import currency_ico_bl from '../images/home/currency_ico_bl.png'
-import ico_close from '../images/home/ico_close.png'
-import ico_curr1 from '../images/home/ico_curr1.png'
-import ico_curr2 from '../images/home/ico_curr2.png'
-import ico_curr3_wh from '../images/home/ico_curr3_wh.png'
-import ico_curr4_wh from '../images/home/ico_curr4_wh.png'
-import ico_curr5_wh from '../images/home/ico_curr5_wh.png'
-import ico_set from '../images/home/ico_set.png'
-import ico_time1 from '../images/home/ico_time1.png'
-import ico_time2 from '../images/home/ico_time2.png'
-import process_ico from '../images/home/process_ico.png'
 import rocket from '../images/home/rocket.png'
+import header from '../images/home/header.png'
+import table from '../images/home/table.png'
 
 export default () => {
   return (
@@ -23,26 +12,42 @@ export default () => {
       <div style={{ backgroundColor: 'white' }}>
         <section
           className='intro'
-          style={{ backgroundImage: `url(${rocket})` }}>
-          <div className='container h-100'>
+          style={{ backgroundImage: `url(${header})` }}>
+          <div className='container-fluid h-100'>
             <div className='row h-100'>
-              <div className='col-lg-12 d-flex flex-column justify-content-end align-items-center'>
-                <h1 className='text-white text-center mb-4'>
+              <div className='col-lg-7  d-flex flex-column justify-content-center align-items-end'>
+                <div className='text-white text-center  mb-4 h1'>
                   <strong>Test your idea</strong>
                   <br />
                   and invest safely
-                </h1>
-                <a href='#' className='btn btn-orange px-5'>
-                  Ask us
-                </a>
+                  <br />
+                  <br />
+                  <a href='javascript:void(Tawk_API.toggle())' className='btn btn-orange px-5'>
+                    Ask us
+                  </a>
+                </div>
+              </div>
+              <div className='col-lg-5 d-flex flex-column justify-content-center align-items-end'>
+                <img src={rocket} alt='rocket' />
               </div>
             </div>
           </div>
-        </section>
-        <section className='intro-overview'>
-          <div className='container'>
+        </section>  
+        <section className='mt-4'>
+          <div className='container'>          
             <div className='row'>
-              <div className='col-12 d-flex flex-column flex-lg-row mt-5 mb-5'>
+              <div className='col-lg-10 offset-lg-1 text-center overview'>
+                <h2 className='mt-4'>What is Pheesible</h2>
+                <p className="mt-4">
+                  PHEESIBLE is about testing an idea, a prototype, a business
+                  venture, or a product QUICKLY. <br />
+                  We rapidly want to get the idea to the public and receive
+                  feedback to make the step of investing safer.
+                </p>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-12 d-flex flex-column flex-lg-row mt-5 intro'>
                 <div className='p-4'>
                   <h5 className='mb-4'>
                     <strong>Fail Fast</strong>
@@ -74,25 +79,10 @@ export default () => {
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-        <section className='overview'>
-          <div className='container'>
-            <div className='row'>
-              <div className='col-lg-10 offset-lg-1 text-center mb-5'>
-                <h2 className='mb-4'>What is Pheesible</h2>
-                <p>
-                  PHEESIBLE is about testing an idea, a prototype, a business
-                  venture, or a product QUICKLY. <br />
-                  We rapidly want to get the idea to the public and receive
-                  feedback to make the step of investing safer.
-                </p>
-              </div>
-            </div>
+            </div> 
             <div className='row'>
               <div className='col-12 text-center mb-5'>
-                <table className='table table-features mt-5'>
+                {/* <table className='table table-features mt-5'>
                   <thead>
                     <tr>
                       <th scope='col'>
@@ -229,7 +219,8 @@ export default () => {
                       </td>
                     </tr>
                   </tbody>
-                </table>
+                </table>*/}
+                <img className="w-100" src={table} alt='comparison' />
               </div>
             </div>
           </div>
@@ -341,46 +332,7 @@ export default () => {
             </div>
           </div>
         </section>
-        <section className='subscription'>
-          <div className='container'>
-            <div className='row justify-content-md-center'>
-              <div className='col-12 col-md-6 mt-5'>
-                <h4 className='text-center'>
-                  We would love to hear from you and answer any inquires{' '}
-                </h4>
-                <form>
-                  <div className='form-row'>
-                    <div className='form-group col-md-8 offset-md-2'>
-                      <label htmlFor='name'>Name</label>
-                      <input
-                        type='text'
-                        className='form-control form-control-sm'
-                        id='name'
-                      />
-                    </div>
-                  </div>
-                  <div className='form-row'>
-                    <div className='form-group col-md-8 offset-md-2'>
-                      <label htmlFor='email'>Email Address</label>
-                      <input
-                        type='email'
-                        className='form-control form-control-sm'
-                        id='email'
-                      />
-                    </div>
-                  </div>
-                  <div className='form-row justify-content-center'>
-                    <button
-                      type='submit'
-                      className='btn btn-primary mt-3 submit'>
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
+        
       </div>
       <footer>
         <div className='container'>

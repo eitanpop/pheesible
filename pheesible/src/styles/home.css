@@ -1,10 +1,4 @@
-.intro,
-.intro-overview,
-.overview,
-.how-it-works,
-.subscription {
-  font-family: Arial;
-}
+
 /*Header*/
 .navbar.bg-dark,
 header {
@@ -46,10 +40,7 @@ header {
 }
 /* Header End*/
 /* Intro section start*/
-.intro {
-  background-size: cover;
-  height: calc(100vh - 65px);
-}
+
 .intro h1 {
   font-size: 3.5rem;
   line-height: 1.5;
@@ -57,6 +48,11 @@ header {
 .intro .col-lg-12 {
   padding-bottom: 7rem;
 }
+
+.intro p {
+    text-align: justify;
+}
+
 .btn-orange {
   background: #ed5331;
   color: #fff;
@@ -68,7 +64,7 @@ header {
   font-size: 2.5rem;
 }
 .overview p {
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   font-weight: normal;
 }
 /* Overview End*/
