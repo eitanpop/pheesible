@@ -21,7 +21,12 @@ namespace Pheesible.Promotions.Handlers
             var promotionDto = JsonSerializer.Deserialize<DTO.Promotion>(request.Body);
             string sub = request.GetSub();
             bool isUpdate = promotionDto.id != null;
-            var promotions = isUpdate ? await db.Promotions.FirstOrDefaultAsync(x => x.Id == promotionDto.id && x.SubId == sub) : new EF.Promotions();
+            var promotions = isUpdate ? await db.Promotions
+                .Include(x=>x.SellingPoints)
+                .Include(x=>x.Features)
+                .Include(x=>x.Facebook)
+                .Include(x=>x.Ads)
+                .FirstOrDefaultAsync(x => x.Id == promotionDto.id && x.SubId == sub) : new EF.Promotions();
             if (String.IsNullOrEmpty(sub))
                 throw new Exception("Must contain a sub!!");
             if (isUpdate && promotions.StatusId != (int)PromotionStatus.Draft)
@@ -76,7 +81,7 @@ namespace Pheesible.Promotions.Handlers
             promotions.StatusId = (int)PromotionStatus.Draft;
 
             if (promotions.CreateDate == null)
-                promotions.CreateDate = DateTime.UtcNow; ;
+                promotions.CreateDate = DateTime.UtcNow;
 
             await db.SaveChangesAsync();
             return ApiGatewayHelper.GetSuccessResponse(JsonSerializer.Serialize(new IdResponse { id = promotions.Id.ToString() }));

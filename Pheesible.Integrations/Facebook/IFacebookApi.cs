@@ -11,5 +11,6 @@ namespace Pheesible.Integrations.Facebook
         Task<Id> CreateAdCreative(string name, Image image, string landingPageLink, string adText);
         Task<Id> CreateAd(string name, string adSetId, string creativeId, string status = "PAUSED");
         Task<Report> GetReportForAdSet(string adSetId, string[] fields);
+        Task<AdCreativeRead> GetAdCreative(string adCreativeId, string[] fields);
     }
 }

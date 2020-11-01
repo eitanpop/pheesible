@@ -10,7 +10,7 @@ namespace Pheesible.Promotions.Extensions
         public static string GetAdImageS3Key(this Pheesible.Promotions.EF.Promotions promotion)
         {
             var ad = promotion.Ads.FirstOrDefault();
-            if (ad == null || ad.Image == null)
+            if (ad?.Image == null)
                 return $"public/templates/{promotion.TemplateId}/Ad/image.png";
             return $"protected/{promotion.IdentityId}/{ad.Image}";
         }

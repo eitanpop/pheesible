@@ -65,10 +65,7 @@ namespace Pheesible.Promotions
                 return new PromotionContext(options.Options);
             });
             serviceCollection.AddTransient<IApp, App>();
-            serviceCollection.AddTransient<IFacebookConfig>(x =>
-            {
-                return x.GetService<ILambdaConfiguration>().GetSection<FacebookConfig>("Facebook");
-            });
+            serviceCollection.AddTransient<IFacebookConfig>(x => x.GetService<ILambdaConfiguration>().GetSection<FacebookConfig>("Facebook"));
 
             var config = serviceCollection.BuildServiceProvider().GetService<ILambdaConfiguration>();
 

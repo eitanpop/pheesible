@@ -332,46 +332,7 @@ export default () => {
             </div>
           </div>
         </section>
-        <section className='subscription'>
-          <div className='container'>
-            <div className='row justify-content-md-center'>
-              <div className='col-12 col-md-6 mt-5'>
-                <h4 className='text-center'>
-                  We would love to hear from you and answer any inquires{' '}
-                </h4>
-                <form>
-                  <div className='form-row'>
-                    <div className='form-group col-md-8 offset-md-2'>
-                      <label htmlFor='name'>Name</label>
-                      <input
-                        type='text'
-                        className='form-control form-control-sm'
-                        id='name'
-                      />
-                    </div>
-                  </div>
-                  <div className='form-row'>
-                    <div className='form-group col-md-8 offset-md-2'>
-                      <label htmlFor='email'>Email Address</label>
-                      <input
-                        type='email'
-                        className='form-control form-control-sm'
-                        id='email'
-                      />
-                    </div>
-                  </div>
-                  <div className='form-row justify-content-center'>
-                    <button
-                      type='submit'
-                      className='btn btn-primary mt-3 submit'>
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
+       
       </div>
       <footer>
         <div className='container'>

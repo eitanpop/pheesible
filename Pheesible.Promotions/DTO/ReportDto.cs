@@ -7,8 +7,9 @@ namespace Pheesible.Promotions.DTO
 {
     public class ReportDto
     {
+        public string facebookUrl { get; set; }
         public List<Lead> leads { get; set; }
-        public IList<Entry> Entries { get; set; }
+        public IList<Entry> entries { get; set; }
         public Promotion promotion { get; set; }
     }
 

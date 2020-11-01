@@ -23,12 +23,14 @@ namespace Pheesible.Integrations.Facebook
         {
             using var httpClient = new HttpClient();
             using var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://graph.facebook.com/v{_config.ApiVersion}/act_{_config.AdAccountId}/campaigns");
-            var multipartContent = new MultipartFormDataContent();
-            multipartContent.Add(new StringContent(name), "name");
-            multipartContent.Add(new StringContent(_config.Objective), "objective");
-            multipartContent.Add(new StringContent(status), "status");
-            multipartContent.Add(new StringContent("[]"), "special_ad_categories");
-            multipartContent.Add(new StringContent(_config.AccessToken), "access_token");
+            var multipartContent = new MultipartFormDataContent
+            {
+                {new StringContent(name), "name"},
+                {new StringContent(_config.Objective), "objective"},
+                {new StringContent(status), "status"},
+                {new StringContent("[]"), "special_ad_categories"},
+                {new StringContent(_config.AccessToken), "access_token"}
+            };
             request.Content = multipartContent;
             var response = await httpClient.SendAsync(request);
             return await ReturnModelOrThrowError<Id>(response);
@@ -39,19 +41,25 @@ namespace Pheesible.Integrations.Facebook
         {
             using var httpClient = new HttpClient();
             using var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://graph.facebook.com/v{_config.ApiVersion}/act_{_config.AdAccountId}/adsets");
-            var multipartContent = new MultipartFormDataContent();
-            multipartContent.Add(new StringContent(name), "name");
-            multipartContent.Add(new StringContent(_config.OptimizationGoal), "optimization_goal");
-            multipartContent.Add(new StringContent(_config.BillingEvent), "billing_event");
-            multipartContent.Add(new StringContent("LOWEST_COST_WITHOUT_CAP"), "bid_strategy");
-            multipartContent.Add(new StringContent(budget.ToString()), "daily_budget");
-            multipartContent.Add(new StringContent(_config.CampaignId), "campaign_id");
-            multipartContent.Add(new StringContent("{\"geo_locations\": {\"countries\":[\"US\"]}, \"publisher_platforms\":[\"messenger\", \"facebook\",\"audience_network\"" +
-               (includeInstagram ? ",\"instagram\"" : "") + "]}"), "targeting");
-            multipartContent.Add(new StringContent(DateTime.UtcNow.ToString("o")), "start_time");
-            multipartContent.Add(new StringContent(DateTime.UtcNow.AddDays(days).ToString("o")), "end_time");
-            multipartContent.Add(new StringContent(status), "status");
-            multipartContent.Add(new StringContent(_config.AccessToken), "access_token");
+            var multipartContent = new MultipartFormDataContent
+            {
+                {new StringContent(name), "name"},
+                {new StringContent(_config.OptimizationGoal), "optimization_goal"},
+                {new StringContent(_config.BillingEvent), "billing_event"},
+                {new StringContent("LOWEST_COST_WITHOUT_CAP"), "bid_strategy"},
+                {new StringContent(budget.ToString()), "daily_budget"},
+                {new StringContent(_config.CampaignId), "campaign_id"},
+                {
+                    new StringContent(
+                        "{\"geo_locations\": {\"countries\":[\"US\"]}, \"publisher_platforms\":[\"messenger\", \"facebook\",\"audience_network\"" +
+                        (includeInstagram ? ",\"instagram\"" : "") + "]}"),
+                    "targeting"
+                },
+                {new StringContent(DateTime.UtcNow.ToString("o")), "start_time"},
+                {new StringContent(DateTime.UtcNow.AddDays(days).ToString("o")), "end_time"},
+                {new StringContent(status), "status"},
+                {new StringContent(_config.AccessToken), "access_token"}
+            };
             request.Content = multipartContent;
 
             var response = await httpClient.SendAsync(request);
@@ -82,23 +90,25 @@ namespace Pheesible.Integrations.Facebook
         {
             using var httpClient = new HttpClient();
             using var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://graph.facebook.com/v{_config.ApiVersion}/act_{_config.AdAccountId}/adcreatives");
-            var multipartContent = new MultipartFormDataContent();
-            multipartContent.Add(new StringContent(name), "name");
-            multipartContent.Add(new StringContent(JsonSerializer.Serialize(new AdCreative
+            var multipartContent = new MultipartFormDataContent
             {
-                link_data = new Link_Data
+                {new StringContent(name), "name"},
                 {
-                    call_to_action = new Call_To_Action
+                    new StringContent(JsonSerializer.Serialize(new AdCreative
                     {
-                        type = _config.CallToAction
-                    },
-                    image_hash = image.hash,
-                    link = landingPageLink,
-                    message = adText
+                        link_data = new Link_Data
+                        {
+                            call_to_action = new Call_To_Action {type = _config.CallToAction},
+                            image_hash = image.hash,
+                            link = landingPageLink,
+                            message = adText
+                        },
+                        page_id = _config.PageId
+                    })),
+                    "object_story_spec"
                 },
-                page_id = _config.PageId
-            })), "object_story_spec");
-            multipartContent.Add(new StringContent(_config.AccessToken), "access_token");
+                {new StringContent(_config.AccessToken), "access_token"}
+            };
             request.Content = multipartContent;
             var response = await httpClient.SendAsync(request);
             return await ReturnModelOrThrowError<Id>(response);
@@ -108,12 +118,14 @@ namespace Pheesible.Integrations.Facebook
         {
             using var httpClient = new HttpClient();
             using var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://graph.facebook.com/v8.0/act_{_config.AdAccountId}/ads");
-            var multipartContent = new MultipartFormDataContent();
-            multipartContent.Add(new StringContent(name), "name");
-            multipartContent.Add(new StringContent(adSetId), "adset_id");
-            multipartContent.Add(new StringContent($"{{\"creative_id\": \"{creativeId}\"}}"), "creative");
-            multipartContent.Add(new StringContent(status), "status");
-            multipartContent.Add(new StringContent(_config.AccessToken), "access_token");
+            var multipartContent = new MultipartFormDataContent
+            {
+                {new StringContent(name), "name"},
+                {new StringContent(adSetId), "adset_id"},
+                {new StringContent($"{{\"creative_id\": \"{creativeId}\"}}"), "creative"},
+                {new StringContent(status), "status"},
+                {new StringContent(_config.AccessToken), "access_token"}
+            };
             request.Content = multipartContent;
 
             var response = await httpClient.SendAsync(request);
@@ -122,14 +134,23 @@ namespace Pheesible.Integrations.Facebook
 
         public async Task<Report> GetReportForAdSet(string adSetId, string[] fields)
         {
-            using (var httpClient = new HttpClient())
-            {
-                using var request = new HttpRequestMessage(new HttpMethod("GET"),
-                    $"https://graph.facebook.com/v{_config.ApiVersion}/{adSetId}/insights?date_preset=lifetime&breakdowns=age,gender&fields=" +
-                    $"{HttpUtility.UrlEncode(String.Join(",", fields))}&access_token={_config.AccessToken}&level=ad");
-                var response = await httpClient.SendAsync(request);
-                return await ReturnModelOrThrowError<Report>(response);
-            }
+            using var httpClient = new HttpClient();
+            using var request = new HttpRequestMessage(new HttpMethod("GET"),
+                $"https://graph.facebook.com/v{_config.ApiVersion}/{adSetId}/insights?date_preset=lifetime&breakdowns=age,gender&fields=" +
+                $"{HttpUtility.UrlEncode(String.Join(",", fields))}&access_token={_config.AccessToken}&level=ad");
+            var response = await httpClient.SendAsync(request);
+            return await ReturnModelOrThrowError<Report>(response);
+        }
+
+        public async Task<AdCreativeRead> GetAdCreative(string adCreativeId, string[] fields)
+        {
+
+            using var httpClient = new HttpClient();
+            using var request = new HttpRequestMessage(new HttpMethod("GET"),
+                $"https://graph.facebook.com/v{_config.ApiVersion}/{adCreativeId}?fields=" +
+                $"{HttpUtility.UrlEncode(String.Join(",", fields))}&access_token={_config.AccessToken}");
+            var response = await httpClient.SendAsync(request);
+            return await ReturnModelOrThrowError<AdCreativeRead>(response);
         }
 
         private async Task<T> ReturnModelOrThrowError<T>(HttpResponseMessage response)

@@ -58,10 +58,7 @@ namespace Pheesible.Scheduler
             serviceCollection.AddTransient<IPromotionPublisher, PromotionPublisher>();
             serviceCollection.AddTransient<PromotionJob>();
             serviceCollection.AddTransient<FinishedCampaignJob>();
-            serviceCollection.AddTransient<IFacebookConfig>(x=>
-            {
-                return x.GetService<ILambdaConfiguration>().GetSection<FacebookConfig>("Facebook");
-            });
+            serviceCollection.AddTransient<IFacebookConfig>(x=> x.GetService<ILambdaConfiguration>().GetSection<FacebookConfig>("Facebook"));
             serviceCollection.AddTransient<IS3, S3>();
 
             var config = serviceCollection.BuildServiceProvider().GetService<ILambdaConfiguration>();

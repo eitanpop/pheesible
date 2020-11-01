@@ -30,7 +30,11 @@ export default ({ path = '', onUpload, templateId, value, clearFunction }) => {
             e.target.value = null
           }}
           onChange={async (e) => {
-            console.log('uploading', e.target.value)
+            const file = e.target.files[0]
+            console.log('file size', file.size / 1024 / 1024)
+            if (file.size / 1024 / 1024 > 5) {
+              return
+            }
             const result = await upload(
               e.target.files[0],
               `${templateId}${templateId ? '/' : ''}${path}`,

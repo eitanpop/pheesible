@@ -31,7 +31,7 @@ namespace Pheesible.Billing
             ConfigureServices(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
             _billingProvider = serviceProvider.GetService<IBillingProvider>();
-            _promotionCharger = serviceProvider.GetService<IPromotionCharger>(); ;
+            _promotionCharger = serviceProvider.GetService<IPromotionCharger>();
         }
 
         private void ConfigureServices(ServiceCollection serviceCollection)
@@ -46,7 +46,7 @@ namespace Pheesible.Billing
         /// <summary>
         /// A function that takes an amount and bills the user using the injected billing provider
         /// </summary>
-        /// <param name="amount"></param>
+        /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
         public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)

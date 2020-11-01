@@ -20,6 +20,8 @@ namespace Pheesible.Promotions.Handlers
         }
         public IHandler Get(APIGatewayProxyRequest request)
         {
+            if(request?.HttpMethod == null)
+                return new KeepAliveHandler();
             switch (request.HttpMethod.ToLower())
             {
                 case "post" when request.Path.Equals("/promotion/stripe", StringComparison.InvariantCultureIgnoreCase):

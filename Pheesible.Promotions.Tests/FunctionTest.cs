@@ -21,15 +21,12 @@ namespace Pheesible.Promotions.Tests
         [Fact]
         public async Task TetGetMethod()
         {
-            TestLambdaContext context;
-            APIGatewayProxyRequest request;
-            APIGatewayProxyResponse response;
             Function functions = new Function();
 
 
-            request = new APIGatewayProxyRequest();
-            context = new TestLambdaContext();
-            response = await functions.FunctionHandler(request, context);
+            var request = new APIGatewayProxyRequest();
+            var context = new TestLambdaContext();
+            var response = await functions.FunctionHandler(request, context);
             Assert.Equal(200, response.StatusCode);
             Assert.Equal("Hello AWS Serverless", response.Body);
         }

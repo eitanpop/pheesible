@@ -11,7 +11,7 @@
     "configuration" : "Release",
     "framework"     : "netcoreapp3.1",
     "function-runtime" : "dotnetcore3.1",
-    "function-memory-size" : 256,
+    "function-memory-size" : 640,
     "function-timeout"     : 30,
     "function-handler"     : "Pheesible.Promotions::Pheesible.Promotions.Function::FunctionHandler",
     "function-name"        : "pheesible-promotions",
