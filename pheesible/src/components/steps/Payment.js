@@ -98,13 +98,12 @@ export default ({
             email: user.attributes.email,
             address: {
               city: address.city,
-              country: 'US',
               line1: address.address,
               postal_code: address.zip,
             },
           },
         },
-        receipt_email: 'eitanpop@gmail.com',
+        receipt_email: user.attributes.email,
       }
     )
 
@@ -161,7 +160,7 @@ export default ({
               <tbody>
                 <tr>
                   <td>Pheesible</td>
-                  <td className='float-right'>$59.99</td>
+                  <td className='float-right'>$49.99</td>
                 </tr>
                 {promotion.facebook && promotion.facebook.isEnabled ? (
                   <tr>
@@ -188,11 +187,13 @@ export default ({
                   <td>
                     <strong className='float-right'>
                       $
-                      {59.99 +
+                      {(
+                        49.99 +
                         (promotion.facebook
                           ? promotion.facebook.budgetPerDayInDollars *
                             promotion.facebook.numberOfDays
-                          : 0)}
+                          : 0)
+                      ).toFixed(2)}
                     </strong>
                   </td>
                 </tr>

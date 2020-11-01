@@ -2,7 +2,7 @@
 .company-stat,
 .leads {
   font-family: 'Montserrat', sans-serif;
-  color: #212529
+  color: #212529;
 }
 /* company-info start*/
 .company-info h1 {
@@ -20,10 +20,10 @@
 .company-info .text-blue {
   font-size: 2.3rem;
   font-weight: 700;
-  color: #0379F7;
+  color: #0379f7;
 }
 .btn-orange {
-  background: #ED5331;
+  background: #ed5331;
   color: #fff;
 }
 .rating-bold {
@@ -44,10 +44,7 @@
   padding-bottom: 5px;
 }
 .campaing-info .btn {
-
-  font-size: 18px;
-  width: 161px;
-  padding: .5rem .75rem;
+  width: 100px;
 }
 .campaing-info .btn:hover {
   color: #fff;
@@ -63,7 +60,7 @@
   padding: 1.2rem;
   box-shadow: 0px 35px 30px rgba(241, 90, 36, 0.07);
 }
-.company-stat .quantity > div img{
+.company-stat .quantity > div img {
   margin: 0 auto;
 }
 .company-stat .quantity > div .text-white {
@@ -78,28 +75,32 @@
   height: 60px;
 }
 .orange-bg {
-  background: linear-gradient(43.36deg, #F15A24 47.67%, #FBB03B 115.75%);
+  background: linear-gradient(43.36deg, #f15a24 47.67%, #fbb03b 115.75%);
   box-shadow: 0px 35px 30px rgba(241, 90, 36, 0.07);
 }
 .turquoise-bg {
-  background: linear-gradient(42.26deg, #087881 0%, #1BC4B9 125.78%);
+  background: linear-gradient(42.26deg, #087881 0%, #1bc4b9 125.78%);
   box-shadow: 0px 35px 30px rgba(18, 158, 158, 0.06);
 }
 .blue-bg {
-  background: linear-gradient(42.25deg, #0093D8 -3.89%, rgba(62, 193, 207, 0) 169.47%);
+  background: linear-gradient(
+    42.25deg,
+    #0093d8 -3.89%,
+    rgba(62, 193, 207, 0) 169.47%
+  );
 }
 /* company-stat end*/
 /* leads start*/
-.table-leads-container{
+.table-leads-container {
   background: #fff;
   border-radius: 15px;
   padding: 15px 2rem 20px;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
 }
-.table-leads td{
+.table-leads td {
   vertical-align: middle;
   border-top-color: transparent;
-  border-bottom: 1px solid #A9A8A8;
+  border-bottom: 1px solid #a9a8a8;
 }
 .table-leads .account-img {
   max-width: 75px;
@@ -108,7 +109,7 @@
 /* Media > 768*/
 @media all and (min-width: 768px) {
   .company-stat .quantity > div {
-    min-height: 375px;
+    min-height: 275px;
     width: 30%;
     margin-bottom: 0;
   }
