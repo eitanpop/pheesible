@@ -9,6 +9,7 @@ import facebook from '../images/facebook.png'
 import edit from '../images/edit.png'
 import report from '../images/report.png'
 import del from '../images/delete.png'
+import eye from '../images/eye.png'
 
 const getStatusElement = (status) => {
   const props = {
@@ -170,6 +171,9 @@ export default ({ promotions, setChosenPromotion, onCampaignDeleted }) => {
             ) : (
               <img className='icon' src={del} alt='delete' />
             )}
+            <a href={`https://www.pheesible.com/site/${row.id}`} target='_blank'>
+              <img className='icon' src={eye} alt='view' />
+            </a>
           </>
         )
       },
