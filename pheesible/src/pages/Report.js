@@ -13,7 +13,7 @@ import cursor from '../images/report/cursor.png'
 import magnifier from '../images/report/magnifier.png'
 import currency from '../images/report/currency.png'
 import lead_icon from '../images/report/lead_icon.png'
-import table_sample from '../images/report/table_sample.png'
+import score from '../images/report/score.png'
 
 export default () => {
   const { id } = useParams()
@@ -25,7 +25,7 @@ export default () => {
 
   if (report.loading)
     return <div>Loading real time results from focus groups...</div>
-  const { entries, leads, promotion } = report.data
+  const { entries, leads, promotion, facebookUrl } = report.data
 
   const getClicksByGender = (gender) =>
     entries
@@ -113,7 +113,8 @@ export default () => {
                 <p className='text-blue'>{getReach()}</p>
                 <div className='d-flex flex-column flex-md-row align-items-start'>
                   <img
-                    src={rectangle}
+                    src={score}
+                    style={{ width: '40px' }}
                     alt=''
                     className='float-left mr-4 mb-2'
                   />
@@ -126,6 +127,14 @@ export default () => {
                       The positive response is a numeric value determined by
                       clicks and reach.{' '}
                       <Info tooltip='It is difficult to ascribe meaning to the value as different industries will have different values. You can however use the number as a reference point for example when comparing similar products or ideas.' />{' '}
+                    </p>
+                    <p>
+                      <a
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        href={facebookUrl}>
+                        Facebook Ad
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -197,7 +206,7 @@ export default () => {
                     legend: {
                       labels: {
                         usePointStyle: true,
-                        boxWidth: 6
+                        boxWidth: 6,
                       },
                     },
                     scales: {

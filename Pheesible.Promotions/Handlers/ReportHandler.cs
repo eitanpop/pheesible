@@ -43,7 +43,7 @@ namespace Pheesible.Promotions.Handlers
             var reportDto = new ReportDto();
             reportDto.entries = report.data.Select(x => new Entry { age = x.age, clicks = x.clicks, gender = x.gender, impressions = x.impressions, spend = x.spend, reach = x.reach })?.ToList();
             var fbUrl = $"https://www.facebook.com/{(await _facebookApi.GetAdCreative(adCreativeId, new[] { "effective_object_story_id" }))?.effective_object_story_id}";
-
+            reportDto.facebookUrl = fbUrl;
             reportDto.promotion = PromotionEntityToDtoConverter.Convert(promotion);
             var leads = await db.Leads.Where(x => x.PromotionId == promotion.Id).AsNoTracking().ToListAsync();
             reportDto.leads = leads.Select(x => new Lead { comments = x.Comments, email = x.Email, firstName = x.FirstName, lastName = x.LastName, phone = x.Phone, promotionId = x.PromotionId.Value }).ToList();
