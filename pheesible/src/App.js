@@ -52,10 +52,7 @@ function App() {
 
   const updateAuthenticatedStatus = async () =>
     setIsAuthenticated(!!(await Auth.currentUserInfo()))
-  useEffect(() => {
-    updateAuthenticatedStatus()
-  }, [])
-
+  updateAuthenticatedStatus()
   if (isAuthenticated === null) return <></>
   return (
     <>
