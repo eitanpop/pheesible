@@ -53,8 +53,9 @@ body {
 }
 
 .icon {
-  width: 25px;
-  height: 25px;
+  width: 18px;
+  height: 18px;
+  margin-left:1em
 }
 
 .search-label {

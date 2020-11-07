@@ -79,7 +79,7 @@ export default ({ isAuthenticated }) => {
             ) : (
               <li className='nav-item active ml-5'>
                 <Link to='/login' className='nav-link'>
-                  LOGIN
+                  LOGIN / REGISTER
                 </Link>
               </li>
             )}

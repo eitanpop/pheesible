@@ -22,7 +22,9 @@ export default () => {
                   and invest safely
                   <br />
                   <br />
-                  <a href='javascript:void(Tawk_API.toggle())' className='btn btn-orange px-5'>
+                  <a
+                    href='javascript:void(Tawk_API.toggle())'
+                    className='btn btn-orange px-5'>
                     Ask us
                   </a>
                 </div>
@@ -32,13 +34,13 @@ export default () => {
               </div>
             </div>
           </div>
-        </section>  
+        </section>
         <section className='mt-4'>
-          <div className='container'>          
+          <div className='container'>
             <div className='row'>
               <div className='col-lg-10 offset-lg-1 text-center overview'>
                 <h2 className='mt-4'>What is Pheesible</h2>
-                <p className="mt-4">
+                <p className='mt-4'>
                   PHEESIBLE is about testing an idea, a prototype, a business
                   venture, or a product QUICKLY. <br />
                   We rapidly want to get the idea to the public and receive
@@ -79,7 +81,7 @@ export default () => {
                   </p>
                 </div>
               </div>
-            </div> 
+            </div>
             <div className='row'>
               <div className='col-12 text-center mb-5'>
                 {/* <table className='table table-features mt-5'>
@@ -220,7 +222,7 @@ export default () => {
                     </tr>
                   </tbody>
                 </table>*/}
-                <img className="w-100" src={table} alt='comparison' />
+                <img style={{ width: '80%' }} src={table} alt='comparison' />
               </div>
             </div>
           </div>
@@ -332,7 +334,6 @@ export default () => {
             </div>
           </div>
         </section>
-       
       </div>
       <footer>
         <div className='container'>

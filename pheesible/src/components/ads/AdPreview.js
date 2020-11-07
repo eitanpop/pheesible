@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react'
 
+import useImageEffect from '../../hooks/useImageEffect'
 import { getPublic } from '../../services/storage'
-import AdImage from './AdImage'
 
 export default ({ promotion, isLive = false }) => {
   if (!promotion) return <div>Loading...</div>
 
   const [image, setImage] = useState(null)
-  useEffect(() => {
-    const getPublicImage = async () => {
-      const image = await getPublic(
-        `templates/${promotion.templateId}/Ad/image.png`
-      )
 
-      setImage(image)
+  const setMyImage = async (x) => {
+    console.log('image', x)
+    if (x) {
+      setImage(x)
+      return
     }
+    const defaultImage = await getPublic(
+      `templates/${promotion.templateId}/Ad/image.png`
+    )
 
-    getPublicImage()
-  }, [])
+    setImage(defaultImage)
+  }
+  useImageEffect(promotion.ad.image, promotion.identityId, setMyImage)
 
   return (
     <div
