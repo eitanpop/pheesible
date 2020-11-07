@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { saveLead } from '../services/api'
 
@@ -57,6 +57,18 @@ export default (isLive) => {
     ])
   }
 
+  const getPropertyComponent = (name, props) => {
+    const x = properties.find((x) => x.name === name)
+
+    return React.createElement(x.element, {
+      ...props,
+      placeHolder:x.displayName,
+      type: x.type,
+      onChange: (e) => setProperty(x.name, e.target.value),
+      value: x[x.value || ''],
+    })
+  }
+
   const save = async (promotionId) => {
     let errors = []
     console.log('properties', properties)
@@ -78,5 +90,5 @@ export default (isLive) => {
         )
       )
   }
-  return { properties, setProperty, save }
+  return { properties, setProperty, getPropertyComponent, save }
 }

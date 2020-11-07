@@ -23,8 +23,14 @@ export default ({
   imageThree,
   isLive,
 }) => {
-  const { properties, setProperty, save } = useLeadGenerator(isLive)
+  const {
+    properties,
+    setProperty,
+    getPropertyComponent,
+    save,
+  } = useLeadGenerator(isLive)
   const { title, tagLine, elevatorPitch } = promotion.fields
+
   return (
     <div>
       <section className='tag-line'>
@@ -152,52 +158,40 @@ export default ({
                     </h4>
                     <div className='form-row'>
                       <div className='form-group col-md-6'>
-                        <input
-                          type='text'
-                          className='form-control'
-                          id='firstName'
-                          placeholder='First name'
-                        />
+                        {getPropertyComponent('firstName', {
+                          className: 'form-control',
+                        })}
                       </div>
                       <div className='form-group col-md-6'>
-                        <input
-                          type='text'
-                          className='form-control'
-                          id='lastName'
-                          placeholder='Last name'
-                        />
+                        {getPropertyComponent('lastName', {
+                          className: 'form-control',
+                        })}
                       </div>
                     </div>
                     <div className='form-row'>
                       <div className='form-group col-md-6'>
-                        <input
-                          type='email'
-                          className='form-control'
-                          id='email'
-                          placeholder='Email address'
-                        />
+                        {getPropertyComponent('email', {
+                          className: 'form-control',
+                        })}
                       </div>
                       <div className='form-group col-md-6'>
-                        <input
-                          type='tel'
-                          className='form-control'
-                          id='phone'
-                          placeholder='Phone'
-                        />
+                        {getPropertyComponent('phone', {
+                          className: 'form-control',
+                        })}
                       </div>
                     </div>
                     <div className='form-row'>
                       <div className='form-group col-md-12'>
-                        <textarea
-                          className='form-control'
-                          id='comments'
-                          placeholder='Comments'
-                          rows={3}
-                          defaultValue={''}
-                        />
+                      {getPropertyComponent('comments', {
+                          className: 'form-control', rows:3
+                        })}
                       </div>
                     </div>
-                    <button type='submit' className='btn btn-primary'>
+                    <button
+                      onClick={() => {
+                        if (isLive) save(promotion.id)
+                      }}
+                      className='btn btn-primary'>
                       Submit
                     </button>
                   </form>
