@@ -67,27 +67,35 @@ export default ({
           />
           <ErrorMessage errorMessage={error.name} />
           <br />
-          <hr stlye={{ width: '90%' }} />
+          <hr style={{ width: '90%' }} />
           <div
-            className='form-check'
             onChange={(e) =>
               updatePromotion('templateId', parseInt(e.target.value))
             }>
-            {templates.map((x) => {
-              console.log(promotion.templateId)
-              console.log(x.Id)
-              console.log('promotion.templateId === x.Id', promotion.templateId === x.Id)
+            {templates.map((x, idx) => {
               return (
-                <React.Fragment key={x.Id}>
-                  <input
-                    type='radio'
-                    value={x.Id}
-                    name='template'
-                    checked={promotion.templateId === x.Id}                  
-                  />
-                  {x.Name}
-                  <br />
-                </React.Fragment>
+                <div
+                  className={
+                    'col-sm-6' + (idx % 2) === 0 ? '' : ' no-left-padding'
+                  }>
+                  <React.Fragment key={x.Id}>
+                    <input
+                      type='radio'
+                      value={x.Id}
+                      name='template'
+                      checked={promotion.templateId === x.Id}
+                    />
+                    <span className='ml-1'>
+                      <b>{x.Name}</b>
+                    </span>
+                    <br />
+                    <img
+                      className='template-thumbnail'
+                      src={`./templates/${x.Id}/thumbnail.png`}
+                      alt={x.Name}
+                    />
+                  </React.Fragment>
+                </div>
               )
             })}
           </div>

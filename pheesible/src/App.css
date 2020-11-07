@@ -27,7 +27,7 @@ body {
   border: none;
   padding: 0 !important;
   /*optional*/
-  font-family:'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   /*input has OS specific font-family*/
   color: #069;
   text-decoration: underline;
@@ -55,7 +55,7 @@ body {
 .icon {
   width: 18px;
   height: 18px;
-  margin-left:1em
+  margin-left: 1em;
 }
 
 .search-label {
@@ -80,4 +80,14 @@ body {
   border-bottom: 4px dashed;
   border-bottom: 4px solid \9;
   content: '';
+}
+
+.template-thumbnail {
+  max-width: 45%;
+  border-radius: 15px;
+  background-color: white;
+}
+
+.no-left-padding {
+  padding-left: 0px;
 }

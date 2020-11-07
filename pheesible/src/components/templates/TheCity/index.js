@@ -3,6 +3,7 @@ import React from 'react'
 import useLeadGenerator from '../../../hooks/useLeadGenerator'
 
 import './styles/city.css'
+import { features } from '../mock'
 
 import bg_intro from './images/bg_intro.png'
 import bg_rectangle from './images/bg_rectangle.png'
@@ -130,14 +131,16 @@ export default ({
       <section className='features'>
         <div className='container'>
           <div className='row'>
-            {promotion.features.map((x) => {
-              return (
-                <div className='col-md-6 d-flex flex-column'>
-                  <h4 className='my-4'>{x.title}</h4>
-                  <p>{x.description}</p>
-                </div>
-              )
-            })}
+            {(promotion.features.length ? promotion.features : features).map(
+              (x) => {
+                return (
+                  <div className='col-md-6 d-flex flex-column'>
+                    <h4 className='my-4'>{x.title}</h4>
+                    <p>{x.description}</p>
+                  </div>
+                )
+              }
+            )}
           </div>
         </div>
       </section>
