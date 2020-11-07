@@ -11,6 +11,11 @@ import report from '../images/report.png'
 import del from '../images/delete.png'
 import eye from '../images/eye.png'
 
+import edit_disabled from '../images/edit-disabled.png'
+import report_disabled  from '../images/report-disabled.png'
+import del_disabled  from '../images/delete-disabled.png'
+import eye_disabled  from '../images/view-disabled.png'
+
 const getStatusElement = (status) => {
   const props = {
     className: 'btn',
@@ -137,17 +142,17 @@ export default ({ promotions, setChosenPromotion, onCampaignDeleted }) => {
                   console.log('editing')
                   setChosenPromotion(row.id)
                 }}>
-                <img className='icon' src={edit} alt='edit' />
+                <img className='icon' src={edit} alt='edit ' />
               </a>
             ) : (
-              <img className='icon' src={edit} alt='edit' />
+              <img className='icon' src={edit_disabled} alt='edit disabled' />
             )}
             {row.statusId === 5 || row.statusId === 6 ? (
               <Link to={'/report/' + row.id}>
                 <img className='icon' src={report} alt='report' />
               </Link>
             ) : (
-              <img className='icon' src={report} alt='report' />
+              <img className='icon' src={report_disabled} alt='report disabled' />
             )}
             {row.statusId === 1 ||
             row.statusId === 6 ||
@@ -169,10 +174,10 @@ export default ({ promotions, setChosenPromotion, onCampaignDeleted }) => {
                 <img className='icon' src={del} alt='delete' />
               </a>
             ) : (
-              <img className='icon' src={del} alt='delete' />
+              <img className='icon' src={del} alt='delete disabled' />
             )}
             {row.statusId === 1 || row.statusId === 2 ? (
-              <img className='icon' src={eye} alt='view' />
+              <img className='icon' src={eye_disabled} alt='view disabled' />
             ) : (
               <a
                 href={`https://www.pheesible.com/site/${row.id}`}

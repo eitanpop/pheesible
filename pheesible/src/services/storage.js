@@ -35,6 +35,12 @@ export const get = async (key, identityId) => {
   })
 }
 
+export const getPublic = async key => {
+    return await Storage.get(key, {
+        level: 'public'
+      })
+}
+
 export const remove = async (key) => {
   Storage.remove(key, { level: 'protected' })
     .then((result) => console.log('success: ' + result))

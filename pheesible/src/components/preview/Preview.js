@@ -40,8 +40,8 @@ export default ({ promotion, isLive = false, fullScreen = false }) => {
 
   return (
     <div
-      className='mt-2 bg-white py-3 needs-validation'
-      style={{  maxWidth: '972px', padding:'5px 40px' }}>
+      className='mt-2 bg-white py-3 needs-validation container'
+      style={{  padding:'5px 40px' }}>
       <div className='preview m-3'>
         <TemplateContainer
           promotion={promotion}

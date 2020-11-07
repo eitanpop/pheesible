@@ -1,0 +1,146 @@
+
+.tag-line,
+.selling,
+.features,
+.feedback {
+    font-family: 'Montserrat', sans-serif;
+}
+/* Tag line section */
+.tag-line .container {
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.tag-line .orange-box {
+  background: rgba(251, 176, 59, 0.74);
+}
+.tag-line .orange-box h3 {
+  line-height: 36px;
+}
+.tag-line h2 {
+  font-weight: 600;
+}
+/* Selling section */
+.selling img {
+  max-height: 92px;
+}
+.selling h4 {
+  font-weight: 700;
+}
+/* Media-gallery section */
+.media-gallery .container {
+  min-height: 582px;
+  background: no-repeat 100% 50%,
+    -moz-linear-gradient(270deg, rgba(251, 176, 59, 0.74) 50%, rgba(0, 0, 0, 0)
+          50%);
+  background: no-repeat 100% 50%,
+    -webkit-linear-gradient(270deg, rgba(251, 176, 59, 0.74) 50%, rgba(
+            0,
+            0,
+            0,
+            0
+          )
+          50%);
+  background: no-repeat 100% 50%,
+    linear-gradient(270deg, rgba(251, 176, 59, 0.74) 50%, rgba(0, 0, 0, 0) 50%);
+  background-size: contain;
+}
+.media-gallery .row > div {
+  z-index: 2;
+}
+/* Features section */
+.features .container {
+  min-height: 641px;
+}
+.features .container .row:first-child {
+  padding-top: 120px;
+}
+.features h4 {
+  font-weight: 700;
+}
+.features p {
+  font-size: 1.1rem;
+}
+/* Feedback section */
+.feedback .container {
+  min-height: 820px;
+}
+.feedback .orange-box {
+  background: rgba(251, 176, 59, 0.8);
+  min-height: 575px;
+  width: 100%;
+  margin-top: 10%;
+  position: relative;
+}
+.feedback .orange-box:before {
+  content: '';
+  display: block;
+  border: 8px solid #a9a8a8;
+  position: absolute;
+  left: 10%;
+  top: -50px;
+  height: calc(100% + 100px);
+  width: 65%;
+}
+.feedback .phrase-big {
+  font-size: 36px;
+  line-height: 46px;
+  letter-spacing: -0.015em;
+}
+.feedback form {
+  background: rgba(255, 255, 255, 0.81);
+  padding: 63px 43px 43px 43px;
+}
+.feedback input,
+.feedback textarea {
+  border-radius: 0;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.feedback input::placeholder,
+.feedback textarea::placeholder {
+  font-size: 15px;
+  letter-spacing: -0.015em;
+  color: rgba(0, 0, 0, 0.8);
+}
+.feedback .btn {
+  font-size: 0.9rem;
+  background: #18a0fb;
+  border-radius: 6px;
+  padding: 0.5rem 1.8rem;
+}
+
+@media (min-width: 1700px) {
+  .tag-line .orange-box {
+    min-height: 521px;
+  }
+  .tag-line .container {
+    min-height: 521px;
+  }
+}
+
+/* Media > 1200px */
+@media (min-width: 1200px) {
+  /* Override bootstrap container width for desktop */
+  .container {
+    max-width: 1440px;
+  }
+  .tag-line .row,
+  .selling .row,
+  .media-gallery .row,
+  .features .row,
+  .feedback .row.h-100 {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  .tag-line .container {
+    min-height: 380px;
+  }
+
+  .media-gallery .container {
+    background-size: unset;
+  }
+  .feedback .phrase-big {
+    font-size: 48px;
+    line-height: 80px;
+  }
+}

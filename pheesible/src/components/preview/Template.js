@@ -1,6 +1,6 @@
 import React from 'react'
 import Business from '../templates/business'
-import WideLogo from '../templates/widelogo'
+import City from '../templates/TheCity'
 
 export default ({
   templateName,
@@ -17,8 +17,8 @@ export default ({
     case 'business':
       component = <Business />
       break
-    case 'wide logo':
-      component = <WideLogo />
+    case 'the city':
+      component = <City />
       break
     default:
       throw Error('invalid template')

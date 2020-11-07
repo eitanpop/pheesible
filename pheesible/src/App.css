@@ -1,3 +1,6 @@
+/* Sections font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap');
+
 html {
   height: calc(100% - 72px);
 
@@ -24,7 +27,7 @@ body {
   border: none;
   padding: 0 !important;
   /*optional*/
-  font-family: arial, sans-serif;
+  font-family:'Montserrat', sans-serif;
   /*input has OS specific font-family*/
   color: #069;
   text-decoration: underline;

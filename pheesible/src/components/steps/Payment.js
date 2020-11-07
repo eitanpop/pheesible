@@ -148,10 +148,7 @@ export default ({
             </div>
           )}
 
-          <CardTitle tooltip='An itemized list of your order including your focus group budget and payment to Pheesible'>
-            ORDER SUMMARY
-          </CardTitle>
-          <HeaderSpacer />
+         
           <PaymentSummary promotion={promotion} />
           <br />
           <CardTitle tooltip='The total amount owed'>ORDER DETAILS</CardTitle>
