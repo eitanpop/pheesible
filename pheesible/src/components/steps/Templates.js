@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import useError from '../../hooks/useError'
 import ErrorMessage from '../ErrorMessage'
 import CardTitle from '../wizard/CardTitle'
-import CardSubTitle from '../wizard/CardSubTitle'
+
 import HeaderSpacer from '../wizard/HeaderSpacer'
 import useTemplates from '../../hooks/api/useTemplates'
 import Info from '../Info'
@@ -16,6 +16,13 @@ export default ({
   setIsNextStepConfirmed,
 }) => {
   const { error: templateError, loading, data: templates } = useTemplates()
+
+  useEffect(() => {
+    if (!templates) return
+    if (!promotion.templateId) {
+      updatePromotion('templateId', templates[0].Id)
+    }
+  }, [templates, promotion.templateId])
 
   const { name } = promotion
   const error = useError(
@@ -56,7 +63,7 @@ export default ({
             id='name'
             onChange={(e) => updatePromotion('name', e.target.value)}
             value={name || ''}
-            maxLength="200"
+            maxLength='200'
           />
           <ErrorMessage errorMessage={error.name} />
           <br />
@@ -67,13 +74,16 @@ export default ({
               updatePromotion('templateId', parseInt(e.target.value))
             }>
             {templates.map((x) => {
+              console.log(promotion.templateId)
+              console.log(x.Id)
+              console.log('promotion.templateId === x.Id', promotion.templateId === x.Id)
               return (
                 <React.Fragment key={x.Id}>
                   <input
                     type='radio'
                     value={x.Id}
                     name='template'
-                    defaultChecked={promotion.templateId === x.Id}
+                    checked={promotion.templateId === x.Id}                  
                   />
                   {x.Name}
                   <br />

@@ -58,7 +58,7 @@ namespace Pheesible.Promotions.Handlers
 
             if (isUpdate)
                 db.Facebook.RemoveRange(promotions.Facebook);
-            if (promotionDto.facebook?.numberOfDays != null)
+            if (promotionDto.facebook?.isEnabled == true)
             {
                 var facebookDto = promotionDto.facebook;
                 promotions.Facebook.Add(new Facebook

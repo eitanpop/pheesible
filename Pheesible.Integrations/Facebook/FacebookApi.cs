@@ -101,7 +101,8 @@ namespace Pheesible.Integrations.Facebook
                             call_to_action = new Call_To_Action {type = _config.CallToAction},
                             image_hash = image.hash,
                             link = landingPageLink,
-                            message = adText
+                            message = adText,
+                            description=adText
                         },
                         page_id = _config.PageId
                     })),

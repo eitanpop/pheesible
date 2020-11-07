@@ -1,5 +1,4 @@
 import React from 'react'
-import Business from '../templates/business'
 import City from '../templates/TheCity'
 
 export default ({
@@ -14,9 +13,6 @@ export default ({
 }) => {
   let component = null
   switch (templateName.toLowerCase()) {
-    case 'business':
-      component = <Business />
-      break
     case 'the city':
       component = <City />
       break

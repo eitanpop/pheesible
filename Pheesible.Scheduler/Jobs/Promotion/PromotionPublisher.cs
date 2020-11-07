@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -29,7 +30,14 @@ namespace Pheesible.Scheduler.Jobs.Promotion
             var ad = promotion.Ads.First();
             facebook.AdSetId = (await _facebookApi.CreateAdSet(name, facebook.NumberOfDays, facebook.BudgetPerDayInDollars * 100, facebook.IncludeInstagram == true))?.id;
             string s3key = promotion.GetAdImageS3Key();
-            byte[] adImage = await _s3.GetObject(_config.BucketName, s3key);
+            byte[] adImage = null;
+            if (s3key != null)
+                adImage = await _s3.GetObject(_config.BucketName, s3key);
+            else
+            {
+                using var client = new WebClient();
+                adImage = await client.DownloadDataTaskAsync($"http://pheesible.com/templates/{promotion.TemplateId}/Ad/Image.png");
+            }
             var image = await _facebookApi.CreateAdImageObject(adImage, ad.Image);
             facebook.CreativeId = (await _facebookApi.CreateAdCreative(name, image, landingPageLink, ad.Text))?.id;
             facebook.AdId = (await _facebookApi.CreateAd(name, facebook.AdSetId, facebook.CreativeId))?.id;

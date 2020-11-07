@@ -120,7 +120,9 @@ export default () => {
                   <div>
                     <p className='rating-bold'>
                       Positive Response:{' '}
-                      {((getClicks() / getReach()) * 100).toFixed(2)}
+                      {isNaN(((getClicks() / getReach()) * 100).toFixed(2))
+                        ? 0
+                        : ((getClicks() / getReach()) * 100).toFixed(2)}
                     </p>
                     <p className='rating'>
                       The positive response is a numeric value determined by
@@ -140,7 +142,11 @@ export default () => {
               </div>
               <div className='col-lg-4 text-lg-center campaing-info'>
                 <p>
-                  Campaign running <b>{getDaysRunning()}</b> day
+                  Campaign{' '}
+                  {getDaysRunning() > promotion.facebook.numberOfDays
+                    ? 'ran'
+                    : 'running'}{' '}
+                  <b>{getDaysRunning()}</b> day
                   {getDaysRunning() === 1 ? '' : 's'}
                 </p>
                 <p>

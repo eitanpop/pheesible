@@ -80,10 +80,10 @@ const getComponentByStep = (
 }
 
 export default ({ promotion, setPromotion }) => {
-  /*  useUnload((e) => {
+   useUnload((e) => {
     e.preventDefault()
     e.returnValue = 'Changes you made may not be saved.'
-  })*/
+  })
   const [isRequestingNextStep, setIsRequestingNextStep] = useState(false)
   const [isNextStepConfirmed, setIsNextStepConfirmed] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(

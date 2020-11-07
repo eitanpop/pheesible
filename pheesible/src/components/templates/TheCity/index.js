@@ -108,13 +108,13 @@ export default ({
           style={{ backgroundImage: `url(${bg_rectangle})` }}>
           <div className='row m-auto'>
             <div className='col-md-4 text-center mb-4 mb-md-0'>
-              <img className='img-fluid' src={sample1} alt='' />
+              <img className='img-fluid' src={imageOne || sample1} alt='' />
             </div>
             <div className='col-md-4 mt-md-5 mb-4 mb-md-0 text-center'>
-              <img className='img-fluid' src={sample2} alt='' />
+              <img className='img-fluid' src={imageTwo || sample2} alt='' />
             </div>
             <div className='col-md-4 text-center'>
-              <img className='img-fluid' src={sample3} alt='' />
+              <img className='img-fluid' src={imageThree || sample3} alt='' />
             </div>
           </div>
         </div>

@@ -15,8 +15,8 @@ namespace Pheesible.Integrations.Facebook
         public string image_hash { get; set; }
         public string link { get; set; }
         public string message { get; set; }
-
         public Call_To_Action call_to_action { get; set; }
+        public string description { get; set; }
     }
 }
 

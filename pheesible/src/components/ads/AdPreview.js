@@ -14,9 +14,7 @@ export default ({ promotion, isLive = false }) => {
       setImage(x)
       return
     }
-    const defaultImage = await getPublic(
-      `templates/${promotion.templateId}/Ad/image.png`
-    )
+    const defaultImage = `./templates/${promotion.templateId}/Ad/image.png`
 
     setImage(defaultImage)
   }

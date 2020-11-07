@@ -15,9 +15,9 @@ export default ({
   const { error, loading, data: templates } = useTemplates()
   if (error) return <div>Unexpected error</div>
   if (loading) return <div>Loading...</div>
-  const name = templates
-    .find((x) => x.Id === promotion.templateId)
-    .Name.toLowerCase()
+  const name = (
+    templates.find((x) => x.Id === promotion.templateId) || templates[0]
+  ).Name.toLowerCase()
 
   return (
     <Template
