@@ -186,7 +186,7 @@ export default ({
                       $
                       {(
                         49.99 +
-                        (promotion.facebook
+                        (promotion.facebook && promotion.facebook.isEnabled
                           ? promotion.facebook.budgetPerDayInDollars *
                             promotion.facebook.numberOfDays
                           : 0)

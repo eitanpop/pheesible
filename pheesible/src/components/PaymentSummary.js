@@ -6,7 +6,7 @@ import CardTitle from './wizard/CardTitle'
 import HeaderSpacer from './wizard/HeaderSpacer'
 
 export default ({ promotion }) => {
-  if (!promotion.facebook) return <></>
+  if (!promotion.facebook || !promotion.facebook.isEnabled) return <></>
   const Facebook = () => {
     const {
       numberOfDays,
