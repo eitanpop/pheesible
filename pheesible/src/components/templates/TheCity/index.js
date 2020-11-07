@@ -111,7 +111,9 @@ export default ({
       <section className='media-gallery'>
         <div
           className='container d-flex'
-          style={{ backgroundImage: `url(${bg_rectangle})` }}>
+          style={{
+            background: `url(${bg_rectangle}) no-repeat 100% 50%, linear-gradient(270deg,  rgba(251, 176, 59, 0.74) 50%, rgba(0,0,0,0) 50%)`,
+          }}>
           <div className='row m-auto'>
             <div className='col-md-4 text-center mb-4 mb-md-0'>
               <img className='img-fluid' src={imageOne || sample1} alt='' />
@@ -182,8 +184,9 @@ export default ({
                     </div>
                     <div className='form-row'>
                       <div className='form-group col-md-12'>
-                      {getPropertyComponent('comments', {
-                          className: 'form-control', rows:3
+                        {getPropertyComponent('comments', {
+                          className: 'form-control',
+                          rows: 3,
                         })}
                       </div>
                     </div>
