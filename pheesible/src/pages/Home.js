@@ -3,7 +3,7 @@ import React from 'react'
 import '../styles/home.css'
 import copyright_logo from '../images/home/copyright_logo.png'
 import rocket from '../images/home/rocket.png'
-import header from '../images/home/header.png'
+import header from '../images/home/header.jpg'
 import table from '../images/home/table.png'
 
 export default () => {
@@ -12,10 +12,10 @@ export default () => {
       <div style={{ backgroundColor: 'white' }}>
         <section
           className='intro'
-          style={{ backgroundImage: `url(${header})` }}>
+          style={{ backgroundImage: `url(${header})`, height: '660px' }}>
           <div className='container-fluid h-100'>
             <div className='row h-100'>
-              <div className='col-lg-7  d-flex flex-column justify-content-center align-items-end'>
+              <div className='col-lg-12  d-flex flex-column justify-content-center align-items-end'>
                 <div className='text-white text-center  mb-4 h1'>
                   <strong>Test your idea</strong>
                   <br />
@@ -28,9 +28,6 @@ export default () => {
                     Ask us
                   </a>
                 </div>
-              </div>
-              <div className='col-lg-5 d-flex flex-column justify-content-center align-items-end'>
-                <img src={rocket} alt='rocket' />
               </div>
             </div>
           </div>

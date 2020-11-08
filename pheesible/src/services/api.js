@@ -8,7 +8,7 @@ export const getPromotion = async (id) => {
 }
 
 export const getPublicPromotion = async (id) => {
-  return await API.get(apiName, `/promotion/public/${id}`)
+  return await axios.get(`${process.env.REACT_APP_API_URL}/promotion/public/${id}`)
 }
 
 export const getPromotions = async () => {

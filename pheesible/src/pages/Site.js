@@ -7,14 +7,13 @@ export default () => {
   const [loading, setLoading] = useState(true)
   const [promotion, setPromotions] = useState(null)
   const { id } = useParams()
-  console.log(
-      'fetching data'
-  )
+
   useEffect(() => {
     async function fetchData() {
+      console.log('fetching data')
       const promotionData = await getPublicPromotion(id)
       console.log('promotionData', promotionData)
-      setPromotions(promotionData)
+      setPromotions(promotionData.data)
       setLoading(false)
     }
     fetchData()
