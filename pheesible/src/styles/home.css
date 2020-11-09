@@ -1,62 +1,96 @@
+.intro,
+.intro-overview,
+.overview,
+.how-it-works,
+.subscription {
+  font-family: 'Montserrat', sans-serif;
+}
 
-/*Header*/
-.navbar.bg-dark,
-header {
-  background: #212735 !important;
-  box-shadow: 0px 1px 4px #27272780;
-  -webkit-box-shadow: 0px 1px 4px #27272780;
-  -moz-box-shadow: 0px 1px 4px #27272780;
-}
-.navbar {
-  padding: 0 1rem;
-}
-.btn-round {
-  border: 2px solid #fff;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-}
-.my-account {
-  color: #fff;
-  background: #ed5331;
-  padding: 0;
-}
-.my-account:hover {
-  color: #aaa;
-  background: #fff;
-}
-.my-account span {
-  line-height: 2.7;
-}
-.btn-new {
-  background: #41c0cd;
-  border-color: #41c0cd;
-}
-.btn-new:hover,
-.btn-new:focus,
-.btn-success.btn-new:not(:disabled):not(.disabled):active {
-  background: #41c0cd;
-  border-color: #41c0cd;
-}
-/* Header End*/
 /* Intro section start*/
 
 .intro h1 {
-  font-size: 3.5rem;
+  font-size: 10.5rem;
   line-height: 1.5;
 }
-.intro .col-lg-12 {
-  padding-bottom: 7rem;
-}
-
-.intro p {
-    text-align: justify;
-}
-
 .btn-orange {
   background: #ed5331;
   color: #fff;
 }
+.intro .container {
+  background: url('../images/home/transp_lines_with_rocket.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: 0 0;
+}
+section .container > .row {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+.mb-7 {
+  margin-bottom: 7rem;
+}
+/* Intro section start*/
+.intro-secondary-txt {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 2.8rem;
+  line-height: 2.8rem;
+  letter-spacing: 0.395em;
+  color: #242a38;
+}
+.intro h1 {
+  font-size: 3rem;
+}
+.intro-txt {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.35rem;
+  line-height: 50px;
+  letter-spacing: -0.015em;
+  color: rgba(0, 0, 0, 0.8);
+}
+.intro-rotate {
+  display: inline-block;
+  font-size: 2.8rem;
+  text-align: center;
+  letter-spacing: -0.015em;
+  color: #f15a24;
+  vertical-align: top;
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+}
+.intro-main-txt {
+  font-weight: 900;
+  font-style: normal;
+  line-height: 80px;
+}
+.animated {
+  font-size: 8rem;
+  letter-spacing: 0.145em;
+  margin: 0;
+  padding: 0;
+  background: url(../images/home/text_bg.png) repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: moveBg 90s linear infinite;
+  -webkit-animation: moveBg 90s linear infinite;
+}
+.indent-left {
+  padding-left: 7rem;
+}
+@keyframes moveBg {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 75%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 /* Intro section end*/
 /* Overview start*/
 .overview h2,
@@ -64,7 +98,7 @@ header {
   font-size: 2.5rem;
 }
 .overview p {
-  font-size: 1.3rem;
+  font-size: 1.8rem;
   font-weight: normal;
 }
 /* Overview End*/
@@ -175,10 +209,10 @@ header {
   color: #555;
 }
 /* Table styles End */
-.real-time {
+.real-time .container {
   background: linear-gradient(#050a12, #1d2f51, #2c394f);
 }
-.examples {
+.examples .container {
   background: linear-gradient(
     0deg,
     #070b17,
@@ -219,6 +253,22 @@ header {
   .intro h1 {
     font-size: 3rem;
   }
+  .intro .container {
+    background: none;
+  }
+  .animated {
+    font-size: 5rem;
+  }
+  .intro-rotate {
+    font-size: 1.6rem;
+  }
+  .intro-secondary-txt {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+  .intro-main-txt {
+    text-align: center;
+  }
   .overview .col-12 {
     overflow: auto;
   }
@@ -242,5 +292,39 @@ header {
   .table.table-features tbody tr:nth-child(2) td li,
   .table.table-features tbody tr:nth-child(3) td li {
     margin-bottom: 20px;
+  }
+}
+/* Media < 540px*/
+@media all and (max-width: 540px) {
+  .indent-left {
+    padding-left: 0;
+  }
+  .animated {
+    font-size: 4rem;
+  }
+  .intro-rotate {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+  }
+  .intro-main-txt {
+    line-height: 55px;
+  }
+  .intro h1 {
+    font-size: 2.1rem;
+  }
+  .intro-txt {
+    line-height: 1.5;
+    font-size: 1.2rem;
+  }
+}
+/* Media > 1200px */
+@media (min-width: 1200px) {
+  /* Override bootstrap container width for desktop */
+  .container {
+    max-width: 1440px;
+  }
+  .animated,
+  .intro-secondary-txt {
+    margin-bottom: 1.6rem;
   }
 }

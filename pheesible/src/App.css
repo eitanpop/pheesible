@@ -17,11 +17,46 @@ body {
 #root {
   height: 100%;
 }
-
-.header {
-  background-color: #2e394d;
+/*Header*/
+.navbar.bg-dark,
+header {
+  background: #212735 !important;
+  box-shadow: 0px 1px 4px #27272780;
+  -webkit-box-shadow: 0px 1px 4px #27272780;
+  -moz-box-shadow: 0px 1px 4px #27272780;
 }
-
+.navbar {
+  padding: 0 1rem;
+}
+.btn-round {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+.my-account {
+  color: #fff;
+  background: #ed5331;
+  padding: 0;
+}
+.my-account:hover {
+  color: #aaa;
+  background: #fff;
+}
+.my-account span {
+  line-height: 2.7;
+}
+.btn-new {
+  background: #41c0cd;
+  border-color: #41c0cd;
+}
+.btn-new:hover,
+.btn-new:focus,
+.btn-success.btn-new:not(:disabled):not(.disabled):active {
+  background: #41c0cd;
+  border-color: #41c0cd;
+}
+/* Header End*/
 .link-button {
   background: none !important;
   border: none;

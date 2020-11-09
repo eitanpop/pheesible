@@ -2,31 +2,42 @@ import React from 'react'
 
 import '../styles/home.css'
 import copyright_logo from '../images/home/copyright_logo.png'
-import rocket from '../images/home/rocket.png'
-import header from '../images/home/header.jpg'
 import table from '../images/home/table.png'
 
 export default () => {
   return (
     <div>
       <div style={{ backgroundColor: 'white' }}>
-        <section
-          className='intro'
-          style={{ backgroundImage: `url(${header})`, height: '660px' }}>
-          <div className='container-fluid h-100'>
-            <div className='row h-100'>
-              <div className='col-lg-12  d-flex flex-column justify-content-center align-items-end'>
-                <div className='text-white text-center  mb-4 h1'>
-                  <strong>Test your idea</strong>
-                  <br />
-                  and invest safely
-                  <br />
-                  <br />
+        <section className='intro'>
+          <div className='container mb-md-5'>
+            <div className='row'>
+              <div className='col-lg-12 pt-4'>
+                <div className='row pt-md-5'>
+                  <div className='col-12 col-lg-8 offset-lg-1 pt-4'>
+                    <p className='intro-main-txt'>
+                      <span className='animated'>TEST</span>
+                      <span className='intro-rotate'>your</span>
+                      <br />
+                      <span className='animated indent-left'>IDEAS</span>
+                    </p>
+                    <p className='intro-secondary-txt'>and invest safely</p>
+                  </div>
+                </div>
+                <div className='d-flex mb-5'>
                   <a
                     href='javascript:void(Tawk_API.toggle())'
-                    className='btn btn-orange px-5'>
+                    className='btn btn-orange px-5 d-inline-block m-auto'>
                     Ask us
                   </a>
+                </div>
+                <div className>
+                  <h1 className='text-center mb-5'>What is Pheesible</h1>
+                  <p className='text-center intro-txt mb-5'>
+                    PHEESIBLE is about testing an idea, a prototype, a business
+                    venture, or a product QUICKLY. <br /> We rapidly want to get
+                    the idea to the public and receive feedback to make the step
+                    of investing safer.
+                  </p>
                 </div>
               </div>
             </div>
@@ -34,17 +45,6 @@ export default () => {
         </section>
         <section className='mt-4'>
           <div className='container'>
-            <div className='row'>
-              <div className='col-lg-10 offset-lg-1 text-center overview'>
-                <h2 className='mt-4'>What is Pheesible</h2>
-                <p className='mt-4'>
-                  PHEESIBLE is about testing an idea, a prototype, a business
-                  venture, or a product QUICKLY. <br />
-                  We rapidly want to get the idea to the public and receive
-                  feedback to make the step of investing safer.
-                </p>
-              </div>
-            </div>
             <div className='row'>
               <div className='col-12 d-flex flex-column flex-lg-row mt-5 intro'>
                 <div className='p-4'>
