@@ -9,7 +9,7 @@ namespace Pheesible.Promotions.DTO
     public class Promotion : PublicPromotion
     {
         public string name { get; set; }
-        public string identityId { get; set; }
+        
         public Facebook facebook { get; set; }
         public Ad ad { get; set; }
         public string createDate { get; set; }

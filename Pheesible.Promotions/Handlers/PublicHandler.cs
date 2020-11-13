@@ -17,13 +17,13 @@ namespace Pheesible.Promotions.Handlers
         {
             string id = request.PathParameters?["id"];
             var promotion = await db.Promotions
-                .Where(x => x.Id.ToString() == id)
+                .Where(x => x.Id == int.Parse(id))
                 .Include(x => x.Features)
                 .Include(x => x.Ads)
                 .Include(x => x.SellingPoints)
                 .Include(x => x.Template)
                 .Where(x => x.StatusId != (int)PromotionStatus.Draft && x.StatusId != (int)PromotionStatus.ReadyForReview && x.StatusId != (int)PromotionStatus.Rejected)
-                .FirstOrDefaultAsync().ConfigureAwait(false);
+                .FirstOrDefaultAsync();
             PublicPromotion publicPromotion = PromotionEntityToDtoConverter.Convert(promotion);
             return ApiGatewayHelper.GetSuccessResponse(JsonSerializer.Serialize(publicPromotion));
         }
