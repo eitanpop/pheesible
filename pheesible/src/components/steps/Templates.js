@@ -69,6 +69,7 @@ export default ({
           <br />
           <hr style={{ width: '90%' }} />
           <div
+            className='row'
             onChange={(e) =>
               updatePromotion('templateId', parseInt(e.target.value))
             }>
@@ -76,7 +77,7 @@ export default ({
               return (
                 <div
                   className={
-                    'col-sm-6' + (idx % 2) === 0 ? '' : ' no-left-padding'
+                    'col-sm-6' + (idx % 2 === 0 ? '' : ' no-left-padding')
                   }>
                   <React.Fragment key={x.Id}>
                     <input

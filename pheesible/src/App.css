@@ -118,7 +118,7 @@ header {
 }
 
 .template-thumbnail {
-  max-width: 45%;
+  max-width: 90%;
   border-radius: 15px;
   background-color: white;
 }
