@@ -22,11 +22,11 @@ export default ({ promotion, imageRef, isLive = false }) => {
 
   return (
     <div
-      className='mt-2 bg-white py-3 needs-validation text-center'
-      style={{ maxWidth: '972px', padding: '5px 40px' }}>
+      className='mt-2 bg-white py-3 text-center'
+      style={{ maxWidth: '700px', margin: '0 auto' }}>
       <div
         className='d-flex justify-content-center'
-        style={{ position: 'relative' }}
+        style={{ position: 'relative', width: '600px' }}
         ref={imageRef}>
         <img style={{ width: '600px' }} src={image} alt='ad' />
         <div

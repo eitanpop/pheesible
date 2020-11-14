@@ -11,11 +11,6 @@ import report from '../images/report.png'
 import del from '../images/delete.png'
 import eye from '../images/eye.png'
 
-import edit_disabled from '../images/edit-disabled.png'
-import report_disabled from '../images/report-disabled.png'
-import del_disabled from '../images/delete-disabled.png'
-import eye_disabled from '../images/view-disabled.png'
-
 const getStatusElement = (status) => {
   const props = {
     className: 'btn',
@@ -39,7 +34,8 @@ const getStatusElement = (status) => {
         </div>
       )
 
-    case 3 || 4:
+    case 3:
+    case 4:
       return (
         <div {...props} className={props.className + ' btn-outline-info'}>
           PUBLISHING
@@ -71,7 +67,7 @@ const getStatusElement = (status) => {
         </div>
       )
     default:
-      return <div></div>
+      return <div>{status}</div>
   }
 }
 
@@ -192,7 +188,12 @@ export default ({ promotions, setChosenPromotion, onCampaignDeleted }) => {
               />
             )}
             {row.statusId === 1 || row.statusId === 2 ? (
-              <img className='icon'  style={{ opacity: '0.3' }} src={eye} alt='view disabled' />
+              <img
+                className='icon'
+                style={{ opacity: '0.3' }}
+                src={eye}
+                alt='view disabled'
+              />
             ) : (
               <a
                 href={`https://www.pheesible.com/site/${row.id}`}

@@ -114,10 +114,10 @@ export default ({ promotion, setPromotion }) => {
   }
 
   const handleImageSave = async () => {
-    console.log('saving image')
     const canvas = await html2canvas(imageElement.current, {
-      scale: 2,
       dpi: 200,
+      width: 600,
+      height: imageElement.current.clientHeight,
     })
     return new Promise((resolve) => {
       canvas.toBlob(async (blob) => {
@@ -180,7 +180,11 @@ export default ({ promotion, setPromotion }) => {
           setIsLoading(false)
         } else {
           let aPromotion = { ...promotion }
-          if (promotion.stepNumber === OrderedWizardSteps.Ad.step) {
+          if (
+            promotion.stepNumber === OrderedWizardSteps.Ad.step &&
+            promotion.ad.imageText &&
+            !promotion.ad.image
+          ) {
             const ad = await handleImageSave()
             console.log('UPDATING PROMOTION WITH NEW AD EITAN')
             aPromotion = { ...aPromotion, ad: ad }

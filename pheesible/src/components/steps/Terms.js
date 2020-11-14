@@ -5,6 +5,8 @@ import ErrorMessage from '../ErrorMessage'
 import CardSubTitle from '../wizard/CardSubTitle'
 import HeaderSpacer from '../wizard/HeaderSpacer'
 
+import TermsAndConditions from '../TermsAndConditions2'
+
 export default ({
   promotion,
   updatePromotion,
@@ -28,16 +30,10 @@ export default ({
   return (
     <div className='card'>
       <div className='card-body'>
-        <CardSubTitle tooltip=''>Terms &amp; Conditions</CardSubTitle>
-        <HeaderSpacer />
         <div className='form-group'>
-          <textarea
-            class='form-control'
-            id='exampleFormControlTextarea1'
-            rows='20'
-            value={promotion.freeText}
-            disabled></textarea>
+          <TermsAndConditions height='600px' />
         </div>
+        <br />
         <div class='form-group form-check'>
           <input
             type='checkbox'
@@ -51,6 +47,7 @@ export default ({
           <label class='form-check-label' for='exampleCheck1'>
             I accept the terms &amp; conditions
           </label>
+          <br/>
           <ErrorMessage errorMessage={error.global} />
         </div>
       </div>
