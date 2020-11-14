@@ -23,8 +23,6 @@ export default ({
     updatePromotion('ad', ad)
   }
 
-
-
   const error = useError(
     isRequestingNextStep,
     stopRequestingNextStep,
@@ -105,7 +103,10 @@ export default ({
           <div className='input-group'>
             <Uploader
               path='ad'
-              onUpload={(result) => updateAdOnPromotion('image', result)}
+              onUpload={(result) => {
+                const ad = { ...promotion.ad, image: result, imageText: '' }
+                updatePromotion('ad', ad)
+              }}
               templateId={promotion.templateId}
               value={promotion.ad.image}
               clearFunction={() => updateAdOnPromotion('image', null)}

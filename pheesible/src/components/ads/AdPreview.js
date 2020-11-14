@@ -26,7 +26,7 @@ export default ({ promotion, imageRef, isLive = false }) => {
       style={{ maxWidth: '700px', margin: '0 auto' }}>
       <div
         className='d-flex justify-content-center'
-        style={{ position: 'relative', width: '600px' }}
+        style={{ position: 'relative', width: '600px', margin: '0 auto' }}
         ref={imageRef}>
         <img style={{ width: '600px' }} src={image} alt='ad' />
         <div
