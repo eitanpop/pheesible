@@ -224,6 +224,11 @@ section .container > .row {
   padding-left: 4px;
   padding-right: 4px;
 }
+
+.homepage-image {
+  width: 350px;
+}
+
 /* Footer Start */
 .subscription .submit {
   background: #3aa0fb;

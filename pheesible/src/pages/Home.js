@@ -3,6 +3,10 @@ import React from 'react'
 import '../styles/home.css'
 import copyright_logo from '../images/home/copyright_logo.png'
 import table from '../images/home/table.png'
+import hp1 from '../images/home/hp1.png'
+import hp2 from '../images/home/hp2.jpg'
+import hp3 from '../images/home/hp3.png'
+import hp4 from '../images/home/hp4.jpg'
 
 export default () => {
   return (
@@ -228,7 +232,7 @@ export default () => {
           <div className='container'>
             <div className='row py-5'>
               <div className='col-lg-6 col-12'>
-                <img src='./dist/img/sample.png' alt='' className='img-fluid' />
+                <img src={hp1} alt='' className='img-fluid homepage-image' />
               </div>
               <div className='col-lg-6 col-12 d-flex flex-column justify-content-center text-white'>
                 <h5 className='my-4'>
@@ -307,26 +311,14 @@ export default () => {
         <section className='examples'>
           <div className='container'>
             <div className='row py-5'>
-              <div className='col-md-4 pb-4'>
-                <img
-                  src='./dist/img/sample_2.png'
-                  alt=''
-                  className='img-fluid'
-                />
+              <div className='col-md-4 pb-4 justify-content-center d-flex'>
+                <img src={hp2} alt='' className='img-fluid homepage-image' />
               </div>
-              <div className='col-md-4 pb-4'>
-                <img
-                  src='./dist/img/sample_2.png'
-                  alt=''
-                  className='img-fluid'
-                />
+              <div className='col-md-4 pb-4 justify-content-center d-flex'>
+                <img src={hp3} alt='' className='img-fluid homepage-image' />
               </div>
-              <div className='col-md-4 pb-4'>
-                <img
-                  src='./dist/img/sample_2.png'
-                  alt=''
-                  className='img-fluid'
-                />
+              <div className='col-md-4 pb-4 justify-content-center d-flex'>
+                <img src={hp4} alt='' className='img-fluid homepage-image' />
               </div>
             </div>
           </div>
