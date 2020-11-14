@@ -1,4 +1,5 @@
 import { Storage } from 'aws-amplify'
+import uuid from 'react-uuid'
 
 Storage.configure({ level: 'protected' })
 
@@ -14,10 +15,14 @@ export const upload = async (file, path = '', progressCallback) => {
   console.log('file', file)
   const { name, type } = file
   try {
-    const result = await Storage.put(`${path}/${name}`, file, {
-      contentType: type,
-      progressCallback
-    })
+    const result = await Storage.put(
+      `${path}/${name || uuid() + '.png'}`,
+      file,
+      {
+        contentType: type,
+        progressCallback,
+      }
+    )
     console.log('result', result)
     return result
   } catch (err) {
@@ -35,10 +40,10 @@ export const get = async (key, identityId) => {
   })
 }
 
-export const getPublic = async key => {
-    return await Storage.get(key, {
-        level: 'public'
-      })
+export const getPublic = async (key) => {
+  return await Storage.get(key, {
+    level: 'public',
+  })
 }
 
 export const remove = async (key) => {

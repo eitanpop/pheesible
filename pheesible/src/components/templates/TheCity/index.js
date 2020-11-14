@@ -37,7 +37,7 @@ export default ({
       <section className='tag-line'>
         <div
           className='container'
-          style={{ backgroundImage: `url(${bg_intro})` }}>
+          style={{ backgroundImage: `url(${banner || bg_intro})` }}>
           <div className='row'>
             <div className='col-12 col-lg-8 d-flex'>
               <div className='orange-box p-2 p-md-5 d-md-flex flex-md-column justify-content-md-end'>

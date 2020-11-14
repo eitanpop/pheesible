@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import useError from '../../hooks/useError'
 import Uploader from '../file/Uploader'
@@ -22,6 +22,8 @@ export default ({
     const ad = { ...promotion.ad, [key]: value }
     updatePromotion('ad', ad)
   }
+
+
 
   const error = useError(
     isRequestingNextStep,
@@ -60,7 +62,10 @@ export default ({
         promotion.facebook.budgetPerDayInDollars > 200
       ) {
         setIsValid(false)
-        addError('budgetPerDayInDollars', 'Budget per day in USD must be less than $200')
+        addError(
+          'budgetPerDayInDollars',
+          'Budget per day in USD must be less than $200'
+        )
       }
 
       if (
@@ -106,6 +111,19 @@ export default ({
               clearFunction={() => updateAdOnPromotion('image', null)}
             />
           </div>
+        </div>
+        <div className='form-group'>
+          <label htmlFor='summary' className='fieldTitle'>
+            Image Text
+          </label>
+          <textarea
+            className={`form-control`}
+            id='imageText'
+            rows='6'
+            onChange={(e) => updateAdOnPromotion('imageText', e.target.value)}
+            value={promotion.ad.imageText || ''}
+            disabled={promotion.ad.image}
+            maxLength='90'></textarea>
         </div>
         <div className='form-group'>
           <label htmlFor='summary' className='fieldTitle'>

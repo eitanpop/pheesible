@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Redirect } from 'react-router-dom'
+import html2canvas from 'html2canvas'
 
+import { upload } from '../services/storage'
 import { useUnload } from '../hooks/useUnload'
 import { OrderedWizardSteps } from '../constants.js'
 import StepLine from '../components/wizard/steps'
@@ -80,10 +82,12 @@ const getComponentByStep = (
 }
 
 export default ({ promotion, setPromotion }) => {
-   useUnload((e) => {
+  useUnload((e) => {
     e.preventDefault()
     e.returnValue = 'Changes you made may not be saved.'
   })
+
+  const imageElement = useRef(null)
   const [isRequestingNextStep, setIsRequestingNextStep] = useState(false)
   const [isNextStepConfirmed, setIsNextStepConfirmed] = useState(false)
   const [isRedirecting, setIsRedirecting] = useState(
@@ -96,6 +100,38 @@ export default ({ promotion, setPromotion }) => {
   const updatePromotion = (key, val) => {
     setPromotion({ ...promotion, [key]: val })
   }
+
+  const saveAndContinue = (aPromotion) => {
+    savePromotion(aPromotion).then((x) => {
+      localStorage.setItem('wolp', '1')
+      setPromotion({
+        ...aPromotion,
+        id: parseInt(x.id),
+        stepNumber: aPromotion.stepNumber + 1,
+      })
+      setIsLoading(false)
+    })
+  }
+
+  const handleImageSave = async () => {
+    console.log('saving image')
+    const canvas = await html2canvas(imageElement.current, {
+      scale: 2,
+      dpi: 200,
+    })
+    return new Promise((resolve) => {
+      canvas.toBlob(async (blob) => {
+        if (blob === null) return
+        const templateId = promotion.templateId
+        const result = await upload(blob, `${templateId}/ad`)
+        console.log('result', result)
+        const ad = { ...promotion.ad, imageText: '', image: result.key }
+
+        resolve(ad)
+      })
+    })
+  }
+
   const [component, setComponent] = useState(
     getComponentByStep(
       promotion,
@@ -137,25 +173,27 @@ export default ({ promotion, setPromotion }) => {
 
   // calback when the child component confirms next step
   useEffect(() => {
-    if (isNextStepConfirmed) {
-      if (promotion.stepNumber < 2) {
-        updatePromotion('stepNumber', promotion.stepNumber + 1)
-        setIsLoading(false)
-      } else {
-        savePromotion(promotion).then((x) => {
-          localStorage.setItem('wolp', '1')
-          setPromotion({
-            ...promotion,
-            id: parseInt(x.id),
-            stepNumber: promotion.stepNumber + 1,
-          })
+    const changeStep = async () => {
+      if (isNextStepConfirmed) {
+        if (promotion.stepNumber < 2) {
+          updatePromotion('stepNumber', promotion.stepNumber + 1)
           setIsLoading(false)
-        })
+        } else {
+          let aPromotion = { ...promotion }
+          if (promotion.stepNumber === OrderedWizardSteps.Ad.step) {
+            const ad = await handleImageSave()
+            console.log('UPDATING PROMOTION WITH NEW AD EITAN')
+            aPromotion = { ...aPromotion, ad: ad }
+          }
+          console.log('SAVING PROMOTION TO SERVER AND INCREMENTING STEP EITAN')
+          saveAndContinue(aPromotion)
+        }
       }
+      setIsNextStepConfirmed(false)
+      setIsRequestingNextStep(false)
     }
 
-    setIsNextStepConfirmed(false)
-    setIsRequestingNextStep(false)
+    changeStep()
   }, [isNextStepConfirmed])
 
   const nextStep = () => {
@@ -230,7 +268,7 @@ export default ({ promotion, setPromotion }) => {
             {promotion.stepNumber !== OrderedWizardSteps.Ad.step ? (
               <Preview promotion={promotion} isLive={false} />
             ) : (
-              <AdPreview promotion={promotion} />
+              <AdPreview promotion={promotion} imageRef={imageElement} />
             )}
           </div>
         </div>
