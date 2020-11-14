@@ -134,7 +134,8 @@ export default ({ promotions, setChosenPromotion, onCampaignDeleted }) => {
             {row.statusId === 1 ? (
               <a
                 href='#'
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault()
                   console.log('editing')
                   setChosenPromotion(row.id)
                 }}>
