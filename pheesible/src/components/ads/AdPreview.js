@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import useImageEffect from '../../hooks/useImageEffect'
-import { getPublic } from '../../services/storage'
+
 
 export default ({ promotion, imageRef, isLive = false }) => {
   if (!promotion) return <div>Loading...</div>
@@ -32,10 +32,11 @@ export default ({ promotion, imageRef, isLive = false }) => {
         <div
           style={{
             position: 'absolute',
-            top: '8px',
-            left: '16px',
+            top: '550px',
+            left: '160px',
             fontVariant: 'normal',
             fontSize: '2rem',
+            fontWeight:'bold'
           }}>
           {promotion.ad.imageText}
         </div>

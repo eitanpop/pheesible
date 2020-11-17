@@ -114,10 +114,17 @@ export default ({ promotion, setPromotion }) => {
   }
 
   const handleImageSave = async () => {
+    console.log(
+      'imageElement getBoundingClientRect',
+      imageElement.current.getBoundingClientRect()
+    )
+    console.log('imageElement offsetHeight', imageElement.current.offsetHeight)
+    console.log('imageElement clientHeight', imageElement.current.clientHeight)
+    window.scrollTo(0,0)
     const canvas = await html2canvas(imageElement.current, {
       dpi: 200,
       width: 600,
-      height: imageElement.current.clientHeight,
+      height: imageElement.current.offsetHeight,
     })
     return new Promise((resolve) => {
       canvas.toBlob(async (blob) => {

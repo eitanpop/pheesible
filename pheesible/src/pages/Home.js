@@ -35,22 +35,28 @@ export default () => {
                   </a>
                 </div>
                 <div className>
-                  <h1 className='text-center mb-5'>What is Pheesible</h1>
-                  <p className='text-center intro-txt mb-5'>
-                    PHEESIBLE is about testing an idea, a prototype, a business
-                    venture, or a product QUICKLY. <br /> We rapidly want to get
-                    the idea to the public and receive feedback to make the step
-                    of investing safer.
+                  <h1 className='text-center mb-1'>What is Pheesible</h1>
+                  <p
+                    className='text-center intro-txt mb-5'
+                    style={{ fontSize: '1.25rem', lineHeight: '40px' }}>
+                    Pheesible helps you understand which startup ideas or
+                    investments will succeed and which will not. <br />
+                    After answering a few questions about your business, the
+                    Pheesible platform generates attractive <br />
+                    and engaging creative and then publishes it to social media
+                    focus groups. Afterwards you receive a custom
+                    <br /> report broken down by demographics making it clear
+                    whether to move forward or not!
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <section className='mt-4'>
+        <section className=''>
           <div className='container'>
             <div className='row'>
-              <div className='col-12 d-flex flex-column flex-lg-row mt-5 intro'>
+              <div className='col-12 d-flex flex-column flex-lg-row mt-3 intro'>
                 <div className='p-4'>
                   <h5 className='mb-4'>
                     <strong>Fail Fast</strong>

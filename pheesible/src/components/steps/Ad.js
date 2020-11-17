@@ -124,7 +124,7 @@ export default ({
             onChange={(e) => updateAdOnPromotion('imageText', e.target.value)}
             value={promotion.ad.imageText || ''}
             disabled={promotion.ad.image}
-            maxLength='90'></textarea>
+            maxLength='20'></textarea>
         </div>
         <div className='form-group'>
           <label htmlFor='summary' className='fieldTitle'>
