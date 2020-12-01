@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mukta+Vaani:wght@500&display=swap');
+/* Sections font */
+.hero-page {
+  font-family: 'Montserrat', sans-serif;
+}
+/* Hero section */
+.hero .container {
+  background-image: url(../images/cotactbg1.png), url(../images/cotactbg2.png);
+  background-position: top right, top right;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 95%, 100%;
+}
+.hero h1 {
+  color: #011948;
+  font-family: 'Mukta Vaani', serif;
+  font-weight: 500;
+  font-size: 47px;
+  line-height: 55px;
+  text-transform: uppercase;
+  margin-top: 52px;
+
+}
+.hero .hero-logo {
+  margin-top: 80px;
+  max-width: 122px;
+}
+.hero p {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -0.015em;
+  margin-bottom: 88px;
+  margin-top: 52px;
+
+}
+/* Selling Points section */
+.selling-points .container .row{
+  background-image: url(../images/cotactbg3.png), url(../images/cotactbg4.png);
+  background-position: bottom right, bottom right;
+  background-repeat: no-repeat, no-repeat;
+  background-size: auto, auto;
+  padding-bottom: 200px;
+}
+.selling-points h4 {
+  margin-top: 79px;
+}
+.selling-points p {
+  line-height: 30px;
+  font-size: 1.1rem;
+}
+/* Feautures section */
+.hero-feautures {
+  opacity: 0.7;
+}
+.hero-feautures h4 {
+  margin-top: 130px;
+}
+.hero-feautures p{
+  line-height: 30px;
+  font-size: 1.1rem;
+}
+.hero-feautures .last-img {
+  margin-top: 150px;
+}
+.hero-feautures .container .row:first-child{
+  background-image: url(../images/cotactbg5.png);
+  background-position: 0 67%;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+/* Contact Form section */
+.contact-form .container .row{
+  min-height: 600px;
+  margin-bottom: 148px;
+}
+.contact-form .container .row{
+  background-image: url(../images/cotactbg7.png), url(../images/cotactbg6.png);
+  background-position: bottom right, bottom right;
+  background-repeat: no-repeat, no-repeat;
+  background-size: auto, auto;
+}
+.contact-form h4 {
+  font-weight: bold;
+  line-height: 36px;
+}
+.contact-form h4 {
+  font-weight: bold;
+  line-height: 36px;
+}
+.contact-form .contact-form-text {
+  font-size: 1.85rem;
+  font-weight: 500;
+  line-height: 72px;
+}
+.contact-form .form-group {
+  margin-bottom: 1.4rem;
+}
+.contact-form input,
+.contact-form textarea {
+  font-size: 15px;
+  background-color: transparent;
+  border-radius: 0;
+}
+.contact-form .form-control:focus {
+  color: #111;
+  background-color:transparent;
+  border-color: #000;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem transparent;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.contact-form input,
+.contact-form textarea  {
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom: 1px solid #808080;
+}
+.contact-form textarea {
+  resize: none;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  font-family: 'Montserrat', serif;
+  font-size: 15px;
+  letter-spacing: -0.015em;
+  color: rgba(0, 0, 0, 0.8);
+}
+.contact-form .btn{
+  font-size: 15px;
+  padding: .5rem 2.1rem;
+  background: #56CCF2;
+  border-color: #56CCF2;
+  border-radius: 6px;
+  margin-top: 2rem;
+}
+/* Media > 1200px */
+@media (min-width: 1200px) {
+  .hero-page .container {
+    max-width: 1440px;
+  }
+  .hero-page .row {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  .selling-points .container .row{
+    min-height: 873px;
+  }
+  .hero-feautures {
+    margin-top: 119px;
+  }
+}
+
+/* Media < 768px Mobile only*/
+@media (max-width: 768px) {
+  .selling-points {
+    padding-bottom: 2rem;
+  }
+  .hero-feautures {
+    margin-bottom: 5rem;
+  }
+  .hero-feautures .last-img {
+    margin: 0 auto;
+    display: block;
+  }
+  .hero-feautures h4 {
+    margin-top: 2rem;
+  }
+  .contact-form .container .row {
+    margin-bottom: 0;
+  }
+  .contact-form .contact-form-text { 
+    margin-top: 5rem;
+  }
+}

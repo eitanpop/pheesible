@@ -15,3 +15,12 @@ export const getSellingPoint = (promotion, idx, property) => {
     }`
   )
 }
+
+export const getFeature = (promotion, idx, property) => {
+  return (
+    (promotion.features &&
+      promotion.features[idx] &&
+      promotion.features[idx][property]) ||
+    `Feature ${idx + 1} ${property.charAt(0).toUpperCase() + property.slice(1)}`
+  )
+}

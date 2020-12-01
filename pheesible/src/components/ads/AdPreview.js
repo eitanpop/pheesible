@@ -32,10 +32,10 @@ export default ({ promotion, imageRef, isLive = false }) => {
         <div
           style={{
             position: 'absolute',
-            top: '550px',
+            top: '115px',
             left: '160px',
             fontVariant: 'normal',
-            fontSize: '2rem',
+            fontSize: '1.5rem',
             fontWeight:'bold'
           }}>
           {promotion.ad.imageText}

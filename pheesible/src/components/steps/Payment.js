@@ -157,7 +157,7 @@ export default ({
               <tbody>
                 <tr>
                   <td>Pheesible</td>
-                  <td className='float-right'>$49.99</td>
+                  <td className='float-right'>$149.99</td>
                 </tr>
                 {promotion.facebook && promotion.facebook.isEnabled ? (
                   <tr>
@@ -185,7 +185,7 @@ export default ({
                     <strong className='float-right'>
                       $
                       {(
-                        49.99 +
+                        149.99 +
                         (promotion.facebook && promotion.facebook.isEnabled
                           ? promotion.facebook.budgetPerDayInDollars *
                             promotion.facebook.numberOfDays

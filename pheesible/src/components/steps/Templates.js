@@ -77,7 +77,7 @@ export default ({
               return (
                 <div
                   className={
-                    'col-sm-6' + (idx % 2 === 0 ? '' : ' no-left-padding')
+                    'col-sm-6 pt-4' + (idx % 2 === 0 ? '' : ' no-left-padding')
                   }>
                   <React.Fragment key={x.Id}>
                     <input
