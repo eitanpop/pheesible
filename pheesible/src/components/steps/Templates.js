@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import useError from '../../hooks/useError'
+import useValidator from '../../hooks/useValidator'
 import ErrorMessage from '../ErrorMessage'
 import CardTitle from '../wizard/CardTitle'
 
@@ -11,9 +11,7 @@ import Info from '../Info'
 export default ({
   promotion,
   updatePromotion,
-  isRequestingNextStep,
-  stopRequestingNextStep,
-  setIsNextStepConfirmed,
+  navigator
 }) => {
   const { error: templateError, loading, data: templates } = useTemplates()
 
@@ -25,15 +23,10 @@ export default ({
   }, [templates, promotion.templateId])
 
   const { name } = promotion
-  const error = useError(
-    isRequestingNextStep,
-    stopRequestingNextStep,
-    setIsNextStepConfirmed,
-    (addError, setIsValid) => {
-      if (!name) {
-        setIsValid(false)
-        addError('name', 'Please fill out a campaign name')
-      }
+  const error = useValidator(
+    navigator,
+    addError => {
+      if (!name) addError('name', 'Please fill out a campaign name')      
     },
     [JSON.stringify(promotion)]
   )

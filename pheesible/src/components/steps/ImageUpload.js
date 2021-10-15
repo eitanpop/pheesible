@@ -7,10 +7,11 @@ import HeaderSpacer from '../wizard/HeaderSpacer'
 export default ({
   promotion,
   updatePromotion,
-  isRequestingNextStep,
-  stopRequestingNextStep,
-  setIsNextStepConfirmed,
+  navigator
 }) => {
+  console.log('navigator', navigator)
+  const { isRequestingNextStep, stopRequestingNextStep, setIsNextStepConfirmed } = navigator
+
   const updateImageOnPromotion = (imageName, key) => {
     const images = { ...promotion.images, [imageName]: key }
     updatePromotion('images', images)

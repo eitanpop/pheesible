@@ -1,6 +1,6 @@
 import React from 'react'
 
-import useError from '../../hooks/useError'
+import useValidator from '../../hooks/useValidator'
 import NameDescribe from '../TitleDescribe'
 
 import CardTitle from '../wizard/CardTitle'
@@ -9,19 +9,12 @@ import HeaderSpacer from '../wizard/HeaderSpacer'
 export default ({
   promotion,
   updatePromotion,
-  isRequestingNextStep,
-  stopRequestingNextStep,
-  setIsNextStepConfirmed,
+  navigator
 }) => {
-  const error = useError(
-    isRequestingNextStep,
-    stopRequestingNextStep,
-    setIsNextStepConfirmed,
-    (addError, setIsValid) => {
-      if (!promotion.features.length) {
-        setIsValid(false)
-        addError('global', 'Please add at least one feature')
-      }
+  const error = useValidator(
+    navigator,
+    addError => {
+      if (!promotion.features.length) addError('global', 'Please add at least one feature')      
     },
     [JSON.stringify(promotion)]
   )

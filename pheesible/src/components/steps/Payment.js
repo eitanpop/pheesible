@@ -28,9 +28,7 @@ const CARD_OPTIONS = {
 export default ({
   promotion,
   updatePromotion,
-  isRequestingNextStep,
-  stopRequestingNextStep,
-  setIsNextStepConfirmed,
+  navigator
 }) => {
   const stripe = useStripe()
   const elements = useElements()
@@ -148,7 +146,7 @@ export default ({
             </div>
           )}
 
-         
+
           <PaymentSummary promotion={promotion} />
           <br />
           <CardTitle tooltip='The total amount owed'>ORDER DETAILS</CardTitle>
@@ -188,7 +186,7 @@ export default ({
                         149.99 +
                         (promotion.facebook && promotion.facebook.isEnabled
                           ? promotion.facebook.budgetPerDayInDollars *
-                            promotion.facebook.numberOfDays
+                          promotion.facebook.numberOfDays
                           : 0)
                       ).toFixed(2)}
                     </strong>
