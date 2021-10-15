@@ -1,28 +1,18 @@
 import React from 'react'
 
-import useError from '../../hooks/useError'
+import useValidator from '../../hooks/useValidator'
 import ErrorMessage from '../ErrorMessage'
-import CardSubTitle from '../wizard/CardSubTitle'
-import HeaderSpacer from '../wizard/HeaderSpacer'
-
 import TermsAndConditions from '../TermsAndConditions2'
 
 export default ({
   promotion,
   updatePromotion,
-  isRequestingNextStep,
-  stopRequestingNextStep,
-  setIsNextStepConfirmed,
+  navigator
 }) => {
-  const error = useError(
-    isRequestingNextStep,
-    stopRequestingNextStep,
-    setIsNextStepConfirmed,
-    (addError, setIsValid) => {
-      if (!promotion.termsConditionsAccepted) {
-        setIsValid(false)
-        addError('global', 'Must accept the terms &amp; conditions')
-      }
+  const error = useValidator(
+    navigator,
+    addError => {
+      if (!promotion.termsConditionsAccepted) addError('global', 'Must accept the terms &amp; conditions')      
     },
     [JSON.stringify(promotion)]
   )

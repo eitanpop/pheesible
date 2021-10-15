@@ -23,13 +23,20 @@ import { getUserCognitoIdentityPoolId } from '../services/auth'
 import { savePromotion } from '../services/api'
 import '../styles/wizard.css'
 
-// we pass 'setIsValidating' to stop the wizard from proceeding to next step. This happens when there were errors and the user wants to fix them and click next again
+/* 
+Next is pressed in Wizard, isLoading is set to true
+Set isRequestingNextStep to true which informs child component 'next' was pressed
+GetComponent sets the component according to step number and passes bool isRequestingNextStep and function to setIsRequestingNextStep to false to stop the process
+Also setIsNextStepConfirmed to continue process of going to next step (after validation).
+*/
+
 const getComponentByStep = (
   promotion,
   updatePromotion,
   isRequestingNextStep,
   setIsRequestingNextStep,
-  setIsNextStepConfirmed
+  setIsNextStepConfirmed,
+  setIsLoading
 ) => {
   const { stepNumber } = promotion
 
@@ -72,12 +79,12 @@ const getComponentByStep = (
       throw Error('invalid step number')
   }
 
+  const navigator = { isRequestingNextStep, stopRequestingNextStep, setIsNextStepConfirmed }
+
   return React.cloneElement(component, {
     promotion,
     updatePromotion,
-    isRequestingNextStep,
-    stopRequestingNextStep,
-    setIsNextStepConfirmed,
+    navigator
   })
 }
 
@@ -110,6 +117,9 @@ export default ({ promotion, setPromotion }) => {
         stepNumber: aPromotion.stepNumber + 1,
       })
       setIsLoading(false)
+    }).catch(e=>{
+      console.log('error saving promotion', e)
+      setIsLoading(false)
     })
   }
 
@@ -120,7 +130,7 @@ export default ({ promotion, setPromotion }) => {
     )
     console.log('imageElement offsetHeight', imageElement.current.offsetHeight)
     console.log('imageElement clientHeight', imageElement.current.clientHeight)
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
     const canvas = await html2canvas(imageElement.current, {
       dpi: 200,
       width: 600,
@@ -149,6 +159,7 @@ export default ({ promotion, setPromotion }) => {
         if (!e) setIsLoading(false)
       },
       setIsNextStepConfirmed
+
     )
   )
 
@@ -173,8 +184,7 @@ export default ({ promotion, setPromotion }) => {
           setIsRequestingNextStep(e)
           if (!e) setIsLoading(false)
         },
-        setIsNextStepConfirmed
-      )
+        setIsNextStepConfirmed)
     )
   }, [JSON.stringify(promotion), isRequestingNextStep])
 

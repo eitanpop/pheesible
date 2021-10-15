@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
-import useError from '../../hooks/useError'
+import useValidator from '../../hooks/useValidator'
 import Uploader from '../file/Uploader'
 import ErrorMessage from '../ErrorMessage'
 import CardTitle from '../wizard/CardTitle'
@@ -14,31 +14,24 @@ import instagramImg from '../wizard/img/instagram.png'
 export default ({
   promotion,
   updatePromotion,
-  isRequestingNextStep,
-  stopRequestingNextStep,
-  setIsNextStepConfirmed,
+  navigator
 }) => {
   const updateAdOnPromotion = (key, value) => {
     const ad = { ...promotion.ad, [key]: value }
     updatePromotion('ad', ad)
   }
 
-  const error = useError(
-    isRequestingNextStep,
-    stopRequestingNextStep,
-    setIsNextStepConfirmed,
-    (addError, setIsValid) => {
-      if (!promotion.ad.text) {
-        setIsValid(false)
-        addError('text', 'Please add some text for the ad')
-      }
+  const error = useValidator(
+    navigator,
+    addError => {
+      if (!promotion.ad.text) addError('text', 'Please add some text for the ad')
+     
 
       if (
         promotion.facebook &&
         promotion.facebook.isEnabled &&
         !promotion.facebook.numberOfDays
-      ) {
-        setIsValid(false)
+      ) {       
         addError(
           'numberOfDays',
           'Please add number of days to run the campaign'
@@ -49,8 +42,7 @@ export default ({
         promotion.facebook &&
         promotion.facebook.isEnabled &&
         !promotion.facebook.budgetPerDayInDollars
-      ) {
-        setIsValid(false)
+      ) {       
         addError('budgetPerDayInDollars', 'Please add a budget per day in USD')
       }
 
@@ -58,8 +50,7 @@ export default ({
         promotion.facebook &&
         promotion.facebook.isEnabled &&
         promotion.facebook.budgetPerDayInDollars > 200
-      ) {
-        setIsValid(false)
+      ) {       
         addError(
           'budgetPerDayInDollars',
           'Budget per day in USD must be less than $200'
@@ -71,15 +62,14 @@ export default ({
         promotion.facebook.numberOfDays &&
         promotion.facebook.numberOfDays < 2
       ) {
-        setIsValid(false)
         addError('days', 'Campaign length must be longer than a day')
       }
+
       if (
         promotion.facebook &&
         promotion.facebook.isEnabled &&
         promotion.facebook.numberOfDays >= 25
-      ) {
-        setIsValid(false)
+      ) {        
         addError('numberOfDays', 'Number of days should be less than 25')
       }
     },

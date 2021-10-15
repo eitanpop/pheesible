@@ -1,6 +1,6 @@
 import React from 'react'
 
-import useError from '../../hooks/useError'
+import useValidator from '../../hooks/useValidator'
 import Uploader from '../file/Uploader'
 import ErrorMessage from '../ErrorMessage'
 import CardTitle from '../wizard/CardTitle'
@@ -11,9 +11,7 @@ import Info from '../Info'
 export default ({
   promotion,
   updatePromotion,
-  isRequestingNextStep,
-  stopRequestingNextStep,
-  setIsNextStepConfirmed,
+  navigator
 }) => {
   const updateFieldsOnPromotion = (key, value) => {
     const fields = { ...promotion.fields, [key]: value }
@@ -22,28 +20,12 @@ export default ({
   const { name } = promotion
   const { title, tagLine, elevatorPitch } = promotion.fields
 
-  const error = useError(
-    isRequestingNextStep,
-    stopRequestingNextStep,
-    setIsNextStepConfirmed,
-    (addError, setIsValid) => {
-      if (!name) {
-        setIsValid(false)
-        addError('name', 'Please fill out a campaign name')
-      }
-      if (!tagLine) {
-        setIsValid(false)
-        addError('tagLine', 'Please fill out a tag line')
-      }
-      if (!title) {
-        setIsValid(false)
-        addError('title', 'Please fill out a title')
-      }
-
-      if (!elevatorPitch) {
-        setIsValid(false)
-        addError('elevatorPitch', 'Please fill out an elevator pitch')
-      }
+  const error = useValidator(navigator,  
+    (addError) => {
+      if (!name) addError('name', 'Please fill out a campaign name')     
+      if (!tagLine) addError('tagLine', 'Please fill out a tag line')     
+      if (!title) addError('title', 'Please fill out a title')
+      if (!elevatorPitch) addError('elevatorPitch', 'Please fill out an elevator pitch')      
     },
     [JSON.stringify(promotion)]
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import useError from '../../hooks/useError'
+import useValidator from '../../hooks/useValidator'
 import NameDescribe from '../TitleDescribe'
 
 
@@ -10,19 +10,11 @@ import HeaderSpacer from '../wizard/HeaderSpacer'
 export default ({
   promotion,
   updatePromotion,
-  isRequestingNextStep,
-  stopRequestingNextStep,
-  setIsNextStepConfirmed,
+  navigator
 }) => {
-  const error = useError(
-    isRequestingNextStep,
-    stopRequestingNextStep,
-    setIsNextStepConfirmed,
-    (addError, setIsValid) => {
-      if (!promotion.sellingPoints.length) {
-        setIsValid(false)
-        addError('global', 'Please add at least one selling point')
-      }
+  const error = useValidator(navigator,
+    addError => {
+      if (!promotion.sellingPoints.length) addError('global', 'Please add at least one selling point')      
     },
     [JSON.stringify(promotion)]
   )
