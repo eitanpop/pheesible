@@ -35,8 +35,7 @@ const getComponentByStep = (
   updatePromotion,
   isRequestingNextStep,
   setIsRequestingNextStep,
-  setIsNextStepConfirmed,
-  setIsLoading
+  setIsNextStepConfirmed  
 ) => {
   const { stepNumber } = promotion
 
