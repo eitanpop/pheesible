@@ -97,9 +97,7 @@ export default ({ promotion, setPromotion }) => {
   const imageElement = useRef(null)
   const [isRequestingNextStep, setIsRequestingNextStep] = useState(false)
   const [isNextStepConfirmed, setIsNextStepConfirmed] = useState(false)
-  const [isRedirecting, setIsRedirecting] = useState(
-    !!localStorage.getItem('wolp')
-  )
+  const [isRedirecting, setIsRedirecting] = useState(!!localStorage.getItem('wolp'))
   const [isLoading, setIsLoading] = useState(false)
 
   console.log('promotion', promotion)
